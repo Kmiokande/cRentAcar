@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Modules CRentCar
+// #include <User.h>
+// #include <Car.h>
+
+
 // ASSINATURAS
 void Logo(void);
 void mPrincipal(void);
@@ -11,32 +16,29 @@ void mHistoricos(void);
 void Indisponivel(void);
 // FIM
 
-int op;
-
-void main(void) {
-	int menu, op;
-
-	while (menu != 0) {
-		system("clear");
+int main() {
+	int op = 10;
+	while (op != 0) {
+		printf("\e[1;1H\e[2J");
 		Logo();
 		mPrincipal();
 		printf("\nInforme uma opção acima: ");
 		scanf("%d", &op);
 
 		if (op == 1) {
-			system("clear");
+			printf("\e[1;1H\e[2J");
 			mCadastramento();
 		}
 		else if (op == 2) {
-			system("clear");
+			printf("\e[1;1H\e[2J");
 			mLocacao();
 		}
 		else if (op == 3) {
-			system("clear");
+			printf("\e[1;1H\e[2J");
 			mVeiculos();
 		}
 		else if (op == 4) {
-			system("clear");
+			printf("\e[1;1H\e[2J");
 			mHistoricos();
 		}
 		else if (op == 0) {
@@ -52,6 +54,8 @@ void main(void) {
             	getchar();
 		}
 	}
+
+	return 0;
 }
 
 void Logo(void) {
@@ -82,6 +86,8 @@ void mCadastramento(void) {
 	printf("**                              **\n");
 	printf("** [0] - VOLTAR                 **\n");
 	printf("**********************************\n");
+
+	int op;
 	printf("\nInforme uma opção acima: ");
 	scanf("%d", &op);
 	if (op == 1) {
@@ -131,6 +137,8 @@ void mLocacao(void) {
 	printf("**                                                   **\n");
 	printf("** [0] - VOLTAR                                      **\n");
 	printf("*******************************************************\n");
+
+	int op;
 	printf("\nInforme uma opção acima: ");
 	scanf("%d", &op);
 	if (op == 1) {
@@ -179,6 +187,8 @@ void mVeiculos(void) {
 	printf("**                          **\n");
 	printf("** [0] - VOLTAR             **\n");
 	printf("******************************\n");
+
+	int op;
 	printf("\nInforme uma opção acima: ");
 	scanf("%d", &op);
 	if (op == 1) {
@@ -221,6 +231,8 @@ void mHistoricos(void) {
 	printf("**                              **\n");
 	printf("** [0] - VOLTAR                 **\n");
 	printf("**********************************\n");
+
+	int op;
 	printf("\nInforme uma opção acima: ");
 	scanf("%d", &op);
 	if (op == 1) {
