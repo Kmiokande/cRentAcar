@@ -1,6 +1,6 @@
-void saveDataCar(); // Salvar Dados em Arquivo 'car.dat'
+void saveDataCar(char *array); // Salvar Dados em Arquivo 'car.dat'
 void loadDataCar(); // Carregar Dados do Arquivo 'car.dat'
-char searchCar();	
+char searchCar();
 
 // Validações
 

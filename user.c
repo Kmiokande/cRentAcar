@@ -3,7 +3,7 @@
 
 #include "user.h"
 
-struct user {
+struct {
 	char nome[50];
 	char sobrenome[50];
 	char data_nascimento[20];
@@ -14,4 +14,10 @@ struct user {
 	char CNH[20];
 	char endereco[120];
 	char fone[15];
-};
+} user[200];
+
+void saveDataUser(char *array) {
+	FILE *file = fopen("user.dat", "wb"); // Substitui todo o texto já existente
+	fwrite(user, sizeof(char), sizeof(user), file);
+	fclose(file);
+}

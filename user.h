@@ -1,4 +1,4 @@
-void saveDataUser(); // Salvar Dados em Arquivo 'user.dat'
+void saveDataUser(char *array); // Salvar Dados em Arquivo 'user.dat'
 void loadDataUser(); // Carregar Dados do Arquivo 'user.dat'
 char searchCar();
 

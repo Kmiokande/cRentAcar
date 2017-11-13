@@ -1,4 +1,4 @@
-#include <stlib.h>
+#include <stdlib.h>
 #include <time.h>
 
 #include "car.h"
@@ -13,9 +13,10 @@ struct car {
 	char km[80];
 	char status;
 	char qtd_alugado[120];
-};
+} car[20];
 
-int main() {
-		
-	return 0;
+void saveDataCar(char *array) {
+	FILE *file = fopen("car.dat", "wb"); // Substitui todo o texto já existente
+	fwrite(car, sizeof(char), sizeof(car), file);
+	fclose(file);
 }
