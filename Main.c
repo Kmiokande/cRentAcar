@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define clear "\e[1;1H\e[2J" // PARÂMETRO PARA LIMPAR TELA
+
 // ASSINATURAS
 void Logo(void);
 void mPrincipal(void);
@@ -14,26 +16,26 @@ void Indisponivel(void);
 int main() {
 	int op = 10;
 	while (op != 0) {
-		printf("\e[1;1H\e[2J");
+		printf(clear);
 		Logo();
 		mPrincipal(); // MENU PRINCIPAL
 		printf("\nInforme uma opção acima: ");
 		scanf("%d", &op);
 
 		if (op == 1) {
-			printf("\e[1;1H\e[2J");
+			printf(clear);
 			mCadastramento(); // MENU DE CADASTRAMENTO
 		}
 		else if (op == 2) {
-			printf("\e[1;1H\e[2J");
+			printf(clear);
 			mLocacao(); // MENU DE LOCAÇÃO
 		}
 		else if (op == 3) {
-			printf("\e[1;1H\e[2J");
+			printf(clear);
 			mVeiculos(); // MENU DE VEICULOS
 		}
 		else if (op == 4) {
-			printf("\e[1;1H\e[2J");
+			printf("clear");
 			mHistoricos(); // MENU DE HISTÓRICOS
 		}
 		else if (op == 0) {
