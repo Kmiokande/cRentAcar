@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Modules CRentCar
-// #include <User.h>
-// #include <Car.h>
-
-
 // ASSINATURAS
 void Logo(void);
 void mPrincipal(void);
@@ -21,25 +16,25 @@ int main() {
 	while (op != 0) {
 		printf("\e[1;1H\e[2J");
 		Logo();
-		mPrincipal();
+		mPrincipal(); // MENU PRINCIPAL
 		printf("\nInforme uma opção acima: ");
 		scanf("%d", &op);
 
 		if (op == 1) {
 			printf("\e[1;1H\e[2J");
-			mCadastramento();
+			mCadastramento(); // MENU DE CADASTRAMENTO
 		}
 		else if (op == 2) {
 			printf("\e[1;1H\e[2J");
-			mLocacao();
+			mLocacao(); // MENU DE LOCAÇÃO
 		}
 		else if (op == 3) {
 			printf("\e[1;1H\e[2J");
-			mVeiculos();
+			mVeiculos(); // MENU DE VEICULOS
 		}
 		else if (op == 4) {
 			printf("\e[1;1H\e[2J");
-			mHistoricos();
+			mHistoricos(); // MENU DE HISTÓRICOS
 		}
 		else if (op == 0) {
 			printf("Aperte ENTER para sair...\n");
