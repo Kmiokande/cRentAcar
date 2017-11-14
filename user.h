@@ -10,7 +10,7 @@ void deleteUser();
 
 // Validações
 
-int valCpf(); // CPF
+void valCPF(char cpf[11], int icpf[11]); // CPF
 int valAddress(); // Endereço
 int valFone(); // Telefone
 int valEmail(); // Email
