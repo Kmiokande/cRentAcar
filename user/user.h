@@ -19,7 +19,7 @@ int valCPF(char cpf[11]); // CPF
 int valAddress(); // Endereço
 int valFone(); // Telefone
 int valEmail(); // Email
-int valName(); // Nome
+int valName(char name[50]); // Nome
 int valDate(); // Data Nascimento
 
 // Others

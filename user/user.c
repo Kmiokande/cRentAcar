@@ -109,7 +109,7 @@ int valCPF(char cpf[11]) {
 
 	// Se na condição o CPF não possuir 11 digitos apresenta erro, caso contrario inicia a verificação dos dois ultimos digitos.
 	if (comp != 11) {
-		return 0;
+		return 1;
 	}
 	else {
 
@@ -159,6 +159,15 @@ int valCPF(char cpf[11]) {
 	}
 }
 
+// Valida nome
+int valName(char name[50]) {
+	int i;
+	for(i=0; name[i]!='\0'; i++) {
+		if(name[i] >= 33 && name[i] <= 45 && name[i] >= 47 && name[i] <= 64)
+			return 1; // False
+	}
+	return 0;
+}
 
 void freeMemory(User* p) {
 	free(p);
