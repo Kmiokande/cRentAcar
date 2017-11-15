@@ -31,12 +31,7 @@ void editUser();
 void deleteUser();
 
 // Validações
-<<<<<<< HEAD
-int valCpf(); // CPF
-=======
-
-void valCPF(char cpf[11], int icpf[11]); // CPF
->>>>>>> 540682779ce52f59687b8e0abdcad2594f0a1a8c
+int valCPF(char cpf[11]); // CPF
 int valAddress(); // Endereço
 int valFone(); // Telefone
 int valEmail(); // Email
