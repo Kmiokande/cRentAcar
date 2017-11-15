@@ -17,7 +17,7 @@ typedef struct user {
 	char nome[50];
 	char sobrenome[50];
 	char data_nascimento[20];
-	char cpf[20];
+	char cpf[12];
 	char nome_mae[80];
 	char rg[20];
 	char email[80];
@@ -49,7 +49,7 @@ User* singUp(User* DataUser) {
 
 		while(valCPF(_newUser)) {
 			printf("CPF: ");
-			scanf(" %49[^\n]", _newUser->cpf);
+			scanf(" %11[^\n]", _newUser->cpf);
 		}
 
 		printf("Nome da Mãe: ");
@@ -101,7 +101,7 @@ void listUser(User* DataUser) {
 // }
 
 // Validação de CPF
-int valCPF(char cpf[11]) {
+int valCPF(char cpf[12]) {
 	int i, comp, aux = 0, dig1, dig2, result1, result2, valor;
 
 	// Faz a contagem de quantos caracteres possui no vetor.
@@ -166,7 +166,7 @@ int valName(char name[50]) {
 		if(name[i] >= 33 && name[i] <= 45 && name[i] >= 47 && name[i] <= 64)
 			return 1; // False
 	}
-	return 0;
+	return 0; // True
 }
 
 void freeMemory(User* p) {
