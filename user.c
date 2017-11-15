@@ -4,7 +4,10 @@
 
 #include "user.h"
 
-User createUser() {
+User singUp(User* DataUser) {
+	User* _newUser = (User*) malloc(sizeof(User));
+	_newUser->proxUser = *DataUser;
+
 	printf("Nome: ");
 	scanf("%49[^\n]s", _User.nome);
 
@@ -24,7 +27,7 @@ User createUser() {
 	scanf("%49[^\n]s", _User.rg);
 
 	printf("Email: ");
-  scanf("%49[^\n]s", _User.rg);
+	scanf("%49[^\n]s", _User.rg);
 
 	printf("Endereço [Sigla do Estado]:");
 	scanf("%49[^\n]s", _User.endereco.sigla_estado);
@@ -47,16 +50,17 @@ User createUser() {
 	printf("Telefone: ");
 	scanf("%49[^\n]s", _User.telefone);
 
+	return _newUser;
 }
 
-void saveDataUser(char *array) {
+void saveDataUser(char* array) {
 	FILE *file = fopen("user.dat", "wb"); // Substitui todo o texto já existente
 	fwrite(user, sizeof(char), sizeof(user), file);
 	fclose(file);
 }
 
 // Validação de CPF
-void valCPF(char cpf[11], int icpf[11]) {
+int valCPF(char cpf[11], int icpf[11]) {
 	int i, comp, aux = 0, dig1, dig2, result1, result2, valor;
 
 	// Efetua a conversao do vetor de tipo char para um vetor de tipo int usando tabela ASCII.
@@ -105,10 +109,10 @@ void valCPF(char cpf[11], int icpf[11]) {
 
 		// RESULTADOS DA VALIDAÇÃO.
 		if (dig1 == icpf[9] && dig2 == icpf[10]) {
-			printf("\nCPF válido.\n");
+			return 1;
 		}
 		else {
-			printf("\nCPF inválido.\n");
+			return 0;
 		}
 	}
 }
