@@ -1,7 +1,7 @@
 struct end;
 typedef struct user User;
 
-User* creatList();
+User* createList(void);
 
 // Maninupulação do arquivo
 void saveDataUser(char *array); // Salvar Dados em Arquivo 'user.dat'

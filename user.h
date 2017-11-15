@@ -6,7 +6,7 @@ struct end {
   char bairro[30];
 }
 
-typedef struct User {
+typedef struct user {
 	char nome[50];
 	char sobrenome[50];
 	char data_nascimento[20];

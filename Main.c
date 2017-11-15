@@ -8,19 +8,18 @@
 // ASSINATURAS
 void Logo(void);
 void mPrincipal(void);
-void mCadastramento(void);
+void mCadastramento(User* DataUser);
 void mLocacao(void);
 void mVeiculos(void);
 void mHistoricos(void);
 void Indisponivel(void);
 // FIM
 
-// User* DataUser;
-// DataUser = creatList();
-
 int main() {
 	int op = 10;
-
+	
+	User* DataUser;
+	DataUser = createList();
 	while (op != 0) {
 		printf(clear);
 		Logo();
@@ -30,7 +29,7 @@ int main() {
 
 		if (op == 1) {
 			printf(clear);
-			mCadastramento(); // MENU DE CADASTRAMENTO
+			mCadastramento(DataUser); // MENU DE CADASTRAMENTO
 		}
 		else if (op == 2) {
 			printf(clear);
@@ -79,7 +78,7 @@ void mPrincipal(void) {
 	printf("*********************************\n");
 }
 
-void mCadastramento(void) {
+void mCadastramento(User *DataUser) {
 	printf("\n**********************************\n");
 	printf("**    MENU DE CADASTRAMENTO     **\n");
 	printf("** [1] - CADASTRAR NOVO CLIENTE **\n");
@@ -95,7 +94,7 @@ void mCadastramento(void) {
 	scanf("%d", &op);
 
 	if (op == 1) {
-		// DataUser = singUp(DataUser);
+		DataUser = singUp(DataUser);	
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();

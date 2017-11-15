@@ -24,10 +24,10 @@ typedef struct user {
 	char cnh[20];
 	struct end endereco;
 	char fone[15];
-	User* proxUser;
+	struct user* proxUser;
 } User;
 
-User* creatList(){
+User* createList() {
   return NULL;
 }
 
@@ -39,46 +39,48 @@ User* singUp(User* DataUser) {
 	if (_newUser != NULL) {
 
 		printf("Nome: ");
-		scanf("%49[^\n]s", &_newUser->nome);
+		scanf(" %49[^\n]", _newUser->nome);
 
 		printf("Sobrenome: ");
-		scanf("%49[^\n]s", &_newUser->sobrenome);
+		scanf(" %49[^\n]", _newUser->sobrenome);
 
 		printf("Data de Nascimento: ");
-		scanf("%49[^\n]s", &_newUser->data_nascimento);
+		scanf(" %49[^\n]", _newUser->data_nascimento);
 
-		printf("CPF: ");
-		scanf("%49[^\n]s", &_newUser->cpf);
+		while(valCPF(_newUser)) {
+			printf("CPF: ");
+			scanf(" %49[^\n]", _newUser->cpf);
+		}
 
 		printf("Nome da Mãe: ");
-		scanf("%49[^\n]s", &_newUser->nome_mae);
+		scanf(" %49[^\n]", _newUser->nome_mae);
 
 		printf("RG: ");
-		scanf("%49[^\n]s", &_newUser->rg);
+		scanf(" %49[^\n]", _newUser->rg);
 
 		printf("Email: ");
-		scanf("%49[^\n]s", &_newUser->rg);
+		scanf(" %49[^\n]", _newUser->rg);
 
 		printf("Endereço [Sigla do Estado]:");
-		scanf("%49[^\n]s", &_newUser->endereco.sigla_estado);
+		scanf(" %49[^\n]", _newUser->endereco.sigla_estado);
 
 		printf("Endereço [Cidade]:");
-		scanf("%49[^\n]s", &_newUser->endereco.cidade);
+		scanf(" %49[^\n]", _newUser->endereco.cidade);
 
 		printf("Endereço [Rua]:");
-		scanf("%49[^\n]s", &_newUser->endereco.rua);
+		scanf(" %49[^\n]", _newUser->endereco.rua);
 
 		printf("Endereço [Número]:");
-		scanf("%49[^\n]s", &_newUser->endereco.numero);
+		scanf("%d", _newUser->endereco.numero);
 
 		printf("Endereço [Bairro]:");
-		scanf("%49[^\n]s", &_newUser->endereco.bairro);
+		scanf(" %49[^\n]", _newUser->endereco.bairro);
 
 		printf("CNH: ");
-		scanf("%49[^\n]s", &_newUser->cnh);
+		scanf(" %49[^\n]", _newUser->cnh);
 
 		printf("Telefone: ");
-		scanf("%49[^\n]s", &_newUser->fone);
+		scanf(" %49[^\n]", _newUser->fone);
 	}
 
 	return _newUser;
@@ -149,10 +151,10 @@ int valCPF(char cpf[11]) {
 
 		// RESULTADOS DA VALIDAÇÃO.
 		if (dig1 == cpf[9] && dig2 == cpf[10]) {
-			return 1;
+			return 0;
 		}
 		else {
-			return 0;
+			return 1;
 		}
 	}
 }
