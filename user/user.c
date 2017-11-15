@@ -99,25 +99,26 @@ void listUser(User* DataUser) {
 // }
 
 // Validação de CPF
-int valCPF(char cpf[11], int icpf[11]) {
+int valCPF(char cpf[11]) {
 	int i, comp, aux = 0, dig1, dig2, result1, result2, valor;
-
-	// Efetua a conversao do vetor de tipo char para um vetor de tipo int usando tabela ASCII.
-	for (i=0; i<11; i++) {
-		icpf[i] = cpf[i] - 48;
-	}
 
 	// Faz a contagem de quantos caracteres possui no vetor.
 	comp = strlen(cpf);
 
 	// Se na condição o CPF não possuir 11 digitos apresenta erro, caso contrario inicia a verificação dos dois ultimos digitos.
 	if (comp != 11) {
-		printf("\nCPF Inválido, o mesmo não apresenta 11 digitos!\n");
+		return 0;
 	}
 	else {
+
+		// Efetua a conversao do vetor de tipo char para um vetor de tipo int usando tabela ASCII.
+		for (i=0; i<11; i++) {
+			cpf[i] -= 48;
+		}
+
 		// PRIMEIRO DIGITO.
 		for (i=0; i<9; i++) {
-			aux += icpf[i] * (10-i);
+			aux += cpf[i] * (10-i);
 		}
 
 		result1=aux%11;
@@ -133,7 +134,7 @@ int valCPF(char cpf[11], int icpf[11]) {
 		aux = 0; // Reseta o aux
 
 		for (i=0; i<10; i++) {
-			aux += icpf[i] * (11-i);
+			aux += cpf[i] * (11-i);
 		}
 
 		valor = (aux/11) * 11;
@@ -147,7 +148,7 @@ int valCPF(char cpf[11], int icpf[11]) {
 		}
 
 		// RESULTADOS DA VALIDAÇÃO.
-		if (dig1 == icpf[9] && dig2 == icpf[10]) {
+		if (dig1 == cpf[9] && dig2 == cpf[10]) {
 			return 1;
 		}
 		else {
