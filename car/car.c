@@ -19,7 +19,9 @@ typedef struct car {
 
 // >> [ CRUD ]
 //  [ Cria a lista encadeada vazia ]
-Car* createListCar() { return NULL; }
+Car* createListCar() {
+  return NULL;
+}
 
 // [ Cadastrar usuário ]
 Car* singUpCar(Car* DataCar) {
@@ -31,7 +33,7 @@ Car* singUpCar(Car* DataCar) {
     scanf(" %30[^\n]", _newCar->modelo);
 
     printf("Cor: ");
-    scanf(" %49[^\n]", _newCar->cor);
+    scanf(" %8[^\n]", _newCar->cor);
 
     printf("Ano: ");
     scanf(" %4[^\n]", _newCar->ano);
@@ -53,11 +55,22 @@ Car* singUpCar(Car* DataCar) {
 }
 
 // >> [ Validações ]
+// [ Valida Modelo ]
+int valModel(char model[31]) {
+  int i;
+  for (i = 0; model[i] != '\0'; i++) {
+    if (model[i] >= 34 && model[i] <= 43 && model[i] >= 58 && model[i] <= 64)
+      return 1; // Return False
+  }
+  return 0; // Return True
+}
+
 // [ Valida Cor ]
 int valColor(char color[9]) {
   int i;
   for (i = 0; color[i] != '\0'; i++) {
-    if (color[i] >= 33 && color[i] <= 64) return 1;  // Return False
+    if (color[i] >= 33 && color[i] <= 64) 
+      return 1;  // Return False
   }
   return 0;  // Return True
 }
@@ -66,9 +79,24 @@ int valColor(char color[9]) {
 int valYear(char year[5]) {
   int i;
   for (i = 0; year[i] != '\0'; i++) {
-    if (year[i] >= 48 && year[i] <= 57) return 0;  // Return True
+    if (year[i] >= 48 && year[i] <= 57) 
+      return 0;  // Return True
   }
   return 1;  // Return False
+}
+
+// [ Valida Placa]
+int valPlate(char plate[9]) {
+  int i, j, k;
+  for (i = 0; i < 3; i++) { // Percorre as três primeiras posições do vetor
+    if(plate[i] >= 65 && plate[i] <= 90 || plate[i] >= 97 && plate[i] <= 122) // Verifica se são letras
+      for (j = 3; j < 4; j++) // Percorre a quarta posição do vetor
+        if (plate[j] == 45) // Verifica se possui um '-'
+          for (k = 4; k < 9; k++) // Percorre o restante do vetor
+            if (plate[k] >= 48 && plate[k] <= 57) // Verifica se são números
+              return 0; // Return True
+  }
+  return 1; // Return False
 }
 
 // void saveDataCar(char *array) {

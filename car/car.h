@@ -13,11 +13,11 @@ void editCar();
 void deleteCar();
 
 // Validações
-int valModel(); // Modelo
+int valModel(char model[31]); // Modelo
 int valColor(char color[9]); // Cor
 int valYear(char year[5]); // Ano
 int valPrice(); // Preço
-int valPlate(); // Placa
+int valPlate(char plate[9]); // Placa
 int valRenavan(); // Renavan
 int valKm(); // km's rodados
 int valDate(); // Data
