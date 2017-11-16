@@ -19,7 +19,11 @@ int main() {
 	int op = 10;
 	
 	User* DataUser;
-	DataUser = createList();
+	DataUser = createListUser();
+	
+	Car* DataCar;
+	DataCar = createListCar();
+
 	while (op != 0) {
 		printf(clear);
 		Logo();
@@ -94,7 +98,7 @@ void mCadastramento(User *DataUser) {
 	scanf("%d", &op);
 
 	if (op == 1) {
-		DataUser = singUp(DataUser);	
+		DataUser = singUpUser(DataUser);	
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();

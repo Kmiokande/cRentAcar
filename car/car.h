@@ -5,9 +5,16 @@ void saveDataCar(char *array); // Salvar Dados em Arquivo 'car.dat'
 void loadDataCar(); // Carregar Dados do Arquivo 'car.dat'
 char searchCar();
 
+// CRUD
+void listCar(Car* DataCar);
+Car* createListCar(void);
+Car* singUpCar(Car* DataCar); // Cadastrar usuário
+void editCar();
+void deleteCar();
+
 // Validações
 int valModel(); // Modelo
-int valColor(char color[8]); // Cor
+int valColor(char color[9]); // Cor
 int valYear(char year[5]); // Ano
 int valPrice(); // Preço
 int valPlate(); // Placa
