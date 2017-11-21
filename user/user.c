@@ -114,8 +114,7 @@ int valCPF(char cpf[12]) {
     return 1;
   } else {
     for (i = 0; i < 11; i++) {  // Efetua a conversao do vetor de tipo char para
-                                // um vetor de tipo int usando tabela ASCII.
-      cpf[i] -= 48;
+      cpf[i] -= 48;  // um vetor de tipo int usando tabela ASCII.
     }
 
     for (i = 0; i < 9; i++) {  // Primeiro Dígito.
