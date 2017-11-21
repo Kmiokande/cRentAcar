@@ -29,23 +29,33 @@ Car* singUpCar(Car* DataCar) {
   _newCar->proxCar = DataCar;
 
   if (_newCar != NULL) {
-    printf("Modelo: ");
-    scanf(" %30[^\n]", _newCar->modelo);
+    while(valModel(_newCar->modelo)) {
+      printf("Modelo: ");
+      scanf(" %30[^\n]", _newCar->modelo);
+    }
 
-    printf("Cor: ");
-    scanf(" %8[^\n]", _newCar->cor);
+    while(valColor(_newCar->cor)) {
+      printf("Cor: ");
+      scanf(" %8[^\n]", _newCar->cor);
+    }
 
-    printf("Ano: ");
-    scanf(" %4[^\n]", _newCar->ano);
+    while(valYear(_newCar->ano)) {
+      printf("Ano: ");
+      scanf(" %4[^\n]", _newCar->ano);
+    }
 
     printf("Preco: ");
     scanf(" %10[^\n]", _newCar->preco);
 
-    printf("Placa: ");
-    scanf(" %8[^\n]", _newCar->placa);
+    while(valPlate(_newCar->placa)) {
+      printf("Placa: ");
+      scanf(" %8[^\n]", _newCar->placa);
+    }
 
-    printf("Renavam: ");
-    scanf(" %11[^\n]", _newCar->renavam);
+    while(valRenavam(_newCar->renavam)) {
+      printf("Renavam: ");
+      scanf(" %11[^\n]", _newCar->renavam);
+    }
 
     _newCar->status = 1;
     _newCar->qtd_alugado = 0;
@@ -99,11 +109,11 @@ int valPlate(char plate[9]) {
   return 1; // Return False
 }
 
-// [ Valida renavan ]
-int valRenavan(char ano[5], char renavan[12]) {
+// [ Valida renavam ]
+int valRenavam(char ano[5], char renavam[12]) {
   int i, comp;
 
-  comp = strlen(renavan); // Vai verificar o comprimento do renavan
+  comp = strlen(renavam); // Vai verificar o comprimento do renavam
 
   // Vai modificar o vertor do tipo caractere em inteiro
   for (i = 0; i < 11; i++) {
@@ -111,14 +121,14 @@ int valRenavan(char ano[5], char renavan[12]) {
     }
 
   for (i = 0; i < 11; i++) {
-        if (renavan[i] >= '0' && renavan[i] <= '9') // Verifica se o renavan possui número
-            if ((comp == 9 && ano <= 2012) || (comp == 11 && ano >= 2013)) // Verifica o comprimento do renavan e o ano
+        if (renavam[i] >= '0' && renavam[i] <= '9') // Verifica se o renavam possui número
+            if ((comp == 9 && ano <= 2012) || (comp == 11 && ano >= 2013)) // Verifica o comprimento do renavam e o ano
                 return 0; // Return True
   }
   return 1; // Return False
 }
 
-// [ Valida Km]
+// [ Valida Km ]
 int valKm(char km[7]) {
   int i;
   for ( i = 0; i < 6; i++) {

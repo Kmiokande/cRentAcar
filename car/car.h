@@ -18,7 +18,7 @@ int valColor(char color[9]); // Cor
 int valYear(char year[5]); // Ano
 int valPrice(); // Preço
 int valPlate(char plate[9]); // Placa
-int valRenavan(char ano[5], char renavan[12]); // Renavan
+int valRenavam(char ano[5], char renavam[12]); // Renavam
 int valKm(char km[7]); // km's rodados
 int valDate(); // Data
 
