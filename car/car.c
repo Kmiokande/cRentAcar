@@ -68,8 +68,8 @@ int valModel(char model[31]) {
 // [ Valida Cor ]
 int valColor(char color[9]) {
   int i;
-  for (i = 0; color[i] != '\0'; i++) {
-    if (color[i] >= 33 && color[i] <= 64) 
+  for (i = 0; i < 8; i++) {
+    if (color[i] >= 33 && color[i] <= 64)
       return 1;  // Return False
   }
   return 0;  // Return True
@@ -78,7 +78,7 @@ int valColor(char color[9]) {
 // [ Valida Ano ]
 int valYear(char year[5]) {
   int i;
-  for (i = 0; year[i] != '\0'; i++) {
+  for (i = 0; i < 4; i++) {
     if (year[i] >= 48 && year[i] <= 57) 
       return 0;  // Return True
   }
@@ -95,6 +95,35 @@ int valPlate(char plate[9]) {
           for (k = 4; k < 9; k++) // Percorre o restante do vetor
             if (plate[k] >= 48 && plate[k] <= 57) // Verifica se são números
               return 0; // Return True
+  }
+  return 1; // Return False
+}
+
+// [ Valida renavan ]
+int valRenavan(char ano[5], char renavan[12]) {
+  int i, comp;
+
+  comp = strlen(renavan); // Vai verificar o comprimento do renavan
+
+  // Vai modificar o vertor do tipo caractere em inteiro
+  for (i = 0; i < 11; i++) {
+      ano[i] -= 48;
+    }
+
+  for (i = 0; i < 11; i++) {
+        if (renavan[i] >= '0' && renavan[i] <= '9') // Verifica se o renavan possui número
+            if ((comp == 9 && ano <= 2012) || (comp == 11 && ano >= 2013)) // Verifica o comprimento do renavan e o ano
+                return 0; // Return True
+  }
+  return 1; // Return False
+}
+
+// [ Valida Km]
+int valKm(char km[7]) {
+  int i;
+  for ( i = 0; i < 6; i++) {
+    if (km[i] >= '0' && km[i] <= '9') // Verifica se possui números
+      return 0; // Return True
   }
   return 1; // Return False
 }
