@@ -157,16 +157,14 @@ int valCPF(char cpf[12]) {
 
 // [ Valida Nome e Sobrenome ]
 int valName(char name[50]) {
-  if (strlen(name) > 3) {
-    for (int i = 0; name[i] != '\0'; i++) {
-      if (name[i] >= 33 && name[i] <= 45 && name[i] >= 47 && name[i] <= 64) {
-        printf("\n >> Nome inválido! \n");
-        return 1;  // False
-      }
-    }
-  } else {
-    printf("Digite mais caracteres, este não é um nome válido!");
+  if (strlen(name) == 0 || strlen(name) < 4) {     
     return 1;  // False
+  } 
+  for (int i = 0; name[i] != '\0'; i++) {
+    if (name[i] >= 33 && name[i] <= 45 && name[i] >= 47 && name[i] <= 64) {
+      printf("\n >> Nome inválido! \n");
+      return 1;  // False
+    }
   }
 
   return 0;  // True

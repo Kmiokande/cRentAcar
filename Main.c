@@ -10,7 +10,7 @@ void Logo(void);
 void mPrincipal(void);
 void mCadastramento(User* DataUser);
 void mLocacao(void);
-void mVeiculos(void);
+void mVeiculos(Car *DataCar);
 void mHistoricos(void);
 void Indisponivel(void);
 // FIM
@@ -41,7 +41,7 @@ int main() {
 		}
 		else if (op == 3) {
 			printf(clear);
-			mVeiculos(); // MENU DE VEICULOS
+			mVeiculos(DataCar); // MENU DE VEICULOS
 		}
 		else if (op == 4) {
 			printf("clear");
@@ -185,7 +185,7 @@ void mLocacao(void) {
 	}
 }
 
-void mVeiculos(void) {
+void mVeiculos(Car *DataCar) {
 	printf("\n******************************\n");
 	printf("**     MENU DE VEÍCULOS     **\n");
 	printf("** [1] - CADASTRAR VEÍCULO  **\n");
@@ -199,7 +199,7 @@ void mVeiculos(void) {
 	printf("\nInforme uma opção acima: ");
 	scanf("%d", &op);
 	if (op == 1) {
-		Indisponivel();
+		DataCar = singUpCar(DataCar);	
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();

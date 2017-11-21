@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #include "car.h"
@@ -17,11 +18,9 @@ typedef struct car {
   struct car* proxCar;
 } Car;
 
-// >> [ CRUD ]
+ // >> [ CRUD ]
 //  [ Cria a lista encadeada vazia ]
-Car* createListCar() {
-  return NULL;
-}
+Car* createListCar() { return NULL; }
 
 // [ Cadastrar usuário ]
 Car* singUpCar(Car* DataCar) {
@@ -29,17 +28,17 @@ Car* singUpCar(Car* DataCar) {
   _newCar->proxCar = DataCar;
 
   if (_newCar != NULL) {
-    while(valModel(_newCar->modelo)) {
+    while (valModel(_newCar->modelo)) {
       printf("Modelo: ");
       scanf(" %30[^\n]", _newCar->modelo);
     }
 
-    while(valColor(_newCar->cor)) {
+    while (valColor(_newCar->cor)) {
       printf("Cor: ");
       scanf(" %8[^\n]", _newCar->cor);
     }
 
-    while(valYear(_newCar->ano)) {
+    while (valYear(_newCar->ano)) {
       printf("Ano: ");
       scanf(" %4[^\n]", _newCar->ano);
     }
@@ -47,12 +46,12 @@ Car* singUpCar(Car* DataCar) {
     printf("Preco: ");
     scanf(" %10[^\n]", _newCar->preco);
 
-    while(valPlate(_newCar->placa)) {
+    while (valPlate(_newCar->placa)) {
       printf("Placa: ");
       scanf(" %8[^\n]", _newCar->placa);
     }
 
-    while(valRenavam(_newCar->renavam)) {
+    while (valRenavam(_newCar->ano, _newCar->renavam)) {
       printf("Renavam: ");
       scanf(" %11[^\n]", _newCar->renavam);
     }
@@ -64,23 +63,22 @@ Car* singUpCar(Car* DataCar) {
   return _newCar;
 }
 
-// >> [ Validações ]
+ // >> [ Validações ]
 // [ Valida Modelo ]
 int valModel(char model[31]) {
   int i;
   for (i = 0; model[i] != '\0'; i++) {
     if (model[i] >= 34 && model[i] <= 43 && model[i] >= 58 && model[i] <= 64)
-      return 1; // Return False
+      return 1;  // Return False
   }
-  return 0; // Return True
+  return 0;  // Return True
 }
 
 // [ Valida Cor ]
 int valColor(char color[9]) {
   int i;
   for (i = 0; i < 8; i++) {
-    if (color[i] >= 33 && color[i] <= 64)
-      return 1;  // Return False
+    if (color[i] >= 33 && color[i] <= 64) return 1;  // Return False
   }
   return 0;  // Return True
 }
@@ -89,8 +87,7 @@ int valColor(char color[9]) {
 int valYear(char year[5]) {
   int i;
   for (i = 0; i < 4; i++) {
-    if (year[i] >= 48 && year[i] <= 57) 
-      return 0;  // Return True
+    if (year[i] >= 48 && year[i] <= 57) return 0;  // Return True
   }
   return 1;  // Return False
 }
@@ -98,44 +95,43 @@ int valYear(char year[5]) {
 // [ Valida Placa]
 int valPlate(char plate[9]) {
   int i, j, k;
-  for (i = 0; i < 3; i++) { // Percorre as três primeiras posições do vetor
-    if(plate[i] >= 65 && plate[i] <= 90 || plate[i] >= 97 && plate[i] <= 122) // Verifica se são letras
-      for (j = 3; j < 4; j++) // Percorre a quarta posição do vetor
-        if (plate[j] == 45) // Verifica se possui um '-'
-          for (k = 4; k < 9; k++) // Percorre o restante do vetor
-            if (plate[k] >= 48 && plate[k] <= 57) // Verifica se são números
-              return 0; // Return True
+  for (i = 0; i < 3; i++) {  // Percorre as três primeiras posições do vetor
+    if ((plate[i] >= 65 && plate[i] <= 90) || (plate[i] >= 97 && plate[i] <= 122))  // Verifica se são letras
+      for (j = 3; j < 4; j++)        // Percorre a quarta posição do vetor
+        if (plate[j] == 45)         // Verifica se possui um '-'
+          for (k = 4; k < 9; k++)  // Percorre o restante do vetor
+            if (plate[k] >= 48 && plate[k] <= 57)   // Verifica se são números
+              return 0;                            // Return True
   }
-  return 1; // Return False
+  return 1;  // Return False
 }
 
 // [ Valida renavam ]
 int valRenavam(char ano[5], char renavam[12]) {
-  int i, comp;
+  int Iano, comp;
 
-  comp = strlen(renavam); // Vai verificar o comprimento do renavam
+  comp = strlen(renavam);  // Vai verificar o comprimento do renavam
 
-  // Vai modificar o vertor do tipo caractere em inteiro
-  for (i = 0; i < 11; i++) {
-      ano[i] -= 48;
+  sscanf(ano, "%d", &Iano); // Ano em Inteiro
+
+  for (int i = 0; i < 11; i++) {
+    if (renavam[i] >= '0' && renavam[i] <= '9') { 						  // Verifica se o renavam possui número
+      if ((comp == 9 && Iano <= 2012) || (comp == 11 && Iano >= 2013)) { // Verifica o comprimento do renavam e o ano
+        return 0;  													    // Return True
+	  }
     }
-
-  for (i = 0; i < 11; i++) {
-        if (renavam[i] >= '0' && renavam[i] <= '9') // Verifica se o renavam possui número
-            if ((comp == 9 && ano <= 2012) || (comp == 11 && ano >= 2013)) // Verifica o comprimento do renavam e o ano
-                return 0; // Return True
   }
-  return 1; // Return False
+  return 1;  // Return False
 }
 
 // [ Valida Km ]
 int valKm(char km[7]) {
   int i;
-  for ( i = 0; i < 6; i++) {
-    if (km[i] >= '0' && km[i] <= '9') // Verifica se possui números
-      return 0; // Return True
+  for (i = 0; i < 6; i++) {
+    if (km[i] >= '0' && km[i] <= '9')   // Verifica se possui números
+      return 0;                        // Return True
   }
-  return 1; // Return False
+  return 1;  // Return False
 }
 
 // void saveDataCar(char *array) {
