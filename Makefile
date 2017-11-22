@@ -9,6 +9,6 @@ build:
 	rm *.o
 
 run:
-	gnome-terminal --tab -e ./cRentCar -t 'cRentCar'
+	gnome-terminal -t 'cRentCar' --active -- ./cRentCar
 	# Clean
 	rm ./cRentCar

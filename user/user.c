@@ -169,6 +169,26 @@ int valName(char name[50]) {
   return 0;  // True
 }
 
+// [ Validar Data ]
+// int valData(char data[11]) { // [-] Aceitar apenas 18 anos acima
+// 	if (strlen(data) > 0) {
+// 		for (int i = 0; data[i] != '\0'; ++i) {
+// 			if (i < 2) {
+// 				if (!(data[i] >= 48 && data[i] <= 57)) {
+//           			printf("Placa Inválida\n");
+//           			return 1;  // False
+//         		}
+// 			}
+// 			if (i > 3 && i < 6) {}
+// 		}
+// 		return 0; // True
+
+// 	} else {
+// 		return 1/ // False
+// 	}
+
+// }
+
 // [ I/O dos dados e memoria ]
 
 // void saveDataUser(char* array) { // Salvar a lista em arquivo *.text

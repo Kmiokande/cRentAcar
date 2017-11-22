@@ -154,12 +154,13 @@ int valKm(char km[7]) {
   return 0;  // Return True
 }
 
-// void saveDataCar(char *array) {
-// 	FILE *file = fopen("car.dat", "wb"); // Substitui todo o texto já existente
-//  if (file != NULL) {
-//  fwrite(array, sizeof(char), sizeof(array), file);
-// 	fclose(file);
-// 	} else {
-// 	printf("Arquivo aberto ou não encontrado\n");
-// }
-// }
+// >> [ File I/O ]
+void saveDataCar(char *array) {
+	FILE *file = fopen("car.dat", "a+"); // Substitui todo o texto já existente
+	if (file != NULL) {
+		fwrite(array, sizeof(char), sizeof(array), file);
+		fclose(file);
+	} else {
+		printf("Arquivo aberto ou não encontrado\n");
+	}
+}

@@ -7,6 +7,7 @@
 
 // ASSINATURAS
 void Logo(void);
+void logoExit();
 void mPrincipal(void);
 void mCadastramento(User* DataUser);
 void mLocacao(void);
@@ -48,7 +49,10 @@ int main() {
 			mHistoricos(); // MENU DE HISTÓRICOS
 		}
 		else if (op == 0) {
-			printf("Aperte ENTER para sair...\n");
+			printf(clear);
+			printf("// Projeto disponível no Github!\n >> UFRN - BSI 2017.2\n\n - João Eudes\n - Bruno\n\n");
+			logoExit();
+			printf("\n\n\n [ Aperte ENTER para sair... ] \n");
         	while (getchar() != '\n');
             	getchar();
 			break;
@@ -68,6 +72,17 @@ void Logo(void) {
 	printf("*********************************\n");
 	printf("**          cRentAcar          **\n");
 	printf("*********************************\n");
+}
+
+void logoExit() {	
+	printf(" .d8888b.  8888888b.                   888     .d8888b.						\n");
+	printf("d88P  Y88b 888   Y88b                  888    d88P  Y88b 					\n");
+	printf("888    888 888    888                  888    888    888 					\n"); 
+	printf("888        888   d88P .d88b.  88888b.  888888 888         8888b.  888d888	\n");
+	printf("888        8888888P' d8P  Y8b 888 '88b 888    888            '88b 888P' 	\n");
+	printf("888    888 888 T88b  88888888 888  888 888    888    888 .d888888 888		\n");   
+	printf("Y88b  d88P 888  T88b Y8b.     888  888 Y88b.  Y88b  d88P 888  888 888		\n");  
+	printf(" 'Y8888P'  888   T88b 'Y8888  888  888  'Y888  'Y8888P'  'Y888888 888	  \n\n"); 
 }
 
 void mPrincipal(void) {
