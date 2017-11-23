@@ -1,9 +1,9 @@
 struct end {
-  char sigla_estado[2];
-  char cidade[50];
-  char rua[50];
+  char sigla_estado[3];
+  char cidade[51];
+  char rua[51];
   int numero;
-  char bairro[30];
+  char bairro[31];
 };
 
 typedef struct user {
@@ -26,9 +26,9 @@ void loadDataUser(); // Carregar Dados do Arquivo 'user.dat'
 char searchCar();
 
 // CRUD
-void listUser(User* DataUser);
 User* createListUser(void);
 void singUpUser(User **DataUser); // Cadastrar usuário
+void listUser(User *DataUser); // Ver todos os usuarios cadastrados
 void editUser();
 void deleteUser();
 

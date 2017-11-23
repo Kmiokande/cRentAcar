@@ -9,21 +9,15 @@
 void Logo(void);
 void logoExit();
 void mPrincipal(void);
-void mCadastramento(User* DataUser);
+void mCadastramento();
 void mLocacao(void);
-void mVeiculos(Car *DataCar);
+void mVeiculos();
 void mHistoricos(void);
 void Indisponivel(void);
 // FIM
 
 int main() {
 	int op = 10;
-	
-	User* DataUser;
-	DataUser = createListUser();
-	
-	Car* DataCar;
-	DataCar = createListCar();
 
 	while (op != 0) {
 		printf(clear);
@@ -34,7 +28,7 @@ int main() {
 
 		if (op == 1) {
 			printf(clear);
-			mCadastramento(DataUser); // MENU DE CADASTRAMENTO
+			mCadastramento(); // MENU DE CADASTRAMENTO
 		}
 		else if (op == 2) {
 			printf(clear);
@@ -42,7 +36,7 @@ int main() {
 		}
 		else if (op == 3) {
 			printf(clear);
-			mVeiculos(DataCar); // MENU DE VEICULOS
+			mVeiculos(); // MENU DE VEICULOS
 		}
 		else if (op == 4) {
 			printf("clear");
@@ -97,13 +91,16 @@ void mPrincipal(void) {
 	printf("*********************************\n");
 }
 
-void mCadastramento(User *DataUser) {
+void mCadastramento() {
+	User* DataUser = NULL; // Apenas um temporario
+
 	printf("\n**********************************\n");
 	printf("**    MENU DE CADASTRAMENTO     **\n");
 	printf("** [1] - CADASTRAR NOVO CLIENTE **\n");
 	printf("** [2] - CONSULTAR CLIENTE      **\n");
-	printf("** [3] - ATUALIZAR CADASTRO     **\n");
-	printf("** [4] - EXCLUIR CADASTRO       **\n");
+	printf("** [3] - MOSTRAR CADASTROS      **\n");
+	printf("** [4] - ATUALIZAR CADASTRO     **\n");
+	printf("** [5] - EXCLUIR CADASTRO       **\n");
 	printf("**                              **\n");
 	printf("** [0] - VOLTAR                 **\n");
 	printf("**********************************\n");
@@ -113,7 +110,7 @@ void mCadastramento(User *DataUser) {
 	scanf("%d", &op);
 
 	if (op == 1) {
-		DataUser = singUpUser(DataUser);	
+		singUpUser(&DataUser);	
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
@@ -125,12 +122,18 @@ void mCadastramento(User *DataUser) {
             getchar();
 	}
 	else if (op == 3) {
-		Indisponivel();
+		listUser(DataUser);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
 	}
 	else if (op == 4) {
+		Indisponivel();
+		printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+            getchar();
+	}
+	else if (op == 5) {
 		Indisponivel();
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
@@ -200,7 +203,9 @@ void mLocacao(void) {
 	}
 }
 
-void mVeiculos(Car *DataCar) {
+void mVeiculos() {
+	Car* DataCar = NULL; // Apenas um temporario
+
 	printf("\n******************************\n");
 	printf("**     MENU DE VEÍCULOS     **\n");
 	printf("** [1] - CADASTRAR VEÍCULO  **\n");
@@ -214,7 +219,7 @@ void mVeiculos(Car *DataCar) {
 	printf("\nInforme uma opção acima: ");
 	scanf("%d", &op);
 	if (op == 1) {
-		DataCar = singUpCar(DataCar);	
+		singUpCar(&DataCar);	
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();

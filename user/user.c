@@ -13,40 +13,40 @@ User* createListUser() { return NULL; }
 void singUpUser(User **DataUser) {
   User *_newUser = (User*)malloc(sizeof(User));
 
-  while (valName(_newUser->nome)) {
-    printf("Nome: ");
-    scanf(" %49[^\n]", _newUser->nome);
-  }
+  //while (valName(_newUser->nome)) {
+  printf("Nome: ");
+  scanf(" %49[^\n]", _newUser->nome);
+  //}
 
-  while (valName(_newUser->sobrenome)) {
-    printf("Sobrenome: ");
-    scanf(" %49[^\n]", _newUser->sobrenome);
-  }
+  //while (valName(_newUser->sobrenome)) {
+  printf("Sobrenome: ");
+  scanf(" %49[^\n]", _newUser->sobrenome);
+  //}
 
   printf("Data de Nascimento: ");
   scanf(" %9[^\n]", _newUser->data_nascimento);
 
-  while (valCPF(_newUser->cpf)) {
-    printf("CPF: ");
-    scanf(" %11[^\n]", _newUser->cpf);
-  }
+  //while (valCPF(_newUser->cpf)) {
+  printf("CPF: ");
+  scanf(" %11[^\n]", _newUser->cpf);
+  //}
   
-  while (valName(_newUser->nome_mae)) {
-    printf("Nome completo da Mãe: ");
-    scanf(" %49[^\n]", _newUser->nome_mae);
-  }
+  //while (valName(_newUser->nome_mae)) {
+  printf("Nome completo da Mãe: ");
+  scanf(" %49[^\n]", _newUser->nome_mae);
+  //}
 
   printf("RG: ");
   scanf(" %49[^\n]", _newUser->rg);
 
   printf("Endereço [Sigla do Estado]:");
-  scanf(" %49[^\n]", _newUser->endereco.sigla_estado);
+  scanf(" %2[^\n]", _newUser->endereco.sigla_estado);
 
   printf("Endereço [Cidade]:");
-  scanf(" %49[^\n]", _newUser->endereco.cidade);
+  scanf(" %50[^\n]", _newUser->endereco.cidade);
 
   printf("Endereço [Rua]:");
-  scanf(" %49[^\n]", _newUser->endereco.rua);
+  scanf(" %50[^\n]", _newUser->endereco.rua);
 
   printf("Endereço [Número]: ");
   scanf("%d", &_newUser->endereco.numero);
@@ -68,10 +68,24 @@ void singUpUser(User **DataUser) {
 }
 
 // [ Ver todos os Usuários cadastrados ]
-void listUser(User* DataUser) {
-  User* p;
-  for (p = DataUser; p != NULL; p = p->proxUser) {
-    printf("- %s\n", p->nome);
+void listUser(User *DataUser) {
+  User *aux = NULL;
+  for(aux = DataUser; aux != NULL; aux=aux->proxUser) {
+    printf("%s\n", aux->nome);
+    printf("%s\n", aux->sobrenome);
+    /*printf("%s\n", aux->data_nascimento);
+    printf("%s\n", aux->cpf);
+    printf("%s\n", aux->nome_mae);
+    printf("%s\n", aux->rg);
+    printf("%s\n", aux->endereco.sigla_estado);
+    printf("%s\n", aux->endereco.cidade);
+    printf("%s\n", aux->endereco.rua);
+    printf("%d\n", aux->endereco.numero);
+    printf("%s\n", aux->endereco.bairro);
+    printf("%s\n", aux->cnh);
+    printf("%s\n", aux->rg);
+    printf("%s\n", aux->fone);*/
+    printf("-------------------\n");
   }
 }
 
