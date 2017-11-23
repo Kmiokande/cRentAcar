@@ -16,7 +16,13 @@ void mHistoricos(void);
 void Indisponivel(void);
 // FIM
 
+User *DataUser;
+Car *DataCar;
+
 int main() {
+
+    User *DataUser = (User *) NULL;
+    Car *DataCar = (Car *) NULL;
 	int op = 10;
 
 	while (op != 0) {
@@ -92,8 +98,6 @@ void mPrincipal(void) {
 }
 
 void mCadastramento() {
-	User* DataUser = NULL; // Apenas um temporario
-
 	printf("\n**********************************\n");
 	printf("**    MENU DE CADASTRAMENTO     **\n");
 	printf("** [1] - CADASTRAR NOVO CLIENTE **\n");
@@ -110,7 +114,7 @@ void mCadastramento() {
 	scanf("%d", &op);
 
 	if (op == 1) {
-		singUpUser(&DataUser);	
+		singUpUser(&DataUser);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
@@ -204,8 +208,6 @@ void mLocacao(void) {
 }
 
 void mVeiculos() {
-	Car* DataCar = NULL; // Apenas um temporario
-
 	printf("\n******************************\n");
 	printf("**     MENU DE VEÍCULOS     **\n");
 	printf("** [1] - CADASTRAR VEÍCULO  **\n");

@@ -9,7 +9,7 @@ struct end {
 typedef struct user {
   char nome[50];
   char sobrenome[50];
-  char data_nascimento[10];
+    char data_nascimento[11];
   char cpf[12];
   char nome_mae[80];
   char rg[20];
