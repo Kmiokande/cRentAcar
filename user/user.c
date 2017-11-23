@@ -72,7 +72,7 @@ void listUser(User *DataUser) {
   for(aux = DataUser; aux != NULL; aux=aux->proxUser) {
     printf("%s\n", aux->nome);
     printf("%s\n", aux->sobrenome);
-      printf("%s\n", aux->data_nascimento);
+    printf("%s\n", aux->data_nascimento);
     printf("%s\n", aux->cpf);
     printf("%s\n", aux->nome_mae);
     printf("%s\n", aux->rg);
@@ -83,7 +83,7 @@ void listUser(User *DataUser) {
     printf("%s\n", aux->endereco.bairro);
     printf("%s\n", aux->cnh);
     printf("%s\n", aux->rg);
-      printf("%s\n", aux->fone);
+    printf("%s\n", aux->fone);
     printf("-------------------\n");
   }
 }

@@ -20,7 +20,6 @@ User *DataUser;
 Car *DataCar;
 
 int main() {
-
     User *DataUser = (User *) NULL;
     Car *DataCar = (Car *) NULL;
 	int op = 10;
@@ -45,7 +44,7 @@ int main() {
 			mVeiculos(); // MENU DE VEICULOS
 		}
 		else if (op == 4) {
-			printf("clear");
+			printf(clear);
 			mHistoricos(); // MENU DE HISTÓRICOS
 		}
 		else if (op == 0) {
@@ -211,8 +210,9 @@ void mVeiculos() {
 	printf("\n******************************\n");
 	printf("**     MENU DE VEÍCULOS     **\n");
 	printf("** [1] - CADASTRAR VEÍCULO  **\n");
-	printf("** [2] - EDITAR VEÍCULO     **\n");
-	printf("** [3] - EXCLUIR VEÍCULO    **\n");
+	printf("** [2] - MOSTRAR VEÍCULOS   **\n");
+	printf("** [3] - EDITAR VEÍCULO     **\n");
+	printf("** [4] - EXCLUIR VEÍCULO    **\n");
 	printf("**                          **\n");
 	printf("** [0] - VOLTAR             **\n");
 	printf("******************************\n");
@@ -227,12 +227,18 @@ void mVeiculos() {
             getchar();
 	}
 	else if (op == 2) {
-		Indisponivel();
+		listCar(DataCar);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
 	}
 	else if (op == 3) {
+		Indisponivel();
+		printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+            getchar();
+	}
+	else if (op == 4) {
 		Indisponivel();
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');

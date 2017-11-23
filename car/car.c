@@ -13,20 +13,20 @@ Car* createListCar() { return NULL; }
 void singUpCar(Car **DataCar) {
   Car* _newCar = (Car*)malloc(sizeof(Car));
 
-  while (valModel(_newCar->modelo)) {
-    printf("Modelo: ");
-    scanf(" %30[^\n]", _newCar->modelo);
-  }
+  //while (valModel(_newCar->modelo)) {
+  printf("Modelo: ");
+  scanf(" %30[^\n]", _newCar->modelo);
+  //}
 
-  while (valColor(_newCar->cor)) {
-    printf("Cor: ");
-    scanf(" %8[^\n]", _newCar->cor);
-  }
+  //while (valColor(_newCar->cor)) {
+  printf("Cor: ");
+  scanf(" %8[^\n]", _newCar->cor);
+  //}
 
-  while (valYear(_newCar->ano)) {
-    printf("Ano: ");
-    scanf(" %4[^\n]", _newCar->ano);
-  }
+  //while (valYear(_newCar->ano)) {
+  printf("Ano: ");
+  scanf(" %4[^\n]", _newCar->ano);
+  //}
 
   printf("Preco: R$");
   scanf("%f", &_newCar->preco);
@@ -46,6 +46,22 @@ void singUpCar(Car **DataCar) {
 
   _newCar -> proxCar = *DataCar;
   *DataCar = _newCar;
+}
+
+// [ Ver todos os carros cadastrados ]
+void listCar(Car *DataCar) {
+  Car *aux = NULL;
+  for(aux = DataCar; aux != NULL; aux=aux->proxCar) {
+    printf("%s\n", aux->modelo);
+    printf("%s\n", aux->cor);
+    printf("%s\n", aux->ano);
+    printf("%.2f\n", aux->preco);
+    printf("%s\n", aux->placa);
+    printf("%s\n", aux->renavam);
+    printf("%d\n", aux->status);
+    printf("%d\n", aux->qtd_alugado);
+    printf("-------------------\n");
+  }
 }
 
 // >> [ Validações ]
