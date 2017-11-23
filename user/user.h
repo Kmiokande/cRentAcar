@@ -1,5 +1,24 @@
-struct end;
-typedef struct user User;
+struct end {
+  char sigla_estado[2];
+  char cidade[50];
+  char rua[50];
+  int numero;
+  char bairro[30];
+};
+
+typedef struct user {
+  char nome[50];
+  char sobrenome[50];
+  char data_nascimento[10];
+  char cpf[12];
+  char nome_mae[80];
+  char rg[20];
+  char cnh[20];
+  struct end endereco;
+  char email[80];
+  char fone[15];
+  struct user* proxUser;
+} User;
 
 // Maninupulação do arquivo
 void saveDataUser(char *array); // Salvar Dados em Arquivo 'user.dat'
@@ -9,7 +28,7 @@ char searchCar();
 // CRUD
 void listUser(User* DataUser);
 User* createListUser(void);
-User* singUpUser(User* DataUser); // Cadastrar usuário
+void singUpUser(User **DataUser); // Cadastrar usuário
 void editUser();
 void deleteUser();
 

@@ -5,63 +5,47 @@
 
 #include "car.h"
 
-typedef struct car {
-  char modelo[31];
-  char cor[9];
-  char ano[5];
-  char preco[11];
-  char placa[9];
-  char renavam[12];
-  char km[7];
-  int status;
-  int qtd_alugado;
-  struct car* proxCar;
-} Car;
-
 // >> [ CRUD ]
 //  [ Cria a lista encadeada vazia ]
 Car* createListCar() { return NULL; }
 
 // [ Cadastrar usuário ]
-Car* singUpCar(Car* DataCar) {
+void singUpCar(Car **DataCar) {
   Car* _newCar = (Car*)malloc(sizeof(Car));
-  _newCar->proxCar = DataCar;
 
-  if (_newCar != NULL) {
-
-    while (valModel(_newCar->modelo)) {
-      printf("Modelo: ");
-      scanf(" %30[^\n]", _newCar->modelo);
-    }
-
-    while (valColor(_newCar->cor)) {
-      printf("Cor: ");
-      scanf(" %8[^\n]", _newCar->cor);
-    }
-
-    while (valYear(_newCar->ano)) {
-      printf("Ano: ");
-      scanf(" %4[^\n]", _newCar->ano);
-    }
-
-    printf("Preco: R$");
-    scanf(" %10[^\n]", _newCar->preco);
-
-    while (valPlate(_newCar->placa)) {
-      printf("Placa: ");
-      scanf(" %8[^\n]", _newCar->placa);
-    }
-
-    while (valRenavam(_newCar->ano, _newCar->renavam)) {
-      printf("Renavam: ");
-      scanf(" %11[^\n]", _newCar->renavam);
-    }
-
-    _newCar->status = 1; // 1 - Disponível para alugar | 0 - Indisponível
-    _newCar->qtd_alugado = 0;
+  while (valModel(_newCar->modelo)) {
+    printf("Modelo: ");
+    scanf(" %30[^\n]", _newCar->modelo);
   }
 
-  return _newCar;
+  while (valColor(_newCar->cor)) {
+    printf("Cor: ");
+    scanf(" %8[^\n]", _newCar->cor);
+  }
+
+  while (valYear(_newCar->ano)) {
+    printf("Ano: ");
+    scanf(" %4[^\n]", _newCar->ano);
+  }
+
+  printf("Preco: R$");
+  scanf("%f", &_newCar->preco);
+
+  while (valPlate(_newCar->placa)) {
+    printf("Placa: ");
+    scanf(" %8[^\n]", _newCar->placa);
+  }
+
+  while (valRenavam(_newCar->ano, _newCar->renavam)) {
+    printf("Renavam: ");
+    scanf(" %11[^\n]", _newCar->renavam);
+  }
+
+  _newCar->status = 1; // 1 - Disponível para alugar | 0 - Indisponível
+  _newCar->qtd_alugado = 0;
+
+  _newCar -> proxCar = *DataCar;
+  *DataCar = _newCar;
 }
 
 // >> [ Validações ]

@@ -1,4 +1,15 @@
-typedef struct car Car;
+typedef struct car {
+  char modelo[31];
+  char cor[9];
+  char ano[5];
+  float preco;
+  char placa[9];
+  char renavam[12];
+  char km[7];
+  int status;
+  int qtd_alugado;
+  struct car* proxCar;
+} Car;
 
 // Maninupulação do arquivo
 void saveDataCar(char *array); // Salvar Dados em Arquivo 'car.dat'
@@ -8,7 +19,7 @@ char searchCar();
 // CRUD
 void listCar(Car* DataCar);
 Car* createListCar(void);
-Car* singUpCar(Car* DataCar); // Cadastrar usuário
+void singUpCar(Car **DataCar); // Cadastrar carro
 void editCar();
 void deleteCar();
 

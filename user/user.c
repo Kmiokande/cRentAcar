@@ -5,89 +5,66 @@
 
 #include "user.h"
 
-struct end {
-  char sigla_estado[2];
-  char cidade[50];
-  char rua[50];
-  int numero;
-  char bairro[30];
-};
-
-typedef struct user {
-  char nome[50];
-  char sobrenome[50];
-  char data_nascimento[10];
-  char cpf[12];
-  char nome_mae[80];
-  char rg[20];
-  char cnh[20];
-  struct end endereco;
-  char email[80];
-  char fone[15];
-  struct user* proxUser;
-} User;
-
 // >> [ CRUD ]
 //  [ Cria a lista encadeada vazia ]
 User* createListUser() { return NULL; }
 
 // [ Cadastrar usuário ]
-User* singUpUser(User* DataUser) {
-  User* _newUser = (User*)malloc(sizeof(User));
-  _newUser->proxUser = DataUser;
+void singUpUser(User **DataUser) {
+  User *_newUser = (User*)malloc(sizeof(User));
 
-  if (_newUser != NULL) {
-    while (valName(_newUser->nome)) {
-      printf("Nome: ");
-      scanf(" %49[^\n]", _newUser->nome);
-    }
-
-    while (valName(_newUser->sobrenome)) {
-      printf("Sobrenome: ");
-      scanf(" %49[^\n]", _newUser->sobrenome);
-    }
-
-    printf("Data de Nascimento: ");
-    scanf(" %9[^\n]", _newUser->data_nascimento);
-
-    while (valCPF(_newUser->cpf)) {
-      printf("CPF: ");
-      scanf(" %11[^\n]", _newUser->cpf);
-    }
-    while (valName(_newUser->nome_mae)) {
-      printf("Nome completo da Mãe: ");
-      scanf(" %49[^\n]", _newUser->nome_mae);
-    }
-
-    printf("RG: ");
-    scanf(" %49[^\n]", _newUser->rg);
-
-    printf("Endereço [Sigla do Estado]:");
-    scanf(" %49[^\n]", _newUser->endereco.sigla_estado);
-
-    printf("Endereço [Cidade]:");
-    scanf(" %49[^\n]", _newUser->endereco.cidade);
-
-    printf("Endereço [Rua]:");
-    scanf(" %49[^\n]", _newUser->endereco.rua);
-
-    printf("Endereço [Número]:");
-    scanf(" %d", &_newUser->endereco.numero);
-
-    printf("Endereço [Bairro]:");
-    scanf(" %49[^\n]", _newUser->endereco.bairro);
-
-    printf("CNH: ");
-    scanf(" %49[^\n]", _newUser->cnh);
-
-    printf("Email: ");
-    scanf(" %49[^\n]", _newUser->rg);
-
-    printf("Telefone: ");
-    scanf(" %49[^\n]", _newUser->fone);
+  while (valName(_newUser->nome)) {
+    printf("Nome: ");
+    scanf(" %49[^\n]", _newUser->nome);
   }
 
-  return _newUser;
+  while (valName(_newUser->sobrenome)) {
+    printf("Sobrenome: ");
+    scanf(" %49[^\n]", _newUser->sobrenome);
+  }
+
+  printf("Data de Nascimento: ");
+  scanf(" %9[^\n]", _newUser->data_nascimento);
+
+  while (valCPF(_newUser->cpf)) {
+    printf("CPF: ");
+    scanf(" %11[^\n]", _newUser->cpf);
+  }
+  
+  while (valName(_newUser->nome_mae)) {
+    printf("Nome completo da Mãe: ");
+    scanf(" %49[^\n]", _newUser->nome_mae);
+  }
+
+  printf("RG: ");
+  scanf(" %49[^\n]", _newUser->rg);
+
+  printf("Endereço [Sigla do Estado]:");
+  scanf(" %49[^\n]", _newUser->endereco.sigla_estado);
+
+  printf("Endereço [Cidade]:");
+  scanf(" %49[^\n]", _newUser->endereco.cidade);
+
+  printf("Endereço [Rua]:");
+  scanf(" %49[^\n]", _newUser->endereco.rua);
+
+  printf("Endereço [Número]: ");
+  scanf("%d", &_newUser->endereco.numero);
+
+  printf("Endereço [Bairro]:");
+  scanf(" %49[^\n]", _newUser->endereco.bairro);
+
+  printf("CNH: ");
+  scanf(" %49[^\n]", _newUser->cnh);
+
+  printf("Email: ");
+  scanf(" %49[^\n]", _newUser->rg);
+
+  printf("Telefone: ");
+  scanf(" %49[^\n]", _newUser->fone);
+
+  _newUser -> proxUser = *DataUser;
+  *DataUser = _newUser;
 }
 
 // [ Ver todos os Usuários cadastrados ]
