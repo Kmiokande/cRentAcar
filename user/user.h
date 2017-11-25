@@ -29,6 +29,7 @@ char searchCar();
 User* createListUser(void);
 void singUpUser(User **DataUser); // Cadastrar usuário
 void listUser(User *DataUser); // Ver todos os usuarios cadastrados
+int searchUser(User *DataUser);
 void editUser();
 void deleteUser();
 

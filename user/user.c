@@ -88,6 +88,22 @@ void listUser(User *DataUser) {
   }
 }
 
+// [ Verifica se existe o cpf cadastrado ]
+int searchUser(User *DataUser) {
+  char cpf[12];
+  printf("Informe o CPF: ");
+  scanf(" %11[^\n]", cpf);
+
+  for(User *aux = DataUser->cpf; aux != NULL; aux=aux->proxUser) {
+    if (strcmp(aux->cpf, cpf) == 0) // Se o cpf for igual ao cadastrado ele retorna 0
+      printf("%s\n", aux->nome);
+      printf("%s\n", aux->sobrenome);
+      return 1;
+  }
+  printf("Cliente não cadastrado\n");
+  return 0; // Não encontrou o elemento
+}
+
 // >> [ Validações ]
 // [ Validação de CPF ]
 int valCPF(char cpf[12]) {
