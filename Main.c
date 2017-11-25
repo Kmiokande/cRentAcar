@@ -87,7 +87,7 @@ void logoExit() {
 void mPrincipal(void) {
 	printf("\n*********************************\n");
 	printf("**       MENU PRINCIPAL        **\n");
-	printf("** [1] - MENU DE CADASTRAMENTO **\n");
+    printf("** [1] - MENU DE CLIENTE       **\n");
 	printf("** [2] - MENU DE LOCAÇÃO       **\n");
 	printf("** [3] - MENU DE VEÍCULOS      **\n");
 	printf("** [4] - MENU DE HISTÓRICOS    **\n");
@@ -98,7 +98,7 @@ void mPrincipal(void) {
 
 void mCadastramento() {
 	printf("\n**********************************\n");
-	printf("**    MENU DE CADASTRAMENTO     **\n");
+    printf("**    MENU DE CLIENTE           **\n");
 	printf("** [1] - CADASTRAR NOVO CLIENTE **\n");
 	printf("** [2] - CONSULTAR CLIENTE      **\n");
 	printf("** [3] - MOSTRAR CADASTROS      **\n");

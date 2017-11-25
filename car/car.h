@@ -23,6 +23,8 @@ void singUpCar(Car **DataCar); // Cadastrar carro
 void editCar();
 void deleteCar();
 
+void rentCar(Car *DataCar);
+
 // Validações
 int valModel(char model[31]); // Modelo
 int valColor(char color[9]); // Cor
