@@ -23,13 +23,12 @@ typedef struct user {
 // Maninupulação do arquivo
 void load(User *Data); // Salvar Dados em Arquivo 'user.dat'
 void save(User *Data); // Carregar Dados do Arquivo 'user.dat'
-char searchCar();
 
 // CRUD
 User* createListUser(void);
 void singUpUser(User **DataUser); // Cadastrar usuário
 void listUser(User *DataUser); // Ver todos os usuarios cadastrados
-int searchUser(User *DataUser);
+int searchUser(User *DataUser); // Busca cadastro do cliente pelo CPF
 void editUser();
 void deleteUser();
 

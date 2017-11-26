@@ -62,6 +62,23 @@ void listCar(Car *DataCar) {
   }
 }
 
+// [ Busca cadastro do carro pela placa ]
+int searchCar(Car *DataCar) {
+    char placa[9];
+    printf("Informe a placa: ");
+    scanf(" %8[^\n]", placa);
+
+    for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+        if (strcmp(aux->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
+            printf("%s\n", aux->modelo);
+            printf("%s\n", aux->cor);
+            return False();
+        }
+    }
+    printf("Carro não cadastrado\n");
+    return True(); // Não encontrou o elemento
+}
+
 void rentCar(Car *DataCar) { // Irei terminar depois | Dor de cabeça
     char placa[9];
     char cpf[12];

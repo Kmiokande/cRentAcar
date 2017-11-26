@@ -14,12 +14,12 @@ typedef struct car {
 // Maninupulação do arquivo
 void saveDataCar(char *array); // Salvar Dados em Arquivo 'car.dat'
 void loadDataCar(); // Carregar Dados do Arquivo 'car.dat'
-char searchCar();
 
 // CRUD
 void listCar(Car* DataCar);
 Car* createListCar(void);
 void singUpCar(Car **DataCar); // Cadastrar carro
+int searchCar(Car *DataCar); // Busca cadastro do carro pela placa
 void editCar();
 void deleteCar();
 

@@ -210,9 +210,10 @@ void mVeiculos() {
 	printf("\n******************************\n");
 	printf("**     MENU DE VEÍCULOS     **\n");
 	printf("** [1] - CADASTRAR VEÍCULO  **\n");
-	printf("** [2] - MOSTRAR VEÍCULOS   **\n");
-	printf("** [3] - EDITAR VEÍCULO     **\n");
-	printf("** [4] - EXCLUIR VEÍCULO    **\n");
+	printf("** [2] - CONSULTAR CARRO    **\n");
+	printf("** [3] - MOSTRAR VEÍCULOS   **\n");
+	printf("** [4] - EDITAR VEÍCULO     **\n");
+	printf("** [5] - EXCLUIR VEÍCULO    **\n");
 	printf("**                          **\n");
 	printf("** [0] - VOLTAR             **\n");
 	printf("******************************\n");
@@ -227,13 +228,14 @@ void mVeiculos() {
             getchar();
 	}
 	else if (op == 2) {
-		listCar(DataCar);
+		searchCar(DataCar);
+		
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
 	}
 	else if (op == 3) {
-		Indisponivel();
+		listCar(DataCar);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
