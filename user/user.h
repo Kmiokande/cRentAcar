@@ -9,7 +9,7 @@ struct end {
 typedef struct user {
   char nome[50];
   char sobrenome[50];
-    char data_nascimento[11];
+  char data_nascimento[11];
   char cpf[12];
   char nome_mae[80];
   char rg[20];
@@ -30,7 +30,7 @@ void singUpUser(User **DataUser); // Cadastrar usuário
 void listUser(User *DataUser); // Ver todos os usuarios cadastrados
 int searchUser(User *DataUser); // Busca cadastro do cliente pelo CPF
 void editUser();
-void deleteUser();
+void deleteUser(User *DataUser); // Deleta cadastro da lista
 
 // Validações
 int valCPF(char cpf[12]); // CPF

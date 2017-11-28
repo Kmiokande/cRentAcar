@@ -56,7 +56,10 @@ void listCar(Car *DataCar) {
     printf("Placa: %s\n", aux->placa);
     printf("Preço: %.2fR$\n", aux->preco);
     printf("Renavam: %s\n", aux->renavam);
-    printf("Status: %d\n", aux->status);
+    if(aux->status == 1)
+      printf("Status: Disponível\n");
+    else
+      printf("Status: Indisponível\n");
     printf("Quantidade de vezes alugado: %d\n", aux->qtd_alugado);
     printf("\n--------------------------------------------------\n");
   }
@@ -76,7 +79,10 @@ int searchCar(Car *DataCar) {
             printf("Placa: %s\n", aux->placa);
             printf("Preço: %.2fR$\n", aux->preco);
             printf("Renavam: %s\n", aux->renavam);
-            printf("Status: %d\n", aux->status);
+            if(aux->status == 1)
+              printf("Status: Disponível\n");
+            else
+              printf("Status: Indisponível\n");
             printf("Quantidade de vezes alugado: %d\n", aux->qtd_alugado);
             return False();
         }
