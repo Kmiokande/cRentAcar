@@ -12,26 +12,26 @@ void singUpUser(User **DataUser) {
     User *_newUser = (User *) malloc(sizeof(User));
 
     do {
-    printf("Nome: ");
-    scanf(" %49[^\n]", _newUser->nome);
+        printf("Nome: ");
+        scanf(" %49[^\n]", _newUser->nome);
     } while (validatorGlobal(_newUser->nome, 'S', 4));
 
     do {
-    printf("Sobrenome: ");
-    scanf(" %49[^\n]", _newUser->sobrenome);
+        printf("Sobrenome: ");
+        scanf(" %49[^\n]", _newUser->sobrenome);
     } while (validatorGlobal(_newUser->sobrenome, 'S', 4));
 
     printf("Data de Nascimento: ");
     scanf(" %10[^\n]", _newUser->data_nascimento);
 
     do {
-    printf("CPF: ");
-    scanf(" %11[^\n]", _newUser->cpf);
+        printf("CPF: ");
+        scanf(" %11[^\n]", _newUser->cpf);
     } while (valCPF(_newUser->cpf));
 
     do {
-    printf("Nome completo da Mãe: ");
-    scanf(" %49[^\n]", _newUser->nome_mae);
+        printf("Nome completo da Mãe: ");
+        scanf(" %49[^\n]", _newUser->nome_mae);
     } while (validatorGlobal(_newUser->nome_mae, 'S', 4));
 
 
@@ -39,26 +39,26 @@ void singUpUser(User **DataUser) {
     scanf(" %49[^\n]", _newUser->rg);
 
     do {
-    printf("Endereço [Sigla do Estado]: ");
-    scanf(" %2[^\n]", _newUser->endereco.sigla_estado);
+        printf("Endereço [Sigla do Estado]: ");
+        scanf(" %2[^\n]", _newUser->endereco.sigla_estado);
     } while (validatorGlobal(_newUser->endereco.sigla_estado, 'S', 2));
 
     do {
-    printf("Endereço [Cidade]:");
-    scanf(" %50[^\n]", _newUser->endereco.cidade);
+        printf("Endereço [Cidade]:");
+        scanf(" %50[^\n]", _newUser->endereco.cidade);
     } while (validatorGlobal(_newUser->endereco.cidade, 'S', 3));
 
     do {
-    printf("Endereço [Rua]:");
-    scanf(" %50[^\n]", _newUser->endereco.rua);
+        printf("Endereço [Rua]:");
+        scanf(" %50[^\n]", _newUser->endereco.rua);
     } while (validatorGlobal(_newUser->endereco.rua, 'S', 3));
 
     printf("Endereço [Número]: ");
     scanf(" %d", &_newUser->endereco.numero);
 
     do {
-    printf("Endereço [Bairro]:");
-    scanf(" %49[^\n]", _newUser->endereco.bairro);
+        printf("Endereço [Bairro]:");
+        scanf(" %49[^\n]", _newUser->endereco.bairro);
     } while (validatorGlobal(_newUser->endereco.bairro, 'S', 3));
 
     printf("CNH: ");
@@ -114,6 +114,77 @@ int searchUser(User *DataUser) {
     return True(); // Não encontrou o elemento
 }
 
+
+// [ Verifica se existe o cpf cadastrado ]
+void editUser(User *DataUser) {
+    char cpf[12];
+    printf("Informe o CPF: ");
+    scanf(" %11[^\n]", cpf);
+
+    for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
+        if (strcmp(aux->cpf, cpf) == 0) { // Se o cpf existir ele retorna 0
+            printf("O deseja editar?");
+            printf("1 - Nome");
+            printf("2 - Sobrenome");
+            printf("3 - Endereço");
+            printf("4 - Telefone");
+            printf("5 - Email");
+            int op;
+            scanf(" %d", &op);
+            switch (op) {
+                case 1:
+                    do {
+                        printf("Nome: ");
+                        scanf(" %49[^\n]", aux->nome);
+                    } while (validatorGlobal(aux->nome, 'S', 4));
+                case 2:
+                    do {
+                        printf("Sobrenome: ");
+                        scanf(" %49[^\n]", aux->sobrenome);
+                    } while (validatorGlobal(aux->sobrenome, 'S', 4));
+                case 3:
+                    do {
+                        printf("CPF: ");
+                        scanf(" %11[^\n]", aux->cpf);
+                    } while (valCPF(aux->cpf));
+                case 4:
+                    do {
+                        printf("Endereço [Sigla do Estado]: ");
+                        scanf(" %2[^\n]", aux->endereco.sigla_estado);
+                    } while (validatorGlobal(aux->endereco.sigla_estado, 'S', 2));
+
+                    do {
+                        printf("Endereço [Cidade]:");
+                        scanf(" %50[^\n]", aux->endereco.cidade);
+                    } while (validatorGlobal(aux->endereco.cidade, 'S', 3));
+
+                    do {
+                        printf("Endereço [Rua]:");
+                        scanf(" %50[^\n]", aux->endereco.rua);
+                    } while (validatorGlobal(aux->endereco.rua, 'S', 3));
+
+                    printf("Endereço [Número]: ");
+                    scanf(" %d", &aux->endereco.numero);
+
+                    do {
+                        printf("Endereço [Bairro]:");
+                        scanf(" %49[^\n]", aux->endereco.bairro);
+                    } while (validatorGlobal(aux->endereco.bairro, 'S', 3));
+                case 5:
+                    printf("Email: ");
+                    scanf(" %49[^\n]", aux->rg);
+                case 6:
+                    printf("Telefone: ");
+                    scanf(" %49[^\n]", aux->fone);
+                default:
+                    printf("Opção Inválida!");
+            }
+        }
+    }
+    printf("Cliente não cadastrado\n");
+}
+
+
 // [ Deleta cadastro do usuario ] 
 void deleteUser(User *DataUser) {
     char cpf[12];
@@ -123,16 +194,15 @@ void deleteUser(User *DataUser) {
     User *ant = NULL; // Ponteiro para elemento anterior
     User *aux = DataUser; // Ponteiro para percorrer a lista
     // Procura elemento na lista guardando o anterior
-    while(aux != NULL && DataUser->cpf != cpf) {
+    while (aux != NULL && DataUser->cpf != cpf) {
         ant = aux;
         aux = aux->proxUser;
     }
-    if(aux != NULL) { // Verifica se achou o elemento
+    if (aux != NULL) { // Verifica se achou o elemento
         // Retira elemento
-        if(ant == NULL) { // Retira o elemento do inicio da lista
+        if (ant == NULL) { // Retira o elemento do inicio da lista
             DataUser = aux->proxUser;
-        }
-        else { // Retira o elemento do meio da lista
+        } else { // Retira o elemento do meio da lista
             ant->proxUser = aux->proxUser;
         }
         free(aux); // Libera o elemento

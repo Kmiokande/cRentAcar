@@ -28,7 +28,7 @@ void saveUser(User *Data); // Carregar Dados do Arquivo 'user.dat'
 void singUpUser(User **DataUser); // Cadastrar usuário
 void listUser(User *DataUser); // Ver todos os usuarios cadastrados
 int searchUser(User *DataUser); // Busca cadastro do cliente pelo CPF
-void editUser();
+void editUser(User *DataUser);
 void deleteUser(User *DataUser); // Deleta cadastro da lista
 
 // Validações
