@@ -137,7 +137,7 @@ void mCadastramento() {
             getchar();
 	}
 	else if (op == 5) {
-		Indisponivel();
+		removeUser(DataUser);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
