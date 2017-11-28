@@ -21,7 +21,6 @@ int validatorGlobal(char vetor[], char type, int min) {
                 }
             }
             return True();
-
         } else if (type == 'S') {
             for (int i = 0; vetor[i] != '\0'; i++) {
                 if (vetor[i] >= 33 && vetor[i] <= 45 || vetor[i] >= 47 && vetor[i] <= 64) {

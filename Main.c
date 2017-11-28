@@ -22,6 +22,8 @@ Car *DataCar;
 int main() {
     User *DataUser = (User *) NULL;
     Car *DataCar = (Car *) NULL;
+//    loadUser(DataUser);
+
 	int op = 10;
 
 	while (op != 0) {

@@ -12,26 +12,26 @@ void singUpUser(User **DataUser) {
     User *_newUser = (User *) malloc(sizeof(User));
 
     do {
-        printf("Nome: ");
-        scanf(" %49[^\n]", _newUser->nome);
+    printf("Nome: ");
+    scanf(" %49[^\n]", _newUser->nome);
     } while (validatorGlobal(_newUser->nome, 'S', 4));
 
     do {
-        printf("Sobrenome: ");
-        scanf(" %49[^\n]", _newUser->sobrenome);
+    printf("Sobrenome: ");
+    scanf(" %49[^\n]", _newUser->sobrenome);
     } while (validatorGlobal(_newUser->sobrenome, 'S', 4));
 
     printf("Data de Nascimento: ");
     scanf(" %10[^\n]", _newUser->data_nascimento);
 
-    //while (valCPF(_newUser->cpf)) {
+    do {
     printf("CPF: ");
     scanf(" %11[^\n]", _newUser->cpf);
-    //}
+    } while (valCPF(_newUser->cpf));
 
     do {
-        printf("Nome completo da Mãe: ");
-        scanf(" %49[^\n]", _newUser->nome_mae);
+    printf("Nome completo da Mãe: ");
+    scanf(" %49[^\n]", _newUser->nome_mae);
     } while (validatorGlobal(_newUser->nome_mae, 'S', 4));
 
 
@@ -39,26 +39,26 @@ void singUpUser(User **DataUser) {
     scanf(" %49[^\n]", _newUser->rg);
 
     do {
-        printf("Endereço [Sigla do Estado]: ");
-        scanf(" %2[^\n]", _newUser->endereco.sigla_estado);
+    printf("Endereço [Sigla do Estado]: ");
+    scanf(" %2[^\n]", _newUser->endereco.sigla_estado);
     } while (validatorGlobal(_newUser->endereco.sigla_estado, 'S', 2));
 
     do {
-        printf("Endereço [Cidade]:");
-        scanf(" %50[^\n]", _newUser->endereco.cidade);
+    printf("Endereço [Cidade]:");
+    scanf(" %50[^\n]", _newUser->endereco.cidade);
     } while (validatorGlobal(_newUser->endereco.cidade, 'S', 3));
 
     do {
-        printf("Endereço [Rua]:");
-        scanf(" %50[^\n]", _newUser->endereco.rua);
+    printf("Endereço [Rua]:");
+    scanf(" %50[^\n]", _newUser->endereco.rua);
     } while (validatorGlobal(_newUser->endereco.rua, 'S', 3));
 
     printf("Endereço [Número]: ");
     scanf(" %d", &_newUser->endereco.numero);
 
     do {
-        printf("Endereço [Bairro]:");
-        scanf(" %49[^\n]", _newUser->endereco.bairro);
+    printf("Endereço [Bairro]:");
+    scanf(" %49[^\n]", _newUser->endereco.bairro);
     } while (validatorGlobal(_newUser->endereco.bairro, 'S', 3));
 
     printf("CNH: ");
@@ -72,7 +72,7 @@ void singUpUser(User **DataUser) {
 
     _newUser->proxUser = *DataUser;
     *DataUser = _newUser;
-    save(*DataUser);
+    saveUser(*DataUser);
 }
 
 // [ Ver todos os Usuários cadastrados ]
@@ -124,9 +124,6 @@ int valCPF(char cpf[12]) {
     // Se na condição o CPF não possuir 11 digitos apresenta erro, caso contrario
     // inicia a verificação dos dois ultimos digitos.
     if (comp != 11) {
-        if (comp > 0) {
-            printf("\n >> Digite os 11 caracteres do CPF! \n");
-        }
         return False();
     } else {
         for (i = 0; i < 11; i++) {  // Efetua a conversao do vetor de tipo char para
@@ -214,27 +211,27 @@ int valName(char name[50]) {
 // 	fclose(file);
 // }
 
-void save(User *Data) {
-    FILE *file;
-    file = fopen("user.dat", "r+b");
-    if (file == NULL) {
+void saveUser(User *Data) {
+    FILE *file = fopen("user/user.dat", "wb+");
+    if (!file) {
         printf("Houve um erro ao abrir o arquivo.\n");
     } else {
         fseek(file, 0, SEEK_SET);
-        fwrite(&Data, sizeof(User *), 1, file);
+        for (User *aux = Data; aux != NULL; aux = aux->proxUser) {
+            fwrite(aux, sizeof(User), 1, file);
+        }
         fclose(file);
 
     }
 }
 
-void load(User *Data) {
-    FILE *file;
-    file = fopen("user.dat", "r+b");
-    if (file == NULL) {
+void loadUser(User *Data) {
+    FILE *file = fopen("user/user.dat", "rb+");
+    if (!file) {
         printf("Houve um erro ao abrir o arquivo.\n");
     } else {
         fseek(file, 0, SEEK_SET);
-        fread(&Data, sizeof(User *), 1, file);
+        fread(&Data, sizeof(User), 1, file);
         fclose(file);
 
     }

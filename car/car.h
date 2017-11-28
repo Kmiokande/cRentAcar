@@ -6,6 +6,7 @@ typedef struct car {
   char placa[9];
   char renavam[12];
   char km[7];
+  char cpf[12];
   int status;
   int qtd_alugado;
   struct car* proxCar;
@@ -17,13 +18,13 @@ void loadDataCar(); // Carregar Dados do Arquivo 'car.dat'
 
 // CRUD
 void listCar(Car* DataCar);
-Car* createListCar(void);
 void singUpCar(Car **DataCar); // Cadastrar carro
 int searchCar(Car *DataCar); // Busca cadastro do carro pela placa
 void editCar();
 void deleteCar();
 
 void rentCar(Car *DataCar);
+void CarRented(Car *DataCar);
 
 // Validações
 int valModel(char model[31]); // Modelo
@@ -35,4 +36,5 @@ int valRenavam(char ano[5], char renavam[12]); // Renavam
 int valKm(char km[7]); // km's rodados
 int valDate(); // Data
 
+// Others
 int checkExist();
