@@ -114,6 +114,31 @@ int searchUser(User *DataUser) {
     return True(); // Não encontrou o elemento
 }
 
+// [ Deleta cadastro do usuario ] 
+void deleteUser(User *DataUser) {
+    char cpf[12];
+    printf("Informe o CPF:");
+    scanf(" %11[^\n]", cpf);
+
+    User *ant = NULL; // Ponteiro para elemento anterior
+    User *aux = DataUser; // Ponteiro para percorrer a lista
+    // Procura elemento na lista guardando o anterior
+    while(aux != NULL && DataUser->cpf != cpf) {
+        ant = aux;
+        aux = aux->proxUser;
+    }
+    if(aux != NULL) { // Verifica se achou o elemento
+        // Retira elemento
+        if(ant == NULL) { // Retira o elemento do inicio da lista
+            DataUser = aux->proxUser;
+        }
+        else { // Retira o elemento do meio da lista
+            ant->proxUser = aux->proxUser;
+        }
+        free(aux); // Libera o elemento
+    }
+}
+
 // >> [ Validações ]
 // [ Validação de CPF ]
 int valCPF(char cpf[12]) {

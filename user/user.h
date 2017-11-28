@@ -29,7 +29,7 @@ void singUpUser(User **DataUser); // Cadastrar usuário
 void listUser(User *DataUser); // Ver todos os usuarios cadastrados
 int searchUser(User *DataUser); // Busca cadastro do cliente pelo CPF
 void editUser();
-void deleteUser();
+void deleteUser(User *DataUser); // Deleta cadastro da lista
 
 // Validações
 int valCPF(char cpf[12]); // CPF
