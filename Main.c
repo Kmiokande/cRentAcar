@@ -210,7 +210,7 @@ void mVeiculos() {
 	printf("\n******************************\n");
 	printf("**     MENU DE VEÍCULOS     **\n");
 	printf("** [1] - CADASTRAR VEÍCULO  **\n");
-	printf("** [2] - CONSULTAR CARRO    **\n");
+	printf("** [2] - CONSULTAR VEÍCULO  **\n");
 	printf("** [3] - MOSTRAR VEÍCULOS   **\n");
 	printf("** [4] - EDITAR VEÍCULO     **\n");
 	printf("** [5] - EXCLUIR VEÍCULO    **\n");

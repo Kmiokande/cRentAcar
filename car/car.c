@@ -50,15 +50,15 @@ void singUpCar(Car **DataCar) {
 void listCar(Car *DataCar) {
   Car *aux = NULL;
   for(aux = DataCar; aux != NULL; aux=aux->proxCar) {
-    printf("%s\n", aux->modelo);
-    printf("%s\n", aux->cor);
-    printf("%s\n", aux->ano);
-    printf("%.2f\n", aux->preco);
-    printf("%s\n", aux->placa);
-    printf("%s\n", aux->renavam);
-    printf("%d\n", aux->status);
-    printf("%d\n", aux->qtd_alugado);
-    printf("-------------------\n");
+    printf("Modelo: %s\n", aux->modelo);
+    printf("Cor: %s\n", aux->cor);
+    printf("Ano: %s\n", aux->ano);
+    printf("Placa: %s\n", aux->placa);
+    printf("Preço: %.2fR$\n", aux->preco);
+    printf("Renavam: %s\n", aux->renavam);
+    printf("Status: %d\n", aux->status);
+    printf("Quantidade de vezes alugado: %d\n", aux->qtd_alugado);
+    printf("\n--------------------------------------------------\n");
   }
 }
 
@@ -70,8 +70,14 @@ int searchCar(Car *DataCar) {
 
     for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
         if (strcmp(aux->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
-            printf("%s\n", aux->modelo);
-            printf("%s\n", aux->cor);
+            printf("Modelo: %s\n", aux->modelo);
+            printf("Cor: %s\n", aux->cor);
+            printf("Ano: %s\n", aux->ano);
+            printf("Placa: %s\n", aux->placa);
+            printf("Preço: %.2fR$\n", aux->preco);
+            printf("Renavam: %s\n", aux->renavam);
+            printf("Status: %d\n", aux->status);
+            printf("Quantidade de vezes alugado: %d\n", aux->qtd_alugado);
             return False();
         }
     }
@@ -94,8 +100,6 @@ void rentCar(Car *DataCar) { // Irei terminar depois | Dor de cabeça
             DataCar->status = 0; // Errado aqui
         }
     }
-
-
 }
 
 // >> [ Validações ]
