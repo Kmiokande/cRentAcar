@@ -11,18 +11,18 @@
 void singUpUser(User **DataUser) {
     User *_newUser = (User *) malloc(sizeof(User));
 
-    do {
-        printf("Nome: ");
-        scanf(" %49[^\n]", _newUser->nome);
-    } while (validatorGlobal(_newUser->nome, 'S', 4));
-
-    do {
-        printf("Sobrenome: ");
-        scanf(" %49[^\n]", _newUser->sobrenome);
-    } while (validatorGlobal(_newUser->sobrenome, 'S', 4));
-
-    printf("Data de Nascimento: ");
-    scanf(" %10[^\n]", _newUser->data_nascimento);
+//    do {
+//        printf("Nome: ");
+//        scanf(" %49[^\n]", _newUser->nome);
+//    } while (validatorGlobal(_newUser->nome, 'S', 4));
+//
+//    do {
+//        printf("Sobrenome: ");
+//        scanf(" %49[^\n]", _newUser->sobrenome);
+//    } while (validatorGlobal(_newUser->sobrenome, 'S', 4));
+//
+//    printf("Data de Nascimento: ");
+//    scanf(" %10[^\n]", _newUser->data_nascimento);
 
     do {
         printf("CPF: ");
@@ -79,20 +79,9 @@ void singUpUser(User **DataUser) {
 void listUser(User *DataUser) {
     User *aux = NULL;
     for (aux = DataUser; aux != NULL; aux = aux->proxUser) {
-        printf("%s\n", aux->nome);
-        printf("%s\n", aux->sobrenome);
-        printf("%s\n", aux->data_nascimento);
-        printf("%s\n", aux->cpf);
-        printf("%s\n", aux->nome_mae);
-        printf("%s\n", aux->rg);
-        printf("%s\n", aux->endereco.sigla_estado);
-        printf("%s\n", aux->endereco.cidade);
-        printf("%s\n", aux->endereco.rua);
-        printf("%d\n", aux->endereco.numero);
-        printf("%s\n", aux->endereco.bairro);
-        printf("%s\n", aux->cnh);
-        printf("%s\n", aux->rg);
-        printf("%s\n", aux->fone);
+        printf("Nome: %s %s\n", aux->nome, aux->sobrenome);
+        printf("Data de Nascimento: %s\n", aux->data_nascimento);
+        printf("CPF: %s\n", aux->cpf);
         printf("-------------------\n");
     }
 }
@@ -213,26 +202,28 @@ void deleteUser(User *DataUser) {
 // >> [ Validações ]
 // [ Validação de CPF ]
 int valCPF(char cpf[12]) {
-    int i, comp, aux = 0, dig1;
+    int i, comp, aux = 0, dig;
     comp = (int) strlen(cpf);  // Contagem da quantidade de caracteres no vetor.
 
     if (comp == 11) { // Verifica se existe os 11 dígitos do CPF
-        for (i = 0; i < 9; i++) {  // Primeiro Dígito.
-            aux += (cpf[i] - 48) * (10 - i);
+        for (int j = 9; j <= 10 ; ++j) {
+            aux = 0;
+
+            for (i = 0; i < j; i++) {
+                aux += (cpf[i] - 48) * ((j+1) - i);
+            }
+
+            dig = aux % 11;
+            dig = (dig < 2 ? 0 : 11 - dig);
+
+            if ((cpf[j] - 48) != dig) {
+                printf("\n >> CPF inválido! \n");
+                return False();
+            }
         }
 
-        dig1 = aux % 11;
-        if (dig1 != 0) {
-            dig1 = (dig1 == 1 ? 0 : 11 - dig1);
-        }
-
-        // RESULTADOS DA VALIDAÇÃO.
-        if (dig1 == (cpf[9] - 48) && 0 == (cpf[10] - 48)) {
+            // RESULTADOS DA VALIDAÇÃO.
             return True();
-        } else {
-            printf("\n >> CPF inválido! \n");
-            return False();
-        }
     }
     printf("CPF Inválido!\n");
     return False();
