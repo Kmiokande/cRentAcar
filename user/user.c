@@ -182,20 +182,26 @@ void deleteUser(User *DataUser) {
     scanf(" %11[^\n]", cpf);
 
     User *ant = NULL; // Ponteiro para elemento anterior
-    User *aux = DataUser; // Ponteiro para percorrer a lista
+    User *p = DataUser; // Ponteiro para percorrer a lista
     // Procura elemento na lista guardando o anterior
-    while (aux != NULL && DataUser->cpf != cpf) {
-        ant = aux;
-        aux = aux->proxUser;
+    while (p != NULL && strcmp(p->cpf, cpf) != 0) {
+        ant = p;
+        p = p->proxUser;
+        printf("\n\tPassou!\n");
     }
-    if (aux != NULL) { // Verifica se achou o elemento
+    if (p != NULL) { // Verifica se achou o elemento
+        printf("\n\tAchou o elemento\n");
         // Retira elemento
         if (ant == NULL) { // Retira o elemento do inicio da lista
-            DataUser = aux->proxUser;
-        } else { // Retira o elemento do meio da lista
-            ant->proxUser = aux->proxUser;
+            DataUser = p->proxUser;
+            printf("\n\tRetirou o elemento do inicio da lista!\n");
+        } 
+        else { // Retira o elemento do meio da lista
+            ant->proxUser = p->proxUser;
+            printf("\n\tRetirou o elemento do meio da lista!\n");
         }
-        free(aux); // Libera o elemento
+        free(p); // Libera o elemento
+        printf("\n\tLiberou o elemento!\n");
     }
 }
 
