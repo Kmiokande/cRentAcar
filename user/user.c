@@ -124,30 +124,28 @@ void editUser(User *DataUser) {
     for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
         if (strcmp(aux->cpf, cpf) == 0) { // Se o cpf existir ele retorna 0
             printf("O deseja editar?");
-            printf("1 - Nome");
-            printf("2 - Sobrenome");
-            printf("3 - Endereço");
-            printf("4 - Telefone");
-            printf("5 - Email");
+            printf("\n1 - Nome");
+            printf("\n2 - Sobrenome");
+            printf("\n3 - Endereço");
+            printf("\n4 - Telefone");
+            printf("\n5 - Email");
+            printf("\nDígito da opção:");
             int op;
-            scanf(" %d", &op);
+            scanf(" %1d", &op);
             switch (op) {
                 case 1:
                     do {
                         printf("Nome: ");
                         scanf(" %49[^\n]", aux->nome);
                     } while (validatorGlobal(aux->nome, 'S', 4));
+                    break;
                 case 2:
                     do {
                         printf("Sobrenome: ");
                         scanf(" %49[^\n]", aux->sobrenome);
                     } while (validatorGlobal(aux->sobrenome, 'S', 4));
+                    break;
                 case 3:
-                    do {
-                        printf("CPF: ");
-                        scanf(" %11[^\n]", aux->cpf);
-                    } while (valCPF(aux->cpf));
-                case 4:
                     do {
                         printf("Endereço [Sigla do Estado]: ");
                         scanf(" %2[^\n]", aux->endereco.sigla_estado);
@@ -170,12 +168,15 @@ void editUser(User *DataUser) {
                         printf("Endereço [Bairro]:");
                         scanf(" %49[^\n]", aux->endereco.bairro);
                     } while (validatorGlobal(aux->endereco.bairro, 'S', 3));
-                case 5:
+                    break;
+                case 4:
                     printf("Email: ");
                     scanf(" %49[^\n]", aux->rg);
-                case 6:
+                    break;
+                case 5:
                     printf("Telefone: ");
                     scanf(" %49[^\n]", aux->fone);
+                    break;
                 default:
                     printf("Opção Inválida!");
             }
@@ -212,69 +213,45 @@ void deleteUser(User *DataUser) {
 // >> [ Validações ]
 // [ Validação de CPF ]
 int valCPF(char cpf[12]) {
-    int i, comp, aux = 0, dig1, dig2, result1, result2, valor;
+    int i, comp, aux = 0, dig1;
+    comp = (int) strlen(cpf);  // Contagem da quantidade de caracteres no vetor.
 
-    comp = strlen(cpf);  // Contagem da quantidade de caracteres no vetor.
-
-    // Se na condição o CPF não possuir 11 digitos apresenta erro, caso contrario
-    // inicia a verificação dos dois ultimos digitos.
-    if (comp != 11) {
-        return False();
-    } else {
-        for (i = 0; i < 11; i++) {  // Efetua a conversao do vetor de tipo char para
-            cpf[i] -= 48;  // um vetor de tipo int usando tabela ASCII.
-        }
-
+    if (comp == 11) { // Verifica se existe os 11 dígitos do CPF
         for (i = 0; i < 9; i++) {  // Primeiro Dígito.
-            aux += cpf[i] * (10 - i);
+            aux += (cpf[i] - 48) * (10 - i);
         }
 
-        result1 = aux % 11;
-
-        if (result1 == 0 || result1 == 1) {
-            dig1 = 0;
-        } else {
-            dig1 = 11 - result1;
-        }
-
-        aux = 0;  // Reseta o aux
-
-        for (i = 0; i < 10; i++) {  // Segundo Dígito.
-            aux += cpf[i] * (11 - i);
-        }
-
-        valor = (aux / 11) * 11;
-        result2 = aux - valor;
-
-        if (result2 == 0 || result2 == 1) {
-            dig2 = 0;
-        } else {
-            dig2 = 11 - result2;
+        dig1 = aux % 11;
+        if (dig1 != 0) {
+            dig1 = (dig1 == 1 ? 0 : 11 - dig1);
         }
 
         // RESULTADOS DA VALIDAÇÃO.
-        if (dig1 == cpf[9] && dig2 == cpf[10]) {
+        if (dig1 == (cpf[9] - 48) && 0 == (cpf[10] - 48)) {
             return True();
         } else {
             printf("\n >> CPF inválido! \n");
             return False();
         }
     }
+    printf("CPF Inválido!\n");
+    return False();
 }
 
 // [ Valida Nome e Sobrenome ]
 int valName(char name[50]) {
-    if (strlen(name) == 0 || strlen(name) < 4) {
-        return False();
-    }
-    for (int i = 0; name[i] != '\0'; i++) {
-        if (name[i] >= 33 && name[i] <= 45 || name[i] >= 47 && name[i] <= 64) {
-            printf("\n >> Nome inválido! \n");
-            return False();
+    int comp = (int) strlen(name);
+    if (comp > 4) {
+        for (int i = 0; name[i] != '\0'; i++) {
+            if (name[i] >= 33 && name[i] <= 45 || name[i] >= 47 && name[i] <= 64) {
+                printf("\n >> Nome inválido! \n");
+                return False();
+            }
         }
-    }
 
-    return True();
+        return True();
+    }
+    return False();
 }
 
 

@@ -133,13 +133,13 @@ void mCadastramento() {
             getchar();
 	}
 	else if (op == 4) {
-		Indisponivel();
+		editUser(DataUser);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
 	}
 	else if (op == 5) {
-		removeUser(DataUser);
+        deleteUser(DataUser);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
