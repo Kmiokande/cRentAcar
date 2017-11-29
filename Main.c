@@ -22,7 +22,7 @@ Car *DataCar;
 int main() {
     User *DataUser = (User *) NULL;
     Car *DataCar = (Car *) NULL;
-//    loadUser(DataUser);
+    loadUser(DataUser);
 
 	int op = 10;
 
@@ -139,7 +139,7 @@ void mCadastramento() {
             getchar();
 	}
 	else if (op == 5) {
-        deleteUser(DataUser);
+        DataUser = deleteUser(DataUser);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();
@@ -244,6 +244,12 @@ void mVeiculos() {
 	}
 	else if (op == 4) {
 		Indisponivel();
+		printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+            getchar();
+	}
+	else if (op == 5) {
+		DataCar = deleteCar(DataCar);
 		printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
             getchar();

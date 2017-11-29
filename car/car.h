@@ -21,7 +21,7 @@ void listCar(Car* DataCar);
 void singUpCar(Car **DataCar); // Cadastrar carro
 int searchCar(Car *DataCar); // Busca cadastro do carro pela placa
 void editCar();
-void deleteCar();
+Car *deleteCar(Car *DataCar); // Deleta cadastro do carro pela placa
 
 void rentCar(Car *DataCar);
 void CarRented(Car *DataCar);

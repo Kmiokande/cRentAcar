@@ -11,18 +11,20 @@
 void singUpUser(User **DataUser) {
     User *_newUser = (User *) malloc(sizeof(User));
 
-//    do {
-//        printf("Nome: ");
-//        scanf(" %49[^\n]", _newUser->nome);
-//    } while (validatorGlobal(_newUser->nome, 'S', 4));
-//
-//    do {
-//        printf("Sobrenome: ");
-//        scanf(" %49[^\n]", _newUser->sobrenome);
-//    } while (validatorGlobal(_newUser->sobrenome, 'S', 4));
-//
-//    printf("Data de Nascimento: ");
-//    scanf(" %10[^\n]", _newUser->data_nascimento);
+    do {
+        printf("Nome: ");
+        scanf(" %49[^\n]", _newUser->nome);
+    } while (validatorGlobal(_newUser->nome, 'S', 4));
+
+    do {
+        printf("Sobrenome: ");
+        scanf(" %49[^\n]", _newUser->sobrenome);
+    } while (validatorGlobal(_newUser->sobrenome, 'S', 4));
+
+    //do {
+    printf("Data de Nascimento: ");
+    scanf(" %11[^\n]", _newUser->data_nascimento);
+    //} while (valDate(_newUser->data_nascimento));
 
     do {
         printf("CPF: ");
@@ -174,9 +176,8 @@ void editUser(User *DataUser) {
     printf("Cliente não cadastrado\n");
 }
 
-
 // [ Deleta cadastro do usuario ] 
-void deleteUser(User *DataUser) {
+User *deleteUser(User *DataUser) {
     char cpf[12];
     printf("Informe o CPF:");
     scanf(" %11[^\n]", cpf);
@@ -189,20 +190,18 @@ void deleteUser(User *DataUser) {
         p = p->proxUser;
         printf("\n\tPassou!\n");
     }
-    if (p != NULL) { // Verifica se achou o elemento
+    if (p == NULL) // Verifica se achou o elemento
         printf("\n\tAchou o elemento\n");
         // Retira elemento
-        if (ant == NULL) { // Retira o elemento do inicio da lista
-            DataUser = p->proxUser;
-            printf("\n\tRetirou o elemento do inicio da lista!\n");
-        } 
-        else { // Retira o elemento do meio da lista
-            ant->proxUser = p->proxUser;
-            printf("\n\tRetirou o elemento do meio da lista!\n");
-        }
-        free(p); // Libera o elemento
-        printf("\n\tLiberou o elemento!\n");
+    if (ant == NULL) { // Retira o elemento do inicio da lista
+        DataUser = p->proxUser;
+        printf("\n\tRetirou o elemento do inicio da lista!\n");
+    } else { // Retira o elemento do meio da lista
+        ant->proxUser = p->proxUser;
+        printf("\n\tRetirou o elemento do meio da lista!\n");
     }
+    free(p); // Libera o elemento
+    return DataUser;
 }
 
 // >> [ Validações ]
@@ -211,12 +210,12 @@ int valCPF(char cpf[12]) {
     int i, comp, aux = 0, dig;
     comp = (int) strlen(cpf);  // Contagem da quantidade de caracteres no vetor.
 
-    if (comp == 11) { // Verifica se existe os 11 dígitos do CPF
-        for (int j = 9; j <= 10 ; ++j) {
+    if (comp == 11 && cpf[1] != cpf[3] && cpf[2] != cpf[7]) { // Verifica se existe os 11 dígitos do CPF
+        for (int j = 9; j <= 10; ++j) {
             aux = 0;
 
             for (i = 0; i < j; i++) {
-                aux += (cpf[i] - 48) * ((j+1) - i);
+                aux += (cpf[i] - 48) * ((j + 1) - i);
             }
 
             dig = aux % 11;
@@ -228,8 +227,8 @@ int valCPF(char cpf[12]) {
             }
         }
 
-            // RESULTADOS DA VALIDAÇÃO.
-            return True();
+        // RESULTADOS DA VALIDAÇÃO.
+        return True();
     }
     printf("CPF Inválido!\n");
     return False();
@@ -253,40 +252,34 @@ int valName(char name[50]) {
 
 
 // [ Validar Data ]
-// int valData(char data[11]) { // [-] Aceitar apenas 18 anos acima
-// 	if (strlen(data) > 0) {
-// 		for (int i = 0; data[i] != '\0'; ++i) {
-// 			if (i < 2) {
-// 				if (!(data[i] >= 48 && data[i] <= 57)) {
-//           			printf("Placa Inválida\n");
-//           			return False();
-//         		}
-// 			}
-// 			if (i > 3 && i < 6) {}
-// 		}
-// 		return True();
+int valData(char data[12]) { // [-] Aceitar apenas 18 anos acima
+    if (strlen(data) == 11) {
+        for (int i = 0; data[i] != '\0'; ++i) {
+            if (i < 2) {
+                if (!(data[i] >= 48 && data[i] <= 57)) {
+                    printf("Placa Inválida\n");
+                    return False();
+                }
+            }
+            if (i > 3 && i < 6) {}
+        }
+        return True();
 
-// 	} else {
-// 		return False();
-// 	}
+    } else {
+        return False();
+    }
 
-// }
+}
 
 // [ I/O dos dados e memoria ]
 
-// void saveDataUser(char* array) { // Salvar a lista em arquivo *.text
-// 	FILE *file = fopen("user.dat", "wb"); // Substitui todo o texto já
-// existente 	fwrite(User, sizeof(char), sizeof(user), file);
-// 	fclose(file);
-// }
-
-void saveUser(User *Data) {
-    FILE *file = fopen("user/user.dat", "wb+");
-    if (!file) {
+void saveUser(User *DataUser) {
+    FILE *file = fopen("user/user.dat", "wb");
+    if (file == NULL) {
         printf("Houve um erro ao abrir o arquivo.\n");
+        exit(1);
     } else {
-        fseek(file, 0, SEEK_SET);
-        for (User *aux = Data; aux != NULL; aux = aux->proxUser) {
+        for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
             fwrite(aux, sizeof(User), 1, file);
         }
         fclose(file);
@@ -294,14 +287,15 @@ void saveUser(User *Data) {
     }
 }
 
-void loadUser(User *Data) {
-    FILE *file = fopen("user/user.dat", "rb+");
-    if (!file) {
-        printf("Houve um erro ao abrir o arquivo.\n");
-    } else {
-        fseek(file, 0, SEEK_SET);
-        fread(&Data, sizeof(User), 1, file);
-        fclose(file);
+void loadUser(User *DataUser) {
+    FILE *file = fopen("user/user.dat", "rb");
+    User *_newUser = (User *) malloc(sizeof(User));
+    
+    int indice = 0;
 
-    }
+    while(fread(&_newUser, sizeof(User), 1, file)) {
+		DataUser->proxUser = _newUser;
+		printf("%s", _newUser->nome);
+	}
+	fclose(file);
 }

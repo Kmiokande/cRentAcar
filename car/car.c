@@ -104,6 +104,33 @@ void CarRented(Car *DataCar) {
 
 }
 
+// [ Deleta cadastro do carro ] 
+Car *deleteCar(Car *DataCar) {
+    char placa[9];
+    printf("Informe a placa: ");
+    scanf(" %8[^\n]", placa);
+
+    Car *ant = NULL; // Ponteiro para elemento anterior
+    Car *p = DataCar; // Ponteiro para percorrer a lista
+    // Procura elemento na lista guardando o anterior
+    while (p != NULL && strcmp(p->placa, placa) != 0) {
+        ant = p;
+        p = p->proxCar;
+        printf("\n\tPassou!\n");
+    }
+    if (p == NULL) // Verifica se achou o elemento
+        printf("\n\tAchou o elemento\n");
+        // Retira elemento
+    if (ant == NULL) { // Retira o elemento do inicio da lista
+        DataCar = p->proxCar;
+        printf("\n\tRetirou o elemento do inicio da lista!\n");
+    } else { // Retira o elemento do meio da lista
+        ant->proxCar = p->proxCar;
+        printf("\n\tRetirou o elemento do meio da lista!\n");
+    }
+    free(p); // Libera o elemento
+    return DataCar;
+}
 
 void rentCar(Car *DataCar) { // Irei terminar depois | Dor de cabeça
     char placa[9];
