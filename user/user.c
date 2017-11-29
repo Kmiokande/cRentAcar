@@ -294,8 +294,8 @@ void loadUser(User *DataUser) {
     int indice = 0;
 
     while(fread(&_newUser, sizeof(User), 1, file)) {
-		DataUser->proxUser = _newUser;
-		printf("%s", _newUser->nome);
-	}
-	fclose(file);
+        DataUser->proxUser = _newUser;
+        printf("%s", _newUser->nome);
+    }
+    fclose(file);
 }
