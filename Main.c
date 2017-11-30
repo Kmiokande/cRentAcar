@@ -20,7 +20,8 @@ User *DataUser = (User *) NULL;
 Car *DataCar = (Car *) NULL;
 
 int main() {
-    DataUser = loadUser(DataUser);
+    DataUser = loadUser(DataUser);	// Carrega os dados do arquivo user.dat
+    DataCar = loadCar(DataCar);		// Carrega os dados do arquivo car.dat
 
 	int op = 10;
 

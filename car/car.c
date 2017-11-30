@@ -40,11 +40,15 @@ void singUpCar(Car **DataCar) {
         scanf(" %11[^\n]", _newCar->renavam);
     }
 
+    printf("Km: ");
+    scanf(" %6[^\n]", _newCar->km);   
+
     _newCar->status = 1; // 1 - Disponível para alugar | 0 - Indisponível
     _newCar->qtd_alugado = 0;
 
     _newCar->proxCar = *DataCar;
     *DataCar = _newCar;
+    saveCar(*DataCar);
 }
 
 // [ Ver todos os carros cadastrados ]
@@ -57,6 +61,7 @@ void listCar(Car *DataCar) {
     printf("Placa: %s\n", aux->placa);
     printf("Preço: %.2fR$\n", aux->preco);
     printf("Renavam: %s\n", aux->renavam);
+    printf("Km: %s\n", aux->km);
     if(aux->status == 1)
       printf("Status: Disponível\n");
     else
@@ -80,6 +85,7 @@ int searchCar(Car *DataCar) {
             printf("Placa: %s\n", aux->placa);
             printf("Preço: %.2fR$\n", aux->preco);
             printf("Renavam: %s\n", aux->renavam);
+            printf("Km: %s\n", aux->km);
             if(aux->status == 1)
               printf("Status: Disponível\n");
             else
@@ -249,13 +255,58 @@ int valKm(char km[7]) {
     return True();
 }
 
-// >> [ File I/O ]
-void saveDataCar(char *array) {
-    FILE *file = fopen("car.dat", "a+"); // Substitui todo o texto já existente
-    if (file != NULL) {
-        fwrite(array, sizeof(char), sizeof(array), file);
-        fclose(file);
-    } else {
-        printf("Arquivo aberto ou não encontrado\n");
+// [ I/O dos dados e memoria ]
+void saveCar(Car *DataCar) {
+    FILE *file = fopen("car/car.dat", "w+");
+    if (file == NULL) {
+        printf("Houve um erro ao abrir o arquivo.\n");
+        exit(1);
     }
+    else {
+        for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+            fprintf(file, "%s|%s|%s|%.2f|%s|%s|%s|%d|%d|\n", aux->modelo, aux->cor, aux->ano, aux->preco, aux->placa, aux->renavam, aux->km, aux->status, aux->qtd_alugado);
+    }
+    fclose(file);
+    }
+}
+
+Car *loadCar(Car *DataCar) {
+    FILE *file = fopen("car/car.dat", "r");
+
+    char modelo[31];
+    char cor[9];
+    char ano[5];
+    float preco;
+    char placa[9];
+    char renavam[12];
+    char km[7];
+    char cpf[12];
+    int status;
+    int qtd_alugado;
+
+    if (file == NULL) {
+        printf("Erro, não foi possivel abrir o arquivo\n");
+    }
+    else {
+        while(fscanf(file, "%30[^|]|%8[^|]|%4[^|]|%f|%8[^|]|%11[^|]|%6[^|]|%d|%d|\n", modelo, cor, ano, &preco, placa, renavam, km, &status, &qtd_alugado) != EOF) {
+            Car *_newCar = (Car *) malloc(sizeof(Car));
+            
+            strcpy(_newCar->modelo, modelo);
+            strcpy(_newCar->cor, cor);
+            strcpy(_newCar->ano, ano);
+            _newCar->preco = preco;
+            strcpy(_newCar->placa, placa);
+            strcpy(_newCar->renavam, renavam);
+            strcpy(_newCar->km, km);
+            _newCar->status = status;
+            _newCar->qtd_alugado = qtd_alugado;
+
+            printf("%s", _newCar->modelo);
+            
+            _newCar->proxCar = DataCar;
+            DataCar = _newCar;
+        }
+    }
+    fclose(file);
+    return DataCar;
 }

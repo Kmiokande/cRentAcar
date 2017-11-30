@@ -13,8 +13,8 @@ typedef struct car {
 } Car;
 
 // Maninupulação do arquivo
-void saveDataCar(char *array); // Salvar Dados em Arquivo 'car.dat'
-void loadDataCar(); // Carregar Dados do Arquivo 'car.dat'
+void saveCar(Car *DataCar); // Salvar Dados em Arquivo 'car.dat'
+Car *loadCar(Car *DataCar); // Carregar Dados do Arquivo 'car.dat'
 
 // CRUD
 void listCar(Car* DataCar);
