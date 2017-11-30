@@ -17,6 +17,7 @@ typedef struct user {
   struct end endereco;
   char email[80];
   char fone[15];
+  int score;
   struct user* proxUser;
 } User;
 
@@ -27,7 +28,7 @@ void saveUser(User *DataUser); // Carregar Dados do Arquivo 'user.dat'
 // CRUD
 void singUpUser(User **DataUser); // Cadastrar usuário
 void listUser(User *DataUser); // Ver todos os usuarios cadastrados
-int searchUser(User *DataUser); // Busca cadastro do cliente pelo CPF
+void searchUser(User *DataUser); // Busca cadastro do cliente pelo CPF
 void editUser(User *DataUser);
 
 User *deleteUser(User *DataUser); // Deleta cadastro da lista

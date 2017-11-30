@@ -46,12 +46,12 @@ void singUpUser(User **DataUser) {
     } while (validatorGlobal(_newUser->endereco.sigla_estado, 'S', 2));
 
     do {
-        printf("Endereço [Cidade]:");
+        printf("Endereço [Cidade]: ");
         scanf(" %50[^\n]", _newUser->endereco.cidade);
     } while (validatorGlobal(_newUser->endereco.cidade, 'S', 3));
 
     do {
-        printf("Endereço [Rua]:");
+        printf("Endereço [Rua]: ");
         scanf(" %50[^\n]", _newUser->endereco.rua);
     } while (validatorGlobal(_newUser->endereco.rua, 'S', 3));
 
@@ -72,6 +72,8 @@ void singUpUser(User **DataUser) {
     printf("Telefone: ");
     scanf(" %49[^\n]", _newUser->fone);
 
+    _newUser->score = 0;
+
     _newUser->proxUser = *DataUser;
     *DataUser = _newUser;
     saveUser(*DataUser);
@@ -79,19 +81,23 @@ void singUpUser(User **DataUser) {
 
 // [ Ver todos os Usuários cadastrados ]
 void listUser(User *DataUser) {
-    User *aux = NULL;
-    for (aux = DataUser; aux != NULL; aux = aux->proxUser) {
-        printf("Nome: %s %s\n", aux->nome, aux->sobrenome);
-        printf("Data de Nascimento: %s\n", aux->data_nascimento);
-        printf("CPF: %s\n", aux->cpf);
-        printf("Email: %s\n", aux->email);
-        printf("Fone: %s\n", aux->fone);
-        printf("-------------------\n");
+    if (DataUser != NULL) {
+        User *aux = NULL;
+        for (aux = DataUser; aux != NULL; aux = aux->proxUser) {
+            printf("\nNome: %s %s\n", aux->nome, aux->sobrenome);
+            printf("Data de Nascimento: %s\n", aux->data_nascimento);
+            printf("CPF: %s\n", aux->cpf);
+            printf("Email: %s\n", aux->email);
+            printf("Fone: %s\n", aux->fone);
+            printf("-------------------\n");
+        }
+    } else {
+        printf("\n\n>> Sem usuários cadastrados!\n");
     }
 }
 
 // [ Verifica se existe o cpf cadastrado ]
-int searchUser(User *DataUser) {
+void searchUser(User *DataUser) {
     char cpf[12];
     printf("Informe o CPF: ");
     scanf(" %11[^\n]", cpf);
@@ -100,11 +106,10 @@ int searchUser(User *DataUser) {
         if (strcmp(aux->cpf, cpf) == 0) { // Se o cpf for igual ao cadastrado ele retorna 0
             printf("%s\n", aux->nome);
             printf("%s\n", aux->sobrenome);
-            return False();
+            return;
         }
     }
-    printf("Cliente não cadastrado\n");
-    return True(); // Não encontrou o elemento
+    printf("\n\n>> Cliente não encontrado cadastrados!\n"); // Não encontrou o elemento
 }
 
 
@@ -145,12 +150,12 @@ void editUser(User *DataUser) {
                     } while (validatorGlobal(aux->endereco.sigla_estado, 'S', 2));
 
                     do {
-                        printf("Endereço [Cidade]:");
+                        printf("Endereço [Cidade]: ");
                         scanf(" %50[^\n]", aux->endereco.cidade);
                     } while (validatorGlobal(aux->endereco.cidade, 'S', 3));
 
                     do {
-                        printf("Endereço [Rua]:");
+                        printf("Endereço [Rua]: ");
                         scanf(" %50[^\n]", aux->endereco.rua);
                     } while (validatorGlobal(aux->endereco.rua, 'S', 3));
 
@@ -158,7 +163,7 @@ void editUser(User *DataUser) {
                     scanf(" %d", &aux->endereco.numero);
 
                     do {
-                        printf("Endereço [Bairro]:");
+                        printf("Endereço [Bairro]: ");
                         scanf(" %49[^\n]", aux->endereco.bairro);
                     } while (validatorGlobal(aux->endereco.bairro, 'S', 3));
                     break;
@@ -190,11 +195,10 @@ User *deleteUser(User *DataUser) {
     while (p != NULL && strcmp(p->cpf, cpf) != 0) {
         ant = p;
         p = p->proxUser;
-        printf("\n\tPassou!\n");
     }
     if (p == NULL) // Verifica se achou o elemento
         printf("\n\tAchou o elemento\n");
-        // Retira elemento
+    // Retira elemento
     if (ant == NULL) { // Retira o elemento do inicio da lista
         DataUser = p->proxUser;
         printf("\n\tRetirou o elemento do inicio da lista!\n");
@@ -216,9 +220,8 @@ int valCPF(char cpf[12]) {
         for (int j = 9; j <= 10; ++j) {
             aux = 0;
 
-            for (i = 0; i < j; i++) {
+            for (i = 0; i < j; i++)
                 aux += (cpf[i] - 48) * ((j + 1) - i);
-            }
 
             dig = aux % 11;
             dig = (dig < 2 ? 0 : 11 - dig);
@@ -232,7 +235,7 @@ int valCPF(char cpf[12]) {
         // RESULTADOS DA VALIDAÇÃO.
         return True();
     }
-    printf("CPF Inválido!\n");
+    printf(">> CPF Inválido!\n");
     return False();
 }
 
@@ -274,18 +277,16 @@ int valData(char data[12]) { // [-] Aceitar apenas 18 anos acima
 }
 
 // [ I/O dos dados e memoria ]
-
 void saveUser(User *DataUser) {
     FILE *file = fopen("user/user.dat", "w+");
     if (file == NULL) {
         printf("Houve um erro ao abrir o arquivo.\n");
         exit(1);
-    }
-    else {
+    } else {
         for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
-            fprintf(file, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%s|\n", aux->nome, aux->sobrenome, aux->data_nascimento, aux->cpf, aux->nome_mae, aux->rg, aux->endereco.sigla_estado, aux->endereco.cidade, aux->endereco.rua, aux->endereco.numero, aux->endereco.bairro, aux->cnh, aux->email, aux->fone);
-    }
-    fclose(file);
+            fprintf(file, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%s|%d|\n", aux->nome, aux->sobrenome, aux->data_nascimento, aux->cpf, aux->nome_mae, aux->rg, aux->endereco.sigla_estado, aux->endereco.cidade, aux->endereco.rua, aux->endereco.numero, aux->endereco.bairro, aux->cnh, aux->email, aux->fone, aux->score);
+        }
+        fclose(file);
     }
 }
 
@@ -306,33 +307,33 @@ User *loadUser(User *DataUser) {
     char cnh[20];
     char email[80];
     char fone[15];
+    int score;
 
     if (file == NULL) {
         printf("Erro, não foi possivel abrir o arquivo\n");
-    }
-    else {
-        while(fscanf(file, "%49[^|]|%49[^|]|%11[^|]|%11[^|]|%79[^|]|%19[^|]|%2[^|]|%50[^|]|%50[^|]|%d|%30[^|]|%19[^|]|%79[^|]|%14[^|]|\n", nome, sobrenome, data_nascimento, cpf, nome_mae, rg, sigla_estado, cidade, rua, &numero, bairro, cnh, email, fone) != EOF) {
+    } else {
+        while (fscanf(file, "%49[^|]|%49[^|]|%11[^|]|%11[^|]|%79[^|]|%19[^|]|%2[^|]|%50[^|]|%50[^|]|%d|%30[^|]|%19[^|]|%79[^|]|%14[^|]|%d|\n", nome, sobrenome, data_nascimento, cpf, nome_mae, rg, sigla_estado, cidade, rua, &numero, bairro, cnh, email, fone, &score) != EOF) {
             User *_newUser = (User *) malloc(sizeof(User));
-            
-            strcpy(_newUser->nome, nome);
-            strcpy(_newUser->sobrenome, sobrenome);
-            strcpy(_newUser->data_nascimento, data_nascimento);
-            strcpy(_newUser->cpf, cpf);
-            strcpy(_newUser->nome_mae, nome_mae);
-            strcpy(_newUser->rg, rg);
-            strcpy(_newUser->endereco.sigla_estado, sigla_estado);
-            strcpy(_newUser->endereco.cidade, cidade);
-            strcpy(_newUser->endereco.rua, rua);
-            _newUser->endereco.numero = numero;
-            strcpy(_newUser->endereco.bairro, bairro);
-            strcpy(_newUser->cnh, cnh);
-            strcpy(_newUser->email, email);
-            strcpy(_newUser->fone, fone);
 
-            printf("%s", _newUser->nome);
-            
-            _newUser->proxUser = DataUser;
-            DataUser = _newUser;
+            if (nome[0] >= 33) {
+                strcpy(_newUser->nome, nome);
+                strcpy(_newUser->sobrenome, sobrenome);
+                strcpy(_newUser->data_nascimento, data_nascimento);
+                strcpy(_newUser->cpf, cpf);
+                strcpy(_newUser->nome_mae, nome_mae);
+                strcpy(_newUser->rg, rg);
+                strcpy(_newUser->endereco.sigla_estado, sigla_estado);
+                strcpy(_newUser->endereco.cidade, cidade);
+                strcpy(_newUser->endereco.rua, rua);
+                _newUser->endereco.numero = numero;
+                strcpy(_newUser->endereco.bairro, bairro);
+                strcpy(_newUser->cnh, cnh);
+                strcpy(_newUser->email, email);
+                strcpy(_newUser->fone, fone);
+
+                _newUser->proxUser = DataUser;
+                DataUser = _newUser;
+            }
         }
     }
     fclose(file);

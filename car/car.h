@@ -12,15 +12,11 @@ typedef struct car {
   struct car* proxCar;
 } Car;
 
-// Maninupulação do arquivo
-void saveCar(Car *DataCar); // Salvar Dados em Arquivo 'car.dat'
-Car *loadCar(Car *DataCar); // Carregar Dados do Arquivo 'car.dat'
-
 // CRUD
 void listCar(Car* DataCar);
 void singUpCar(Car **DataCar); // Cadastrar carro
 int searchCar(Car *DataCar); // Busca cadastro do carro pela placa
-void editCar();
+void editCar(Car *DataCar);
 Car *deleteCar(Car *DataCar); // Deleta cadastro do carro pela placa
 
 void rentCar(Car *DataCar);
@@ -35,6 +31,10 @@ int valPlate(char plate[9]); // Placa
 int valRenavam(char ano[5], char renavam[12]); // Renavam
 int valKm(char km[7]); // km's rodados
 int valDate(); // Data
+
+// Maninupulação do arquivo
+void saveCar(Car *DataCar); // Salvar Dados em Arquivo 'car.dat'
+Car *loadCar(Car *DataCar); // Carregar Dados do Arquivo 'car.dat'
 
 // Others
 int checkExist();

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "functions.h"
 
 int False() {
     return 1;

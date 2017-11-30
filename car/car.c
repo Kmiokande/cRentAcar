@@ -41,7 +41,7 @@ void singUpCar(Car **DataCar) {
     }
 
     printf("Km: ");
-    scanf(" %6[^\n]", _newCar->km);   
+    scanf(" %6[^\n]", _newCar->km);
 
     _newCar->status = 1; // 1 - Disponível para alugar | 0 - Indisponível
     _newCar->qtd_alugado = 0;
@@ -51,24 +51,63 @@ void singUpCar(Car **DataCar) {
     saveCar(*DataCar);
 }
 
+// Editar atributos do carro
+void editCar(Car *DataCar) {
+    char placa[9];
+    printf("Informe a Placa do carro: ");
+    scanf(" %8[^\n]", placa);
+}
+
+// [ Deleta cadastro do carro ]
+Car *deleteCar(Car *DataCar) {
+    char placa[9];
+    printf("Informe a placa: ");
+    scanf(" %8[^\n]", placa);
+
+    Car *ant = NULL; // Ponteiro para elemento anterior
+    Car *p = DataCar; // Ponteiro para percorrer a lista
+    // Procura elemento na lista guardando o anterior
+    while (p != NULL && strcmp(p->placa, placa) != 0) {
+        ant = p;
+        p = p->proxCar;
+        printf("\n\tPassou!\n");
+    }
+    if (p == NULL) // Verifica se achou o elemento
+        printf("\n\tAchou o elemento\n");
+    // Retira elemento
+    if (ant == NULL) { // Retira o elemento do inicio da lista
+        DataCar = p->proxCar;
+        printf("\n\tRetirou o elemento do inicio da lista!\n");
+    } else { // Retira o elemento do meio da lista
+        ant->proxCar = p->proxCar;
+        printf("\n\tRetirou o elemento do meio da lista!\n");
+    }
+    free(p); // Libera o elemento
+    return DataCar;
+}
+
 // [ Ver todos os carros cadastrados ]
 void listCar(Car *DataCar) {
-  Car *aux = NULL;
-  for(aux = DataCar; aux != NULL; aux=aux->proxCar) {
-    printf("Modelo: %s\n", aux->modelo);
-    printf("Cor: %s\n", aux->cor);
-    printf("Ano: %s\n", aux->ano);
-    printf("Placa: %s\n", aux->placa);
-    printf("Preço: %.2fR$\n", aux->preco);
-    printf("Renavam: %s\n", aux->renavam);
-    printf("Km: %s\n", aux->km);
-    if(aux->status == 1)
-      printf("Status: Disponível\n");
-    else
-      printf("Status: Indisponível\n");
-    printf("Quantidade de vezes alugado: %d\n", aux->qtd_alugado);
-    printf("\n--------------------------------------------------\n");
-  }
+    if (DataCar != NULL) {
+        Car *aux = NULL;
+        for (aux = DataCar; aux != NULL; aux = aux->proxCar) {
+            printf("Modelo: %s\n", aux->modelo);
+            printf("Cor: %s\n", aux->cor);
+            printf("Ano: %s\n", aux->ano);
+            printf("Placa: %s\n", aux->placa);
+            printf("Preço: %.2fR$\n", aux->preco);
+            printf("Renavam: %s\n", aux->renavam);
+            printf("Km: %s\n", aux->km);
+            if (aux->status == 1)
+                printf("Status: Disponível\n");
+            else
+                printf("Status: Indisponível\n");
+            printf("Quantidade de vezes alugado: %d\n", aux->qtd_alugado);
+            printf("\n--------------------------------------------------\n");
+        }
+    } else {
+        printf("\n\n>> Sem veículos cadastrados!\n");
+    }
 }
 
 // [ Busca cadastro do carro pela placa ]
@@ -86,10 +125,10 @@ int searchCar(Car *DataCar) {
             printf("Preço: %.2fR$\n", aux->preco);
             printf("Renavam: %s\n", aux->renavam);
             printf("Km: %s\n", aux->km);
-            if(aux->status == 1)
-              printf("Status: Disponível\n");
+            if (aux->status == 1)
+                printf("Status: Disponível\n");
             else
-              printf("Status: Indisponível\n");
+                printf("Status: Indisponível\n");
             printf("Quantidade de vezes alugado: %d\n", aux->qtd_alugado);
             return False();
         }
@@ -100,42 +139,16 @@ int searchCar(Car *DataCar) {
 
 // [ Carros Alugados ]
 void CarRented(Car *DataCar) {
-     for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-        if (aux->status == 0) { // Se 0, está alugado
-            printf("%s - [ %s ]", aux->modelo, aux->placa);
-        } else {
-            printf("Nenhum Carro alugado!\n");
+    if (DataCar != NULL) {
+        for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+            if (aux->status == 0) { // Se 0, está alugado
+                printf("%s - [ %s ]", aux->modelo, aux->placa);
+            }
         }
+    } else {
+        printf("Nenhum Carro alugado!\n");
     }
 
-}
-
-// [ Deleta cadastro do carro ] 
-Car *deleteCar(Car *DataCar) {
-    char placa[9];
-    printf("Informe a placa: ");
-    scanf(" %8[^\n]", placa);
-
-    Car *ant = NULL; // Ponteiro para elemento anterior
-    Car *p = DataCar; // Ponteiro para percorrer a lista
-    // Procura elemento na lista guardando o anterior
-    while (p != NULL && strcmp(p->placa, placa) != 0) {
-        ant = p;
-        p = p->proxCar;
-        printf("\n\tPassou!\n");
-    }
-    if (p == NULL) // Verifica se achou o elemento
-        printf("\n\tAchou o elemento\n");
-        // Retira elemento
-    if (ant == NULL) { // Retira o elemento do inicio da lista
-        DataCar = p->proxCar;
-        printf("\n\tRetirou o elemento do inicio da lista!\n");
-    } else { // Retira o elemento do meio da lista
-        ant->proxCar = p->proxCar;
-        printf("\n\tRetirou o elemento do meio da lista!\n");
-    }
-    free(p); // Libera o elemento
-    return DataCar;
 }
 
 void rentCar(Car *DataCar) { // Irei terminar depois | Dor de cabeça
@@ -152,13 +165,15 @@ void rentCar(Car *DataCar) { // Irei terminar depois | Dor de cabeça
         if (strcmp(aux->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
             aux->status = 0;
             do {
-            printf("CPF: ");
-            scanf(" %11[^\n]", aux->cpf);
+                printf("CPF: ");
+                scanf(" %11[^\n]", aux->cpf);
             } while (valCPF(aux->cpf));
             printf("Quantos dias de aluguel?");
             scanf(" %d", &dias);
-            printf("O Preço Tota R$: %f", dias*aux->preco);
+            printf("O Preço Tota R$: %f", dias * aux->preco);
             printf("Carro alugado com sucesso!");
+            
+            aux->status++;
         }
     }
 }
@@ -261,12 +276,12 @@ void saveCar(Car *DataCar) {
     if (file == NULL) {
         printf("Houve um erro ao abrir o arquivo.\n");
         exit(1);
-    }
-    else {
+    } else {
         for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-            fprintf(file, "%s|%s|%s|%.2f|%s|%s|%s|%d|%d|\n", aux->modelo, aux->cor, aux->ano, aux->preco, aux->placa, aux->renavam, aux->km, aux->status, aux->qtd_alugado);
-    }
-    fclose(file);
+            fprintf(file, "%s|%s|%s|%.2f|%s|%s|%s|%d|%d|\n", aux->modelo, aux->cor, aux->ano, aux->preco, aux->placa,
+                    aux->renavam, aux->km, aux->status, aux->qtd_alugado);
+        }
+        fclose(file);
     }
 }
 
@@ -286,11 +301,11 @@ Car *loadCar(Car *DataCar) {
 
     if (file == NULL) {
         printf("Erro, não foi possivel abrir o arquivo\n");
-    }
-    else {
-        while(fscanf(file, "%30[^|]|%8[^|]|%4[^|]|%f|%8[^|]|%11[^|]|%6[^|]|%d|%d|\n", modelo, cor, ano, &preco, placa, renavam, km, &status, &qtd_alugado) != EOF) {
+    } else {
+        while (fscanf(file, "%30[^|]|%8[^|]|%4[^|]|%f|%8[^|]|%11[^|]|%6[^|]|%d|%d|\n", modelo, cor, ano, &preco, placa,
+                      renavam, km, &status, &qtd_alugado) != EOF) {
             Car *_newCar = (Car *) malloc(sizeof(Car));
-            
+
             strcpy(_newCar->modelo, modelo);
             strcpy(_newCar->cor, cor);
             strcpy(_newCar->ano, ano);
@@ -302,7 +317,7 @@ Car *loadCar(Car *DataCar) {
             _newCar->qtd_alugado = qtd_alugado;
 
             printf("%s", _newCar->modelo);
-            
+
             _newCar->proxCar = DataCar;
             DataCar = _newCar;
         }
