@@ -67,7 +67,7 @@ void singUpUser(User **DataUser) {
     scanf(" %49[^\n]", _newUser->cnh);
 
     printf("Email: ");
-    scanf(" %49[^\n]", _newUser->rg);
+    scanf(" %49[^\n]", _newUser->email);
 
     printf("Telefone: ");
     scanf(" %49[^\n]", _newUser->fone);
@@ -162,7 +162,7 @@ void editUser(User *DataUser) {
                     break;
                 case 4:
                     printf("Email: ");
-                    scanf(" %49[^\n]", aux->rg);
+                    scanf(" %49[^\n]", aux->email);
                     break;
                 case 5:
                     printf("Telefone: ");
@@ -274,28 +274,63 @@ int valData(char data[12]) { // [-] Aceitar apenas 18 anos acima
 // [ I/O dos dados e memoria ]
 
 void saveUser(User *DataUser) {
-    FILE *file = fopen("user/user.dat", "wb");
+    FILE *file = fopen("user/user.dat", "a");
     if (file == NULL) {
         printf("Houve um erro ao abrir o arquivo.\n");
         exit(1);
-    } else {
+    }
+    else {
         for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
-            fwrite(aux, sizeof(User), 1, file);
-        }
-        fclose(file);
-
+            fprintf(file, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%s\n", aux->nome, aux->sobrenome, aux->data_nascimento, aux->cpf, aux->nome_mae, aux->rg, aux->endereco.sigla_estado, aux->endereco.cidade, aux->endereco.rua, aux->endereco.numero, aux->endereco.bairro, aux->cnh, aux->email, aux->fone);
+    }
+    fclose(file);
     }
 }
 
-void loadUser(User *DataUser) {
-    FILE *file = fopen("user/user.dat", "rb");
-    User *_newUser = (User *) malloc(sizeof(User));
-    
-    int indice = 0;
+User *loadUser(User *DataUser) {
+    FILE *file = fopen("user/user.dat", "r");
 
-    while(fread(&_newUser, sizeof(User), 1, file)) {
-        DataUser->proxUser = _newUser;
-        printf("%s", _newUser->nome);
+    char nome[50];
+    char sobrenome[50];
+    char data_nascimento[12];
+    char cpf[12];
+    char nome_mae[80];
+    char rg[20];
+    char sigla_estado[3];
+    char cidade[51];
+    char rua[51];
+    int numero;
+    char bairro[31];
+    char cnh[20];
+    char email[80];
+    char fone[15];
+
+    if (file == NULL) {
+        printf("Erro, não foi possivel abrir o arquivo\n");
+    }
+    else {
+        while(fscanf(file, "%49[^|]|%49[^|]|%11[^|]|%11[^|]|%79[^|]|%19[^|]|%2[^|]|%50[^|]|%50[^|]|%d|%30[^|]|%19[^|]|%79[^|]|%14[^|]", nome, sobrenome, data_nascimento, cpf, nome_mae, rg, sigla_estado, cidade, rua, &numero, bairro, cnh, email, fone) != EOF) {
+            User *_newUser = (User *) malloc(sizeof(User));
+            
+            strcpy(_newUser->nome, nome);
+            strcpy(_newUser->sobrenome, sobrenome);
+            strcpy(_newUser->data_nascimento, data_nascimento);
+            strcpy(_newUser->cpf, cpf);
+            strcpy(_newUser->nome_mae, nome_mae);
+            strcpy(_newUser->rg, rg);
+            strcpy(_newUser->endereco.sigla_estado, sigla_estado);
+            strcpy(_newUser->endereco.cidade, cidade);
+            strcpy(_newUser->endereco.rua, rua);
+            _newUser->endereco.numero = numero;
+            strcpy(_newUser->endereco.bairro, bairro);
+            strcpy(_newUser->cnh, cnh);
+            strcpy(_newUser->email, email);
+            strcpy(_newUser->fone, fone);
+            
+            _newUser->proxUser = DataUser;
+            DataUser = _newUser;
+        }
     }
     fclose(file);
+    return DataUser;
 }

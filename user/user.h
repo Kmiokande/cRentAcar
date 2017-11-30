@@ -21,8 +21,8 @@ typedef struct user {
 } User;
 
 // Maninupulação do arquivo
-void loadUser(User *Data); // Salvar Dados em Arquivo 'user.dat'
-void saveUser(User *Data); // Carregar Dados do Arquivo 'user.dat'
+User *loadUser(User *DataUser); // Salvar Dados em Arquivo 'user.dat'
+void saveUser(User *DataUser); // Carregar Dados do Arquivo 'user.dat'
 
 // CRUD
 void singUpUser(User **DataUser); // Cadastrar usuário

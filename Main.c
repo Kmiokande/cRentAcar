@@ -22,7 +22,7 @@ Car *DataCar;
 int main() {
     User *DataUser = (User *) NULL;
     Car *DataCar = (Car *) NULL;
-    loadUser(DataUser);
+    DataUser = loadUser(DataUser);
 
 	int op = 10;
 
