@@ -13,3 +13,9 @@ run:
 	gnome-terminal -t 'cRentCar' --active -- ./cRentCar
 	# Clean
 	rm ./cRentCar
+
+test:
+	gcc test.c -o test
+	gnome-terminal -t 'cRentCar' --active -- ./test
+	# Clean
+	rm ./test

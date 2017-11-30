@@ -16,12 +16,10 @@ void mHistoricos(void);
 void Indisponivel(void);
 // FIM
 
-User *DataUser;
-Car *DataCar;
+User *DataUser = (User *) NULL;
+Car *DataCar = (Car *) NULL;
 
 int main() {
-    User *DataUser = (User *) NULL;
-    Car *DataCar = (Car *) NULL;
     DataUser = loadUser(DataUser);
 
 	int op = 10;

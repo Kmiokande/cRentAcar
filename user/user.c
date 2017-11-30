@@ -84,6 +84,8 @@ void listUser(User *DataUser) {
         printf("Nome: %s %s\n", aux->nome, aux->sobrenome);
         printf("Data de Nascimento: %s\n", aux->data_nascimento);
         printf("CPF: %s\n", aux->cpf);
+        printf("Email: %s\n", aux->email);
+        printf("Fone: %s\n", aux->fone);
         printf("-------------------\n");
     }
 }
@@ -274,14 +276,14 @@ int valData(char data[12]) { // [-] Aceitar apenas 18 anos acima
 // [ I/O dos dados e memoria ]
 
 void saveUser(User *DataUser) {
-    FILE *file = fopen("user/user.dat", "a");
+    FILE *file = fopen("user/user.dat", "w+");
     if (file == NULL) {
         printf("Houve um erro ao abrir o arquivo.\n");
         exit(1);
     }
     else {
         for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
-            fprintf(file, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%s\n", aux->nome, aux->sobrenome, aux->data_nascimento, aux->cpf, aux->nome_mae, aux->rg, aux->endereco.sigla_estado, aux->endereco.cidade, aux->endereco.rua, aux->endereco.numero, aux->endereco.bairro, aux->cnh, aux->email, aux->fone);
+            fprintf(file, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%s|\n", aux->nome, aux->sobrenome, aux->data_nascimento, aux->cpf, aux->nome_mae, aux->rg, aux->endereco.sigla_estado, aux->endereco.cidade, aux->endereco.rua, aux->endereco.numero, aux->endereco.bairro, aux->cnh, aux->email, aux->fone);
     }
     fclose(file);
     }
@@ -309,7 +311,7 @@ User *loadUser(User *DataUser) {
         printf("Erro, não foi possivel abrir o arquivo\n");
     }
     else {
-        while(fscanf(file, "%49[^|]|%49[^|]|%11[^|]|%11[^|]|%79[^|]|%19[^|]|%2[^|]|%50[^|]|%50[^|]|%d|%30[^|]|%19[^|]|%79[^|]|%14[^|]", nome, sobrenome, data_nascimento, cpf, nome_mae, rg, sigla_estado, cidade, rua, &numero, bairro, cnh, email, fone) != EOF) {
+        while(fscanf(file, "%49[^|]|%49[^|]|%11[^|]|%11[^|]|%79[^|]|%19[^|]|%2[^|]|%50[^|]|%50[^|]|%d|%30[^|]|%19[^|]|%79[^|]|%14[^|]|\n", nome, sobrenome, data_nascimento, cpf, nome_mae, rg, sigla_estado, cidade, rua, &numero, bairro, cnh, email, fone) != EOF) {
             User *_newUser = (User *) malloc(sizeof(User));
             
             strcpy(_newUser->nome, nome);
@@ -326,6 +328,8 @@ User *loadUser(User *DataUser) {
             strcpy(_newUser->cnh, cnh);
             strcpy(_newUser->email, email);
             strcpy(_newUser->fone, fone);
+
+            printf("%s", _newUser->nome);
             
             _newUser->proxUser = DataUser;
             DataUser = _newUser;
