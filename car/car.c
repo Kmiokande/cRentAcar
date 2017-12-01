@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "car.h"
 #include "../functions.h"
@@ -22,10 +23,10 @@ void singUpCar(Car **DataCar) {
     scanf(" %8[^\n]", _newCar->cor);
     //}
 
-    //while (valYear(_newCar->ano)) {
-    printf("Ano: ");
-    scanf(" %4[^\n]", _newCar->ano);
-    //}
+    do {
+        printf("Ano: ");
+        scanf("%d", &_newCar->ano);
+    } while(valYear(_newCar->ano));
 
     printf("Preco: R$");
     scanf("%f", &_newCar->preco);
@@ -93,7 +94,7 @@ void listCar(Car *DataCar) {
         for (aux = DataCar; aux != NULL; aux = aux->proxCar) {
             printf("Modelo: %s\n", aux->modelo);
             printf("Cor: %s\n", aux->cor);
-            printf("Ano: %s\n", aux->ano);
+            printf("Ano: %d\n", aux->ano);
             printf("Placa: %s\n", aux->placa);
             printf("Preço: %.2fR$\n", aux->preco);
             printf("Renavam: %s\n", aux->renavam);
@@ -120,7 +121,7 @@ int searchCar(Car *DataCar) {
         if (strcmp(aux->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
             printf("Modelo: %s\n", aux->modelo);
             printf("Cor: %s\n", aux->cor);
-            printf("Ano: %s\n", aux->ano);
+            printf("Ano: %d\n", aux->ano);
             printf("Placa: %s\n", aux->placa);
             printf("Preço: %.2fR$\n", aux->preco);
             printf("Renavam: %s\n", aux->renavam);
@@ -207,11 +208,11 @@ int valColor(char color[9]) {
 }
 
 // [ Valida Ano ]
-int valYear(char year[5]) {
-    int i;
-    for (i = 0; year[i] != '\0'; i++) {
-        if (year[i] >= 48 && year[i] <= 57) return True();
+int valYear(int year) {
+    if (year >= 1900 && year <= 3000) {
+        return True();
     }
+    printf("Ano inválido!\n");
     False();
 }
 
@@ -242,17 +243,15 @@ int valPlate(char plate[9]) {
 }
 
 // [ Valida renavam ]
-int valRenavam(char ano[5], char renavam[12]) {
-    int Iano, comp;
+int valRenavam(int ano, char renavam[12]) {
+    int comp;
 
     comp = strlen(renavam);  // Vai verificar o comprimento do renavam
 
-    sscanf(ano, "%d", &Iano);  // Ano em Inteiro
-
     for (int i = 0; i < 11; i++) {
         if (renavam[i] >= '0' && renavam[i] <= '9') {  // Verifica se o renavam possui número
-            if ((comp == 9 && Iano <= 2012) ||
-                (comp == 11 && Iano >= 2013)) {  // Verifica o comprimento do renavam e o ano
+            if ((comp == 9 && ano <= 2012) ||
+                (comp == 11 && ano >= 2013)) {  // Verifica o comprimento do renavam e o ano
                 return True();
             }
         }
@@ -278,7 +277,7 @@ void saveCar(Car *DataCar) {
         exit(1);
     } else {
         for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-            fprintf(file, "%s|%s|%s|%.2f|%s|%s|%s|%d|%d|\n", aux->modelo, aux->cor, aux->ano, aux->preco, aux->placa,
+            fprintf(file, "%s|%s|%d|%.2f|%s|%s|%s|%d|%d|\n", aux->modelo, aux->cor, aux->ano, aux->preco, aux->placa,
                     aux->renavam, aux->km, aux->status, aux->qtd_alugado);
         }
         fclose(file);
@@ -290,7 +289,7 @@ Car *loadCar(Car *DataCar) {
 
     char modelo[31];
     char cor[9];
-    char ano[5];
+    int ano;
     float preco;
     char placa[9];
     char renavam[12];
@@ -302,13 +301,13 @@ Car *loadCar(Car *DataCar) {
     if (file == NULL) {
         printf("Erro, não foi possivel abrir o arquivo\n");
     } else {
-        while (fscanf(file, "%30[^|]|%8[^|]|%4[^|]|%f|%8[^|]|%11[^|]|%6[^|]|%d|%d|\n", modelo, cor, ano, &preco, placa,
+        while (fscanf(file, "%30[^|]|%8[^|]|%d|%f|%8[^|]|%11[^|]|%6[^|]|%d|%d|\n", modelo, cor, &ano, &preco, placa,
                       renavam, km, &status, &qtd_alugado) != EOF) {
             Car *_newCar = (Car *) malloc(sizeof(Car));
 
             strcpy(_newCar->modelo, modelo);
             strcpy(_newCar->cor, cor);
-            strcpy(_newCar->ano, ano);
+            _newCar->ano = ano;
             _newCar->preco = preco;
             strcpy(_newCar->placa, placa);
             strcpy(_newCar->renavam, renavam);

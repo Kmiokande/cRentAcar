@@ -1,7 +1,7 @@
 typedef struct car {
   char modelo[31];
   char cor[9];
-  char ano[5];
+  int ano;
   float preco;
   char placa[9];
   char renavam[12];
@@ -25,10 +25,10 @@ void CarRented(Car *DataCar);
 // Validações
 int valModel(char model[31]); // Modelo
 int valColor(char color[9]); // Cor
-int valYear(char year[5]); // Ano
+int valYear(int year); // Ano
 int valPrice(); // Preço
 int valPlate(char plate[9]); // Placa
-int valRenavam(char ano[5], char renavam[12]); // Renavam
+int valRenavam(int ano, char renavam[12]); // Renavam
 int valKm(char km[7]); // km's rodados
 int valDate(); // Data
 
