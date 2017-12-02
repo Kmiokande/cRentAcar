@@ -1,5 +1,7 @@
 #include "user/user.h"
 #include "car/car.h"
+// #include "historic/historic.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,10 +20,12 @@ void Indisponivel(void);
 
 User *DataUser = (User *) NULL;
 Car *DataCar = (Car *) NULL;
+// Historic *DataHistoric = (Historic *) NULL;
 
 int main() {
    DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
-   DataCar = loadCar(DataCar);        // Carrega os dados do arquivo car.dat
+   DataCar = loadCar(DataCar);
+//    DataHistoric = loadHistoric(DataHistoric);        // Carrega os dados do arquivo car.dat
 
     int op = 10;
 

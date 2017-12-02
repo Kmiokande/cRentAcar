@@ -21,10 +21,10 @@ void singUpUser(User **DataUser) {
         scanf(" %49[^\n]", _newUser->sobrenome);
     } while (validatorGlobal(_newUser->sobrenome, 'S', 4));
 
-    //do {
+    do {
     printf("Data de Nascimento: ");
-    scanf(" %11[^\n]", _newUser->data_nascimento);
-    //} while (valDate(_newUser->data_nascimento));
+    scanf(" %10[^\n]", _newUser->data_nascimento);
+    } while (valData(_newUser->data_nascimento));
 
     do {
         printf("CPF: ");
@@ -245,7 +245,7 @@ int valName(char name[50]) {
     if (comp > 4) {
         for (int i = 0; name[i] != '\0'; i++) {
             if (name[i] >= 33 && name[i] <= 45 || name[i] >= 47 && name[i] <= 64) {
-                printf("\n >> Nome inválido! \n");
+                printf("\n >> Nome inválido! Digite apenas letras \n");
                 return False();
             }
         }
@@ -257,20 +257,20 @@ int valName(char name[50]) {
 
 
 // [ Validar Data ]
-int valData(char data[12]) { // [-] Aceitar apenas 18 anos acima
-    if (strlen(data) == 11) {
+int valData(char data[11]) { // [-] Aceitar apenas 18 anos acima
+    if (strlen(data) == 10) {
         for (int i = 0; data[i] != '\0'; ++i) {
-            if (i < 2) {
+            if (i < 2 || i > 2 && i < 5 || i > 5 && i < 10) {
                 if (!(data[i] >= 48 && data[i] <= 57)) {
-                    printf("Placa Inválida\n");
+                    printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
                     return False();
                 }
             }
-            if (i > 3 && i < 6) {}
         }
         return True();
 
     } else {
+        printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
         return False();
     }
 

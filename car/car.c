@@ -140,6 +140,7 @@ int searchCar(Car *DataCar) {
 // [ Carros Alugados ]
 void CarRented(Car *DataCar) {
     if (DataCar != NULL) {
+        printf("Carros Alugados: \n");
         for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
             if (aux->status == 0) { // Se 0, está alugado
                 printf("%s - [ %s ]", aux->modelo, aux->placa);
@@ -151,9 +152,8 @@ void CarRented(Car *DataCar) {
 
 }
 
-void rentCar(Car *DataCar) { // Irei terminar depois | Dor de cabeça
+void rentCar(Car *DataCar, Historic **DataHistoric) {
     char placa[9];
-    char cpf[12];
     int dias;
 
     listCar(DataCar);
@@ -170,9 +170,13 @@ void rentCar(Car *DataCar) { // Irei terminar depois | Dor de cabeça
             } while (valCPF(aux->cpf));
             printf("Quantos dias de aluguel?");
             scanf(" %d", &dias);
-            printf("O Preço Tota R$: %f", dias * aux->preco);
+            float price = dias * aux->preco;
+            char data[] =  "01/09/2017"; // <- Se possível puxar data atual
+            printf("O Preço Tota R$: %f", price);
             printf("Carro alugado com sucesso!");
-            
+
+            // Save in Historic
+            addInHistoric(aux->cpf, aux->placa, data, price, 0, DataHistoric);
             aux->status++;
         }
     }

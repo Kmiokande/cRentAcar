@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "historic.h"
 
-void addInHistoric(char *cpf[12], char *placa[9], char *data[12], float price, int status, Historic *DataHistoric) {
+void addInHistoric(char cpf[12], char placa[9], char data[12], float price, int status, Historic **DataHistoric) {
 
     Historic *_newHistoric = (Historic *) malloc(sizeof(Historic));
 
@@ -11,7 +14,9 @@ void addInHistoric(char *cpf[12], char *placa[9], char *data[12], float price, i
     _newHistoric->priceTotal = price;
     _newHistoric->status = status;
 
-    DataHistoric->proxHistoric = _newHistoric;
+    _newHistoric->proxHistoric = *DataHistoric;
+    saveHistoric(_newHistoric);
+    *DataHistoric = _newHistoric;
 }
 
 // [ I/O dos dados e memoria ]
@@ -31,25 +36,28 @@ void saveHistoric(Historic *DataHistoric) {
 Historic *loadHistoric(Historic *DataHistoric) {
     FILE *file = fopen("historic/historic.dat", "r");
 
-    Historic* p;
+    char data[12];
+    char placa[9];
+    char cpfUser[12];
+    int status;
+    float priceTotal;
 
     if (file == NULL) {
         printf("Erro, não foi possivel abrir o arquivo\n");
     } else {
-        while (fscanf(file, "%12[^|]|%9[^|]|%12[^|]|%f|%d|\n", p->cpfUser, p->placa, p->data, p->priceTotal, p->status) != EOF) {
+        while (fscanf(file, "%12[^|]|%9[^|]|%12[^|]|%f|%d|\n", cpfUser, placa, data, &priceTotal, &status) != EOF) {
             Historic *_newHistoric = (Historic *) malloc(sizeof(Historic));
 
-            // if (cpfUser[0] >= 33) {
-                strcpy(_newHistoric->cpfUser, p->cpfUser);
-                strcpy(_newHistoric->placa, p->placa);
-                strcpy(_newHistoric->data, p->data);
-                _newHistoric->priceTotal = p->priceTotal;
-                _newHistoric->status, p->status;
+                strcpy(_newHistoric->cpfUser, cpfUser);
+                strcpy(_newHistoric->placa, placa);
+                strcpy(_newHistoric->data, data);
+                _newHistoric->priceTotal = priceTotal;
+                _newHistoric->status, status;
 
                 _newHistoric->proxHistoric = DataHistoric;
                 
                 DataHistoric = _newHistoric;
-            // }
+
         }
     }
     fclose(file);

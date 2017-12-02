@@ -2,11 +2,12 @@ build_and_run: build run
 
 # Construir e Compilar os arquivos
 build:
-	gcc -c functions.c -o functions.o
 	gcc -c car/car.c -o car.o
 	gcc -c user/user.c -o user.o
+	gcc -c historic/historic.c -o historic.o
+	gcc -c functions.c -o functions.o
 	gcc -c Main.c -o main.o
-	gcc functions.o car.o user.o main.o -o cRentCar
+	gcc historic.o functions.o car.o user.o main.o -o cRentCar
 	rm *.o
 
 run:

@@ -10,7 +10,7 @@ typedef struct user {
   char nome[50];
   char sobrenome[50];
   char data_nascimento[12];
-  char cpf[12];
+  char cpf[11];
   char nome_mae[80];
   char rg[20];
   char cnh[20];
@@ -39,7 +39,7 @@ int valAddress(); // Endereço
 int valFone(); // Telefone
 int valEmail(); // Email
 int valName(char name[50]); // Nome
-int valDate(); // Data Nascimento
+int valData(char data[12]); // Data Nascimento
 
 // Others
 int checkExist();
