@@ -138,13 +138,27 @@ int searchCar(Car *DataCar) {
     return True(); // Não encontrou o elemento
 }
 
+// [ Carros disponiveis ]
+void CarFree(Car *DataCar) {
+	if (DataCar != NULL) {
+		printf("Carros disponiveis: \n");
+		for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+			if (aux->status == 1) { // Se 1, está livre
+				printf("%s - [ %s ]\n", aux->modelo, aux->placa);
+			}
+		}
+	} else {
+		printf("Nenhum carro disponivel!\n");
+	}
+}
+
 // [ Carros Alugados ]
 void CarRented(Car *DataCar) {
     if (DataCar != NULL) {
         printf("Carros Alugados: \n");
         for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
             if (aux->status == 0) { // Se 0, está alugado
-                printf("%s - [ %s ]", aux->modelo, aux->placa);
+                printf("%s - [ %s ]\n", aux->modelo, aux->placa);
             }
         }
     } else {

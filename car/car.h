@@ -22,7 +22,8 @@ void editCar(Car *DataCar);
 Car *deleteCar(Car *DataCar); // Deleta cadastro do carro pela placa
 
 void rentCar(Car *DataCar, Historic **DataHistoric);
-void CarRented(Car *DataCar);
+void CarRented(Car *DataCar); // Mostra os carros alugados
+void CarFree(Car *DataCar); // Mostra os carros disponiveis
 
 // Validações
 int valModel(char model[31]); // Modelo

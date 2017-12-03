@@ -174,12 +174,12 @@ void mLocacao(void) {
         while (getchar() != '\n');
         getchar();
     } else if (op == 3) {
-        Indisponivel();
+        CarFree(DataCar);
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 4) {
-        Indisponivel();
+        CarRented(DataCar);
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
@@ -217,7 +217,6 @@ void mVeiculos() {
         getchar();
     } else if (op == 2) {
         searchCar(DataCar);
-
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
