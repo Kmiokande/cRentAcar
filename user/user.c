@@ -14,27 +14,27 @@ void singUpUser(User **DataUser) {
     do {
         printf("Nome: ");
         scanf(" %49[^\n]", _newUser->nome);
-    } while (validatorGlobal(_newUser->nome, 'S', 4));
+    } while (!validatorGlobal(_newUser->nome, 'S', 4));
 
     do {
         printf("Sobrenome: ");
         scanf(" %49[^\n]", _newUser->sobrenome);
-    } while (validatorGlobal(_newUser->sobrenome, 'S', 4));
+    } while (!validatorGlobal(_newUser->sobrenome, 'S', 4));
 
     do {
     printf("Data de Nascimento: ");
     scanf(" %10[^\n]", _newUser->data_nascimento);
-    } while (valData(_newUser->data_nascimento));
+    } while (!valData(_newUser->data_nascimento));
 
     do {
         printf("CPF: ");
         scanf(" %11[^\n]", _newUser->cpf);
-    } while (valCPF(_newUser->cpf));
+    } while (!valCPF(_newUser->cpf));
 
     do {
         printf("Nome completo da Mãe: ");
         scanf(" %49[^\n]", _newUser->nome_mae);
-    } while (validatorGlobal(_newUser->nome_mae, 'S', 4));
+    } while (!validatorGlobal(_newUser->nome_mae, 'S', 4));
 
 
     printf("RG: ");
@@ -43,17 +43,17 @@ void singUpUser(User **DataUser) {
     do {
         printf("Endereço [Sigla do Estado]: ");
         scanf(" %2[^\n]", _newUser->endereco.sigla_estado);
-    } while (validatorGlobal(_newUser->endereco.sigla_estado, 'S', 2));
+    } while (!validatorGlobal(_newUser->endereco.sigla_estado, 'S', 2));
 
     do {
         printf("Endereço [Cidade]: ");
         scanf(" %50[^\n]", _newUser->endereco.cidade);
-    } while (validatorGlobal(_newUser->endereco.cidade, 'S', 3));
+    } while (!validatorGlobal(_newUser->endereco.cidade, 'S', 3));
 
     do {
         printf("Endereço [Rua]: ");
         scanf(" %50[^\n]", _newUser->endereco.rua);
-    } while (validatorGlobal(_newUser->endereco.rua, 'S', 3));
+    } while (!validatorGlobal(_newUser->endereco.rua, 'S', 3));
 
     printf("Endereço [Número]: ");
     scanf(" %d", &_newUser->endereco.numero);
@@ -61,7 +61,7 @@ void singUpUser(User **DataUser) {
     do {
         printf("Endereço [Bairro]:");
         scanf(" %49[^\n]", _newUser->endereco.bairro);
-    } while (validatorGlobal(_newUser->endereco.bairro, 'S', 3));
+    } while (!validatorGlobal(_newUser->endereco.bairro, 'S', 3));
 
     printf("CNH: ");
     scanf(" %49[^\n]", _newUser->cnh);
@@ -228,15 +228,15 @@ int valCPF(char cpf[12]) {
 
             if ((cpf[j] - 48) != dig) {
                 printf("\n >> CPF inválido! \n");
-                return False();
+                return False;
             }
         }
 
         // RESULTADOS DA VALIDAÇÃO.
-        return True();
+        return True;
     }
     printf(">> CPF Inválido!\n");
-    return False();
+    return False;
 }
 
 // [ Valida Nome e Sobrenome ]
@@ -246,13 +246,13 @@ int valName(char name[50]) {
         for (int i = 0; name[i] != '\0'; i++) {
             if (name[i] >= 33 && name[i] <= 45 || name[i] >= 47 && name[i] <= 64) {
                 printf("\n >> Nome inválido! Digite apenas letras \n");
-                return False();
+                return False;
             }
         }
 
-        return True();
+        return True;
     }
-    return False();
+    return False;
 }
 
 
@@ -263,17 +263,27 @@ int valData(char data[11]) { // [-] Aceitar apenas 18 anos acima
             if (i < 2 || i > 2 && i < 5 || i > 5 && i < 10) {
                 if (!(data[i] >= 48 && data[i] <= 57)) {
                     printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
-                    return False();
+                    return False;
                 }
             }
         }
-        return True();
+        return True;
 
     } else {
         printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
-        return False();
+        return False;
     }
 
+}
+
+
+int checkExistUser(char cpf[12], User *DataUser) {
+    for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
+        if (strcmp(aux->cpf, cpf) == 0) { // Se o cpf for igual ao cadastrado ele retorna 0
+            return True;
+        }
+    }
+    return False;
 }
 
 // [ I/O dos dados e memoria ]

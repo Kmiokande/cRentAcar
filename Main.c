@@ -1,6 +1,6 @@
 #include "user/user.h"
 #include "car/car.h"
-// #include "historic/historic.h"
+#include "historic/historic.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,11 +20,11 @@ void Indisponivel(void);
 
 User *DataUser = (User *) NULL;
 Car *DataCar = (Car *) NULL;
-// Historic *DataHistoric = (Historic *) NULL;
+Historic *DataHistoric = (Historic *) NULL;
 
 int main() {
-   DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
-   DataCar = loadCar(DataCar);
+  DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
+  DataCar = loadCar(DataCar);
 //    DataHistoric = loadHistoric(DataHistoric);        // Carrega os dados do arquivo car.dat
 
     int op = 10;
@@ -164,7 +164,7 @@ void mLocacao(void) {
     printf("\nInforme uma opção acima: ");
     scanf("%d", &op);
     if (op == 1) {
-        Indisponivel();
+        rentCar(DataCar, DataHistoric, DataUser);
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();

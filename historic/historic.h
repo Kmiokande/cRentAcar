@@ -1,3 +1,6 @@
+#ifndef _MATRIXH_
+#define _MATRIXH_
+
 typedef struct historic {
     char data[12];
     char placa[9];
@@ -12,3 +15,5 @@ void addInHistoric(char cpf[12], char placa[9], char data[12], float price, int 
 void saveHistoric(Historic *DataHistoric);
 
 Historic *loadHistoric(Historic *DataHistoric);
+
+#endif

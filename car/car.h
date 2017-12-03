@@ -1,6 +1,10 @@
- #include "../historic/historic.h"
+#ifndef _CARH_
+#define _CARH_
 
-typedef struct car {
+#include "../historic/historic.h"
+#include "../user/user.h"
+
+ typedef struct car {
   char modelo[31];
   char cor[9];
   int ano;
@@ -21,7 +25,7 @@ int searchCar(Car *DataCar); // Busca cadastro do carro pela placa
 void editCar(Car *DataCar);
 Car *deleteCar(Car *DataCar); // Deleta cadastro do carro pela placa
 
-void rentCar(Car *DataCar, Historic **DataHistoric);
+void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser);
 void CarRented(Car *DataCar); // Mostra os carros alugados
 void CarFree(Car *DataCar); // Mostra os carros disponiveis
 
@@ -40,4 +44,6 @@ void saveCar(Car *DataCar); // Salvar Dados em Arquivo 'car.dat'
 Car *loadCar(Car *DataCar); // Carregar Dados do Arquivo 'car.dat'
 
 // Others
-int checkExist();
+int checkExistCar(char placa[9], Car *DataCar);
+
+#endif

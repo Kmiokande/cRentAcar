@@ -1,3 +1,6 @@
+#ifndef _USERH_
+#define _USERH_
+
 struct end {
   char sigla_estado[3];
   char cidade[51];
@@ -9,8 +12,8 @@ struct end {
 typedef struct user {
   char nome[50];
   char sobrenome[50];
-  char data_nascimento[12];
-  char cpf[11];
+  char data_nascimento[11];
+  char cpf[12];
   char nome_mae[80];
   char rg[20];
   char cnh[20];
@@ -42,7 +45,8 @@ int valName(char name[50]); // Nome
 int valData(char data[12]); // Data Nascimento
 
 // Others
-int checkExist();
+int checkExistUser(char cpf[12], User *DataUser);
 int bestClients();
 
 void freeMemory();
+#endif

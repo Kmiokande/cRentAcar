@@ -7,7 +7,7 @@ build:
 	gcc -c historic/historic.c -o historic.o
 	gcc -c functions.c -o functions.o
 	gcc -c Main.c -o main.o
-	gcc historic.o functions.o car.o user.o main.o -o cRentCar
+	gcc functions.o user.o car.o historic.o main.o -o cRentCar
 	rm *.o
 
 run:
