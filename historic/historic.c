@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "historic.h"
 
 void addInHistoric(char cpf[12], char placa[9], char data[12], float price, int status, Historic **DataHistoric) {

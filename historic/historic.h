@@ -1,6 +1,10 @@
 #ifndef _MATRIXH_
 #define _MATRIXH_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 typedef struct historic {
     char data[12];
     char placa[9];

@@ -1,6 +1,12 @@
 #ifndef _USERH_
 #define _USERH_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "../functions.h"
+
 struct end {
   char sigla_estado[3];
   char cidade[51];

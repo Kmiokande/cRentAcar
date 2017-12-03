@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "user.h"
-#include "../functions.h"
 
 // >> [ CRUD ]
 

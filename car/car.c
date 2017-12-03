@@ -1,16 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-
 #include "car.h"
-#include "../functions.h"
-#include "../user/user.h"
-
-#define KRED  "\x1B[31m"
-#define KGRN  "\x1B[32m"
-#define KWHT  "\x1B[37m"
-#define KNRM  "\x1B[0m"
 
 // >> [ CRUD ]
 
