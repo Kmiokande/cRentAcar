@@ -170,6 +170,14 @@ void CarRented(Car *DataCar) {
 void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
     char placa[9];
     int dias;
+    // Data
+    time_t tempo;
+    struct tm *timeptr,result;
+    char buffer[100];
+    tempo = time(NULL);
+    timeptr = localtime(&tempo);
+    strftime(buffer,sizeof(buffer), "%a %m/%d/%Y %r", timeptr);
+    int dia = result.tm_mday, mes = result.tm_mon + 1, ano = result.tm_year + 1900;
 
     listCar(DataCar);
     do {
@@ -189,7 +197,8 @@ void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
             scanf(" %d", &dias);
 
             float price = dias * aux->preco;
-            char data[] = "01/09/2017"; // <- Se possível puxar data atual
+            char data[] = r; // <- Se possível puxar data atual
+            printf("Data atual: %d/%d/%d\n", dia, mes, ano);
             printf("O Preço Tota R$: %f", price);
             printf("Carro alugado com sucesso!");
 
