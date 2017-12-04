@@ -23,13 +23,13 @@ Car *DataCar = (Car *) NULL;
 Historic *DataHistoric = (Historic *) NULL;
 
 int main() {
-  DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
-  DataCar = loadCar(DataCar);
+ DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
+ DataCar = loadCar(DataCar);
 //    DataHistoric = loadHistoric(DataHistoric);        // Carrega os dados do arquivo car.dat
 
     int op = 10;
 
-    while (op != 0) {
+    while (op) {
         printf(clear);
         Logo();
         mPrincipal(); // MENU PRINCIPAL

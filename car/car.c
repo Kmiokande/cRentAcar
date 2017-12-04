@@ -89,7 +89,7 @@ void listCar(Car *DataCar) {
             if (aux->status == 1)
                 printf("Status: [%s ■ %s] ", KGRN, KNRM);
             else
-                printf("Status: [%s ■ %s] ", KRED, KNRM);
+                printf("Status: [%s x %s] ", KRED, KNRM);
             printf("Modelo: %s | ", aux->modelo);
             printf("Placa: %s | ", aux->placa);
             printf("Preço: R$%.2f | ", aux->preco);

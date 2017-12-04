@@ -1,8 +1,12 @@
 #include "user.h"
 
-// >> [ CRUD ]
+// >> 1. [ CRUD ]
+// 1.1 - Cadastrar Usuário/cliente -> Salvar na lista encadeada -> Salvar no arquivo user.dat [x]
+// 1.2 - Editar Usuário/cliente -> Refactor na lista encadeada -> Salvar no arquivo user.data [x]
+// 1.3 - Remover Usuário/cliente -> Refactor na lista encadeada -> Salvar no arquivo user.dat [x]
+// 1.4 - Listar Usuários/CLiente
 
-// [ Cadastrar usuário ]
+// 1.1 - [ Cadastrar Usuário ]
 void singUpUser(User **DataUser) {
     User *_newUser = (User *) malloc(sizeof(User));
 
@@ -17,12 +21,12 @@ void singUpUser(User **DataUser) {
     } while (!validatorGlobal(_newUser->sobrenome, 'S', 4));
 
     do {
-    printf("Data de Nascimento: ");
+    printf("Data de Nascimento [xx/xx/xxxx]: ");
     scanf(" %10[^\n]", _newUser->data_nascimento);
     } while (!valData(_newUser->data_nascimento));
 
     do {
-        printf("CPF: ");
+        printf("CPF [xxxxxxxxxxx]: ");
         scanf(" %11[^\n]", _newUser->cpf);
     } while (!valCPF(_newUser->cpf));
 
@@ -31,12 +35,13 @@ void singUpUser(User **DataUser) {
         scanf(" %49[^\n]", _newUser->nome_mae);
     } while (!validatorGlobal(_newUser->nome_mae, 'S', 4));
 
-
-    printf("RG: ");
-    scanf(" %49[^\n]", _newUser->rg);
+    do {
+        printf("RG [xx.xxx.xxx-x]: ");
+        scanf(" %49[^\n]", _newUser->rg);
+    } while (!valRG(_newUser->rg));
 
     do {
-        printf("Endereço [Sigla do Estado]: ");
+        printf("Endereço [Sigla do Estado][XX]: ");
         scanf(" %2[^\n]", _newUser->endereco.sigla_estado);
     } while (!validatorGlobal(_newUser->endereco.sigla_estado, 'S', 2));
 
@@ -58,13 +63,17 @@ void singUpUser(User **DataUser) {
         scanf(" %49[^\n]", _newUser->endereco.bairro);
     } while (!validatorGlobal(_newUser->endereco.bairro, 'S', 3));
 
-    printf("CNH: ");
-    scanf(" %49[^\n]", _newUser->cnh);
+    do {
+        printf("CNH [xxxxxxxxxxx]: ");
+        scanf(" %11[^\n]", _newUser->cnh);
+    } while (!validatorGlobal(_newUser->cnh, 'S', 11));
 
-    printf("Email: ");
-    scanf(" %49[^\n]", _newUser->email);
+    do {
+        printf("Email: ");
+        scanf(" %49[^\n]", _newUser->email);
+    } while (!valEmail(_newUser->email));
 
-    printf("Telefone: ");
+    printf("Telefone: [(xx)xxxxx-xxxx]");
     scanf(" %49[^\n]", _newUser->fone);
 
     _newUser->score = 0;
@@ -74,41 +83,7 @@ void singUpUser(User **DataUser) {
     saveUser(*DataUser);
 }
 
-// [ Ver todos os Usuários cadastrados ]
-void listUser(User *DataUser) {
-    if (DataUser != NULL) {
-        User *aux = NULL;
-        for (aux = DataUser; aux != NULL; aux = aux->proxUser) {
-            printf("\nNome: %s %s\n", aux->nome, aux->sobrenome);
-            printf("Data de Nascimento: %s\n", aux->data_nascimento);
-            printf("CPF: %s\n", aux->cpf);
-            printf("Email: %s\n", aux->email);
-            printf("Fone: %s\n", aux->fone);
-            printf("-------------------\n");
-        }
-    } else {
-        printf("\n\n>> Sem usuários cadastrados!\n");
-    }
-}
-
-// [ Verifica se existe o cpf cadastrado ]
-void searchUser(User *DataUser) {
-    char cpf[12];
-    printf("Informe o CPF: ");
-    scanf(" %11[^\n]", cpf);
-
-    for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
-        if (strcmp(aux->cpf, cpf) == 0) { // Se o cpf for igual ao cadastrado ele retorna 0
-            printf("%s\n", aux->nome);
-            printf("%s\n", aux->sobrenome);
-            return;
-        }
-    }
-    printf("\n\n>> Cliente não encontrado cadastrados!\n"); // Não encontrou o elemento
-}
-
-
-// [ Verifica se existe o cpf cadastrado ]
+// 1.2 - [ Edita Cliente pelo CPF  ]
 void editUser(User *DataUser) {
     char cpf[12];
     printf("Informe o CPF: ");
@@ -178,7 +153,7 @@ void editUser(User *DataUser) {
     printf("Cliente não cadastrado\n");
 }
 
-// [ Deleta cadastro do usuario ] 
+// 1.3 - [ Deleta cadastro do cliente pelo CPF ] 
 User *deleteUser(User *DataUser) {
     char cpf[12];
     printf("Informe o CPF:");
@@ -205,8 +180,61 @@ User *deleteUser(User *DataUser) {
     return DataUser;
 }
 
-// >> [ Validações ]
-// [ Validação de CPF ]
+// 1.4 - [ Ver todos os Usuários cadastrados ]
+void listUser(User *DataUser) {
+    if (DataUser != NULL) {
+        User *aux = NULL;
+        for (aux = DataUser; aux != NULL; aux = aux->proxUser) {
+            printf("\nNome: %s %s\n", aux->nome, aux->sobrenome);
+            printf("Data de Nascimento: %s\n", aux->data_nascimento);
+            printf("CPF: %s\n", aux->cpf);
+            printf("Email: %s\n", aux->email);
+            printf("Fone: %s\n", aux->fone);
+            printf("-------------------\n");
+        }
+    } else {
+        printf("\n\n>> Sem usuários cadastrados!\n");
+    }
+}
+
+// >> 2. [ Validações ]
+// 2.1 - Validação Nome e Sobrenome do usuário [x] [Usando ValidorGlobal]
+// 2.2 - Validação data de Nascimento [x] (xx/xx/xx)
+// 2.3 - Validação CPF [x] (xxx.xxx.xxx-xx)
+// 2.4 - Valida Nome da mãe [x] [Usando ValidorGlobal]
+// 2.5 - Validação Rg [ ] (xx.xxx.xxx-x) <- BUG
+// 2.6 - Endereços [ ]
+    // 2.6.1 - Sigla [x] (XX)           [Usando ValidorGlobal]
+    // 2.6.2 - Cidade [x]               [Usando ValidorGlobal]
+    // 2.6.3 - Rua [x]                  [Usando ValidorGlobal]
+    // 2.6.4 - Número [ ] <- Bug se digitar string
+    // 2.6.5 - Bairro [x]               [Usando ValidorGlobal]
+// 2.7 - Validação CNH [x] (xxxxxxxxxxx)  [Usando ValidorGlobal]
+// 2.8 - Validação Email [x] (*@*.*)
+// 2.9 - Validação número de telefone [ ] ((xx)xxxxx-xxxx)
+
+// 2.2 - [ Validação Data ] [-] Aceitar apenas 18 anos acima (xx/xx/xxxx)
+int valData(const char data[11]) {
+
+    if (strlen(data) == 10) {
+        for (int i = 0; data[i] != '\0'; ++i) {
+            if (i < 2 || i > 2 && i < 5 || i > 5 && i < 10) {
+                if (!(data[i] >= 48 && data[i] <= 57)) {
+                    printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
+                    return False;
+                }
+            }
+        }
+        return True;
+
+    } else {
+        printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
+        return False;
+    }
+}
+
+
+// 2.3 - [ Validação de CPF ]
 int valCPF(char cpf[12]) {
     int i, comp, aux = 0, dig;
     comp = (int) strlen(cpf);  // Contagem da quantidade de caracteres no vetor.
@@ -234,54 +262,78 @@ int valCPF(char cpf[12]) {
     return False;
 }
 
-// [ Valida Nome e Sobrenome ]
-int valName(char name[50]) {
-    int comp = (int) strlen(name);
-    if (comp > 4) {
-        for (int i = 0; name[i] != '\0'; i++) {
-            if (name[i] >= 33 && name[i] <= 45 || name[i] >= 47 && name[i] <= 64) {
-                printf("\n >> Nome inválido! Digite apenas letras \n");
-                return False;
+// 2.5 - [ Validação Rg ] (xx.xxx.xxx-x)
+int valRG(const char rg[12]){
+        int p = 0, s = 0;
+        for (int i = 0; rg[i] != '\0'; ++i) {
+            if (i != 2  && !isDigit(rg[i]) || i != 6 && !isDigit(rg[i])) {
+                break;
+            } else if (rg[i] == '.') {
+                p++;
+            } else if (i == 10 && rg[i] == '-') {
+                s++;
+            } else if (i == 11 && p == 2 && s == 1 && rg[i+1] == '\0') {
+                return True;
             }
         }
+    printf("RG Inválido! Digite no formato (xx.xxx.xxx-x)");
+    return False;
+}
 
-        return True;
+// 2.8 - [ Validação Email ]
+int valEmail(char email[80]) {
+    if (strlen(email) >= 8) {
+        int v = 0;
+        int a = 0;
+        for (int i = 0; email[i] != '\0'; ++i) {
+            if(email[i] == '@') {
+                v++;
+                a++;
+            } else if (email[i] == '.') {
+                v++;
+            } else if (v == 2 && a == 1) {
+                return True;
+            }
+        }
     }
     return False;
 }
 
+// >> 3. [ Outros ]
+// 3.1 - Checar se o CPF existe no sistema [x]
+// 3.2 - Procura cliente pelo CPF [x]
 
-// [ Validar Data ]
-int valData(char data[11]) { // [-] Aceitar apenas 18 anos acima
-    if (strlen(data) == 10) {
-        for (int i = 0; data[i] != '\0'; ++i) {
-            if (i < 2 || i > 2 && i < 5 || i > 5 && i < 10) {
-                if (!(data[i] >= 48 && data[i] <= 57)) {
-                    printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
-                    return False;
-                }
-            }
-        }
-        return True;
-
-    } else {
-        printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
-        return False;
-    }
-
-}
-
-
+// 3.1 - [ Checar se o CPF existe no sistema ]
 int checkExistUser(char cpf[12], User *DataUser) {
     for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
-        if (strcmp(aux->cpf, cpf) == 0) { // Se o cpf for igual ao cadastrado ele retorna 0
+        if (!strcmp(aux->cpf, cpf)) { // [STRCMP] Retorna 0 se o cpf for igual
             return True;
         }
     }
     return False;
 }
 
-// [ I/O dos dados e memoria ]
+// 3.2 - [ Procura cliente pelo CPF ]
+void searchUser(User *DataUser) {
+    char cpf[12];
+    printf("Informe o CPF: ");
+    scanf(" %11[^\n]", cpf);
+
+    for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
+        if (!strcmp(aux->cpf, cpf)) { // [STRCMP] Retorna 0 se o cpf for igual
+            printf("%s\n", aux->nome);
+            printf("%s\n", aux->sobrenome);
+            return;
+        }
+    }
+    printf("\n\n>> Cliente não encontrado cadastrados!\n"); // Não encontrou o elemento
+}
+
+// >> 4. [ I/O dos dados e memoria ]
+// 4.1 - Salvar lista encadeada de DataUser(clientes) no arq. User.dat
+// 4.2 - Carregar lista encadeada de DataUser(clientes) do arq. User.dat
+
+// 4.1 - [ Salvar lista encadeada de DataUser(clientes) no arq. User.dat ]
 void saveUser(User *DataUser) {
     FILE *file = fopen("user/user.dat", "w+");
     if (file == NULL) {
@@ -295,6 +347,7 @@ void saveUser(User *DataUser) {
     }
 }
 
+// 4.2 - [ Carregar lista encadeada de DataUser(clientes) do arq. User.dat ]
 User *loadUser(User *DataUser) {
     FILE *file = fopen("user/user.dat", "r");
 

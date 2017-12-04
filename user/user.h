@@ -21,8 +21,8 @@ typedef struct user {
   char data_nascimento[11];
   char cpf[12];
   char nome_mae[80];
-  char rg[20];
-  char cnh[20];
+  char rg[12];
+  char cnh[12];
   struct end endereco;
   char email[80];
   char fone[15];
@@ -43,12 +43,11 @@ void editUser(User *DataUser);
 User *deleteUser(User *DataUser); // Deleta cadastro da lista
 
 // Validações
-int valCPF(char cpf[12]); // CPF
-int valAddress(); // Endereço
-int valFone(); // Telefone
-int valEmail(); // Email
-int valName(char name[50]); // Nome
-int valData(char data[12]); // Data Nascimento
+int valCPF(char cpf[12]); // CPF  xxx.xxx.xxx-xx
+int valFone(char phone[15]); // Telefone  (xx)xxxxx-xxxx
+int valEmail(char email[80]); // Email  xxxxxx@xxxx.xxx
+int valData(const char data[12]); // Data Nascimento  xx/xx/xx
+int valRG(const char rg[12]); // RG   xx.xxx.xxx-x
 
 // Others
 int checkExistUser(char cpf[12], User *DataUser);
