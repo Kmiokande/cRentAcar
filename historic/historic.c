@@ -30,7 +30,7 @@ void saveHistoric(Historic *DataHistoric) {
 }
 
 Historic *loadHistoric(Historic *DataHistoric) {
-    FILE *file = fopen("historic/historic.dat", "r");
+    FILE *file = fopen("historic/historic.dat", "a+");
 
     char data[12];
     char placa[9];
@@ -48,7 +48,7 @@ Historic *loadHistoric(Historic *DataHistoric) {
                 strcpy(_newHistoric->placa, placa);
                 strcpy(_newHistoric->data, data);
                 _newHistoric->priceTotal = priceTotal;
-                _newHistoric->status, status;
+                _newHistoric->status = status;
 
                 _newHistoric->proxHistoric = DataHistoric;
                 

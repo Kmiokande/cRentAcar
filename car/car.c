@@ -207,6 +207,7 @@ void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
                 // Save in Historic
                 addInHistoric(car->cpf, car->placa, date, price, 0, &DataHistoric); // 1 - Disponível | 0 - Indisponível
                 car->status++;
+                car->qtd_alugado++;
                 incrementScore(DataUser, car->cpf);
 
                 // Save User
@@ -302,7 +303,7 @@ void saveCar(Car *DataCar) {
 }
 
 Car *loadCar(Car *DataCar) {
-    FILE *file = fopen("car/car.dat", "r");
+    FILE *file = fopen("car/car.dat", "a+");
 
     char modelo[31];
     char cor[9];

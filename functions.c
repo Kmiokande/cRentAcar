@@ -28,7 +28,7 @@ int validatorGlobal(char vetor[], char type, int min) {
 }
 
 int isDigit(char i) {
-    if (i >= '0' && i <= '9' || i >= 0 && i <= 9) {
+    if (i >= '0' && i <= '9') {
         return True;
     }
     return False;

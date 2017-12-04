@@ -35,10 +35,10 @@ void singUpUser(User **DataUser) {
         scanf(" %49[^\n]", _newUser->nome_mae);
     } while (!validatorGlobal(_newUser->nome_mae, 'S', 4));
 
-    do {
+    // do {
         printf("RG [xx.xxx.xxx-x]: ");
-        scanf(" %49[^\n]", _newUser->rg);
-    } while (!valRG(_newUser->rg));
+        scanf(" %11[^\n]", _newUser->rg);
+    // } while (!valRG(_newUser->rg));
 
     do {
         printf("Endereço [Sigla do Estado][XX]: ");
@@ -66,7 +66,7 @@ void singUpUser(User **DataUser) {
     do {
         printf("CNH [xxxxxxxxxxx]: ");
         scanf(" %11[^\n]", _newUser->cnh);
-    } while (!validatorGlobal(_newUser->cnh, 'S', 11));
+    } while (!validatorGlobal(_newUser->cnh, 'N', 11));
 
     do {
         printf("Email: ");
@@ -361,7 +361,7 @@ void saveUser(User *DataUser) {
 
 // 4.2 - [ Carregar lista encadeada de DataUser(clientes) do arq. User.dat ]
 User *loadUser(User *DataUser) {
-    FILE *file = fopen("user/user.dat", "r");
+    FILE *file = fopen("user/user.dat", "a+");
 
     char nome[50];
     char sobrenome[50];
