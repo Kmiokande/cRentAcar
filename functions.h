@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 // Bool
 #define False 0

@@ -23,9 +23,9 @@ Car *DataCar = (Car *) NULL;
 Historic *DataHistoric = (Historic *) NULL;
 
 int main() {
- DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
- DataCar = loadCar(DataCar);
-//    DataHistoric = loadHistoric(DataHistoric);        // Carrega os dados do arquivo car.dat
+    DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
+    DataCar = loadCar(DataCar);
+    DataHistoric = loadHistoric(DataHistoric);        // Carrega os dados do arquivo car.dat
 
     int op = 10;
 
@@ -34,7 +34,7 @@ int main() {
         Logo();
         mPrincipal(); // MENU PRINCIPAL
         printf("\nInforme uma opção acima: ");
-        scanf("%d", &op);
+        scanf(" %d", &op);
 
         if (op == 1) {
             printf(clear);

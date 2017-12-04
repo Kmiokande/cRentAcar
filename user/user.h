@@ -51,6 +51,7 @@ int valRG(const char rg[12]); // RG   xx.xxx.xxx-x
 
 // Others
 int checkExistUser(char cpf[12], User *DataUser);
+void incrementScore(User* DataUser, char cpf[11]);
 int bestClients();
 
 void freeMemory();

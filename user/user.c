@@ -302,6 +302,7 @@ int valEmail(char email[80]) {
 // >> 3. [ Outros ]
 // 3.1 - Checar se o CPF existe no sistema [x]
 // 3.2 - Procura cliente pelo CPF [x]
+// 3.3 - Incrementar Score [x]
 
 // 3.1 - [ Checar se o CPF existe no sistema ]
 int checkExistUser(char cpf[12], User *DataUser) {
@@ -310,6 +311,7 @@ int checkExistUser(char cpf[12], User *DataUser) {
             return True;
         }
     }
+    printf("CPF não encontrado!\n");
     return False;
 }
 
@@ -327,6 +329,16 @@ void searchUser(User *DataUser) {
         }
     }
     printf("\n\n>> Cliente não encontrado cadastrados!\n"); // Não encontrou o elemento
+}
+
+void incrementScore(User* DataUser, char cpf[11]) {
+    for (User *user = DataUser; user != NULL ; user = user->proxUser) {
+        if (!strcmp(user->cpf, cpf)) {
+            user->score++;
+            break;
+        }
+    }
+
 }
 
 // >> 4. [ I/O dos dados e memoria ]

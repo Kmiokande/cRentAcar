@@ -11,7 +11,7 @@ build:
 	rm *.o
 
 run:
-	gnome-terminal -t 'cRentCar' --active -- ./cRentCar
+	gnome-terminal -t 'cRentCar' --geometry=100x30 --active -- ./cRentCar
 	# Clean
 	rm ./cRentCar
 

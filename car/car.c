@@ -170,14 +170,14 @@ void CarRented(Car *DataCar) {
 void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
     char placa[9];
     int dias;
-    // Data
+
     time_t tempo;
-    struct tm *timeptr,result;
-    char buffer[100];
+    struct tm *timeptr;
+    // Date
+    char date[11];
     tempo = time(NULL);
     timeptr = localtime(&tempo);
-    strftime(buffer,sizeof(buffer), "%a %m/%d/%Y %r", timeptr);
-    int dia = result.tm_mday, mes = result.tm_mon + 1, ano = result.tm_year + 1900;
+    strftime(date,sizeof(date), "%d/%m/%Y", timeptr);
 
     listCar(DataCar);
     do {
@@ -185,26 +185,38 @@ void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
         scanf(" %8[^\n]", placa);
     } while (checkExistCar(placa, DataCar));
 
-    for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-        if (strcmp(aux->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
-            aux->status = 0;
+    for (Car *car = DataCar; car != NULL; car = car->proxCar) {
+        if (strcmp(car->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
             do {
                 printf("CPF: ");
-                scanf(" %11[^\n]", aux->cpf);
-            } while (valCPF(aux->cpf) && checkExistUser(aux->cpf, DataUser));
+                scanf(" %11[^\n]", car->cpf);
+            } while (!checkExistUser(car->cpf, DataUser));
 
-            printf("Quantos dias de aluguel?");
+            printf("Dias de aluguel: ");
             scanf(" %d", &dias);
 
-            float price = dias * aux->preco;
-            char data[] = r; // <- Se possível puxar data atual
-            printf("Data atual: %d/%d/%d\n", dia, mes, ano);
-            printf("O Preço Tota R$: %f", price);
-            printf("Carro alugado com sucesso!");
+            float price = dias * car->preco;
+            printf("O Preço Tota R$: %.2f\n Continuar (S/n)? ", price);
 
-            // Save in Historic
-            addInHistoric(aux->cpf, aux->placa, data, price, 0, &DataHistoric);
-            aux->status++;
+            char opition;
+            scanf(" %c", &opition);
+
+            if (opition == 'S' || opition == 's') {
+                printf("Carro alugado com sucesso!\n");
+
+                // Save in Historic
+                addInHistoric(car->cpf, car->placa, date, price, 0, &DataHistoric); // 1 - Disponível | 0 - Indisponível
+                car->status++;
+                incrementScore(DataUser, car->cpf);
+
+                // Save User
+                saveUser(DataUser);
+                // Save Car
+                saveCar(DataCar);
+
+            } else {
+                printf("Aluguel cancelado!\n");
+            }
         }
     }
 }
