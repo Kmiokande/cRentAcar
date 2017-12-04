@@ -13,7 +13,7 @@ build:
 run:
 	gnome-terminal -t 'cRentCar' --geometry=100x30 --active -- ./cRentCar
 	# Clean
-	# rm ./cRentCar
+	rm ./cRentCar
 
 test:
 	clang test.c -o test

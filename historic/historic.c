@@ -1,12 +1,13 @@
 #include "historic.h"
 
-void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric) {
+void addInHistoric(char cpf[12], char placa[9], char data[11], int qDias, float price, int status, Historic **DataHistoric) {
 
     Historic *_newHistoric = (Historic *) malloc(sizeof(Historic));
 
     strcpy(_newHistoric->cpfUser, cpf);
     strcpy(_newHistoric->placa, placa);
     strcpy(_newHistoric->data, data);
+    _newHistoric->qDias = qDias;
     _newHistoric->priceTotal = price;
     _newHistoric->status = status;
 
@@ -23,7 +24,7 @@ void saveHistoric(Historic *DataHistoric) {
         exit(1);
     } else {
         for (Historic *p = DataHistoric; p != NULL; p = p->proxHistoric) {
-            fprintf(file, "%s|%s|%s|%f|%d|\n", p->cpfUser, p->placa, p->data, p->priceTotal, p->status);
+            fprintf(file, "%s|%s|%s|%d|%f|%d|\n", p->cpfUser, p->placa, p->data, p->qDias, p->priceTotal, p->status);
         }
         fclose(file);
     }
@@ -35,18 +36,20 @@ Historic *loadHistoric(Historic *DataHistoric) {
     char data[12];
     char placa[9];
     char cpfUser[12];
+    int qDias;
     int status;
     float priceTotal;
 
     if (file == NULL) {
         printf("Erro, não foi possivel abrir o arquivo\n");
     } else {
-        while (fscanf(file, "%12[^|]|%9[^|]|%12[^|]|%f|%d|\n", cpfUser, placa, data, &priceTotal, &status) != EOF) {
+        while (fscanf(file, "%12[^|]|%9[^|]|%12[^|]|%d|%f|%d|\n", cpfUser, placa, data, &qDias, &priceTotal, &status) != EOF) {
             Historic *_newHistoric = (Historic *) malloc(sizeof(Historic));
 
                 strcpy(_newHistoric->cpfUser, cpfUser);
                 strcpy(_newHistoric->placa, placa);
                 strcpy(_newHistoric->data, data);
+                _newHistoric->qDias = qDias;
                 _newHistoric->priceTotal = priceTotal;
                 _newHistoric->status = status;
 

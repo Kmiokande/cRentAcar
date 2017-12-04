@@ -169,7 +169,7 @@ void mLocacao(void) {
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
-        Indisponivel();
+        returnCar(DataCar, DataHistoric, DataUser);
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
