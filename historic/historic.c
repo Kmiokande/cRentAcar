@@ -105,26 +105,25 @@ void showBestUser(User* DataUser) {
     } else {
         printf("Nenhum Cliente VIP\n");
     }
-
 }
 
-//void showBestCar(Car* DataCar) {
-//    char placa[9];
-//    int max = 0;
-//    for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-//        if (aux->qtd_alugado > max) {
-//            strcpy(placa, aux->placa);
-//            max = aux->qtd_alugado;
-//        }
-//    }
-//
-//    if (max != 0) {
-//        for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-//            if (strcmp(aux->placa, placa) == 0) {
-//                printf("O Carro mais alugado do cRentCar é o %s com %d alugações! \n", aux->modelo, aux->qtd_alugado);
-//            }
-//        }
-//    } else {
-//        printf("Nenhum Cliente VIP");
-//    }
-//}
+// void showBestCar(Car *DataCar) {
+//     char placa[9];
+//     int max = 0;
+//     for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+//         if (aux->qtd_alugado > max) {
+//             strcpy(placa, aux->placa);
+//             max = aux->qtd_alugado;
+//         }
+//     }
+
+//     if (max != 0) {
+//         for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+//             if (strcmp(aux->placa, placa) == 0) {
+//                 printf("O Carro mais alugado do cRentCar é o %s, placa: %s com %d locações.\n", aux->modelo, aux->placa, aux->qtd_alugado);
+//             }
+//         }
+//     } else {
+//         printf("Nenhum carro foi alugado.\n");
+//     }
+// }

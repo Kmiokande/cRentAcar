@@ -54,4 +54,6 @@ Car *loadCar(Car *DataCar); // Carregar Dados do Arquivo 'car.dat'
 // Others
 int checkExistCar(char placa[9], Car *DataCar);
 
+void showBestCar(Car *DataCar);
+
 #endif

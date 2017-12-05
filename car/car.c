@@ -17,7 +17,7 @@ void singUpCar(Car **DataCar) {
     } while (!validatorGlobal(_newCar->cor, 'S', 3));
 
     do {
-        printf("Ano: ");
+        printf("Ano [xxxx]: ");
         scanf(" %d", &_newCar->ano);
     } while (!valYear(_newCar->ano));
 
@@ -25,17 +25,19 @@ void singUpCar(Car **DataCar) {
     scanf(" %f", &_newCar->preco);
 
     do {
-        printf("Placa: ");
+        printf("Placa [xxx-xxxx]: ");
         scanf(" %8[^\n]", _newCar->placa);
     } while (!valPlate(_newCar->placa));
 
     do {
-        printf("Renavam: ");
+        printf("Renavam [Ano até 2012: 9 digitos - Acima: 11 digitos]: ");
         scanf(" %11[^\n]", _newCar->renavam);
     } while (!(validatorGlobal(_newCar->renavam, 'N', 9) && valRenavam(_newCar->ano, _newCar->renavam)));
 
-    printf("Km: ");
-    scanf(" %6[^\n]", _newCar->km);
+    do {
+        printf("Km [xxxxxx](6): ");
+        scanf(" %6[^\n]", _newCar->km);
+    } while (!validatorGlobal(_newCar->km, 'N', 6));
 
     _newCar->status = 1; // 1 - Disponível para alugar | 0 - Indisponível
     _newCar->qtd_alugado = 0;
@@ -273,6 +275,28 @@ void returnCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
                 printf("Aluguel cancelado!\n");
             }
         }
+    }
+}
+
+// [ Mostra o carro mais alugado ]
+void showBestCar(Car *DataCar) {
+    char placa[9];
+    int max = 0;
+    for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+        if (aux->qtd_alugado > max) {
+            strcpy(placa, aux->placa);
+            max = aux->qtd_alugado;
+        }
+    }
+
+    if (max != 0) {
+        for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+            if (strcmp(aux->placa, placa) == 0) {
+                printf("O Carro mais alugado do cRentCar é o %s, placa: %s com %d locações.\n", aux->modelo, aux->placa, aux->qtd_alugado);
+            }
+        }
+    } else {
+        printf("Nenhum carro foi alugado.\n");
     }
 }
 

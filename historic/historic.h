@@ -26,7 +26,7 @@ void showHistoric(Historic* DataHistoric);
 
 void showEarn(Historic* DataHistoric);
 
-//void showBestCar(Car* DataCar);
+//void showBestCar(Car *DataCar);
 
 void showBestUser(User* DataUser);
 

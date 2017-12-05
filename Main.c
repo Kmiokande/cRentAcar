@@ -31,7 +31,7 @@ int main() {
 
     while (op) {
         printf(clear);
-        Logo();
+        logoExit();
         mPrincipal(); // MENU PRINCIPAL
         printf("\nInforme uma opção acima: ");
         scanf(" %d", &op);
@@ -271,12 +271,13 @@ void mHistoricos(void) {
     printf("\nInforme uma opção acima: ");
     scanf("%d", &op);
     if (op == 1) {
-        Indisponivel();
+        showBestCar(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
-        //showBestUser(DataUser);
+        showBestUser(DataUser);
 
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
