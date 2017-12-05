@@ -312,28 +312,6 @@ void showBestCar(Car *DataCar) {
     }
 }
 
-// [ Mostra o carro mais alugado ]
-void showBestCar(Car *DataCar) {
-    char placa[9];
-    int max = 0;
-    for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-        if (aux->qtd_alugado > max) {
-            strcpy(placa, aux->placa);
-            max = aux->qtd_alugado;
-        }
-    }
-
-    if (max != 0) {
-        for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-            if (strcmp(aux->placa, placa) == 0) {
-                printf("O Carro mais alugado do cRentCar é o %s, placa: %s com %d locações.\n", aux->modelo, aux->placa, aux->qtd_alugado);
-            }
-        }
-    } else {
-        printf("Nenhum carro foi alugado.\n");
-    }
-}
-
 // >> [ Validações ]
 // [ Valida Modelo ]
 int valModel(char model[31]) {
