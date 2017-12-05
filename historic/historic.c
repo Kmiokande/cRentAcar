@@ -99,7 +99,7 @@ void showBestUser(User* DataUser) {
     if (max != 0) {
         for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
             if (strcmp(aux->cpf, cpf) == 0) {
-                printf("O cliente VIP do cRentCar é o %s com %d alugações! \n", aux->nome, aux->score);
+                printf("O(A) cliente VIP do cRentCar é %s, CPF: %s com %d locações.\n", aux->nome, aux->cpf, aux->score);
             };
         }
     } else {

@@ -167,7 +167,7 @@ void CarRented(Car *DataCar) {
 
 }
  // [ Alugar carro ]
-void rentCar(Car *DataCar, Historic **DataHistoric, User *DataUser) {
+void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
     char placa[9];
     int dias;
 

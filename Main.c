@@ -177,7 +177,7 @@ void mLocacao(void) {
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
-        returnCar(DataCar, &DataHistoric, DataUser);
+        returnCar(DataCar, DataHistoric, DataUser);
 
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
@@ -276,7 +276,7 @@ void mHistoricos(void) {
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
-        showBestUser(DataUser);
+        //showBestUser(DataUser);
 
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
