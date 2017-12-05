@@ -32,7 +32,7 @@ void singUpUser(User **DataUser) {
 
     do {
         printf("Nome completo da Mãe: ");
-        scanf(" %49[^\n]", _newUser->nome_mae);
+        scanf(" %79[^\n]", _newUser->nome_mae);
     } while (!validatorGlobal(_newUser->nome_mae, 'S', 4));
 
     do {
@@ -58,7 +58,7 @@ void singUpUser(User **DataUser) {
     do {
         printf("Endereço [Número]: ");
         scanf(" %5[^\n]", _newUser->endereco.numero);
-    } while (!validatorGlobal(_newUser->endereco.numero, 'N', 1 ));
+    } while (!validatorGlobal(_newUser->endereco.numero, 'N', 1));
 
     do {
         printf("Endereço [Bairro]:");
@@ -186,14 +186,14 @@ User *deleteUser(User *DataUser) {
         p = p->proxUser;
     }
     if (p == NULL) // Verifica se achou o elemento
-        printf("\n\tAchou o elemento\n");
+        return DataUser; // Não achou retorna a lista original
     // Retira elemento
     if (ant == NULL) { // Retira o elemento do inicio da lista
         DataUser = p->proxUser;
-        printf("\n\tRetirou o elemento do inicio da lista!\n");
+        printf("\n\tCadastro excluído com sucesso.\n");
     } else { // Retira o elemento do meio da lista
         ant->proxUser = p->proxUser;
-        printf("\n\tRetirou o elemento do meio da lista!\n");
+        printf("\n\tCadastro excluído com sucesso.\n");
     }
     free(p); // Libera o elemento
     return DataUser;
@@ -330,7 +330,7 @@ int checkExistUser(char cpf[12], User *DataUser) {
             return True;
         }
     }
-    printf("CPF não encontrado!\n");
+    printf("CPF não encontrado ou não cadastrado!\n");
     return False;
 }
 
@@ -352,7 +352,7 @@ void searchUser(User *DataUser) {
 
 void incrementScore(User *DataUser, char cpf[11]) {
     for (User *user = DataUser; user != NULL; user = user->proxUser) {
-        if (!strcmp(user->cpf, cpf)) {
+        if (strcmp(user->cpf, cpf) == 0) {
             user->score++;
             break;
         }
@@ -387,17 +387,17 @@ User *loadUser(User *DataUser) {
 
     char nome[50];
     char sobrenome[50];
-    char data_nascimento[12];
+    char data_nascimento[11];
     char cpf[12];
     char nome_mae[80];
-    char rg[20];
+    char rg[10];
     char sigla_estado[3];
     char cidade[51];
     char rua[51];
     char numero[6];
     char bairro[31];
-    char cnh[20];
-    char email[80];
+    char cnh[12];
+    char email[50];
     char fone[15];
     int score;
 
@@ -405,7 +405,7 @@ User *loadUser(User *DataUser) {
         printf("Erro, não foi possivel abrir o arquivo\n");
     } else {
         while (fscanf(file,
-                      "%49[^|]|%49[^|]|%11[^|]|%11[^|]|%79[^|]|%19[^|]|%2[^|]|%50[^|]|%50[^|]|%5[^|]|%30[^|]|%19[^|]|%79[^|]|%14[^|]|%d|\n",
+                      "%49[^|]|%49[^|]|%10[^|]|%11[^|]|%79[^|]|%9[^|]|%2[^|]|%50[^|]|%50[^|]|%5[^|]|%30[^|]|%11[^|]|%48[^|]|%14[^|]|%d|\n",
                       nome, sobrenome, data_nascimento, cpf, nome_mae, rg, sigla_estado, cidade, rua, numero, bairro,
                       cnh, email, fone, &score) != EOF) {
             User *_newUser = (User *) malloc(sizeof(User));
@@ -425,6 +425,7 @@ User *loadUser(User *DataUser) {
                 strcpy(_newUser->cnh, cnh);
                 strcpy(_newUser->email, email);
                 strcpy(_newUser->fone, fone);
+                _newUser->score = score;
 
                 _newUser->proxUser = DataUser;
                 DataUser = _newUser;

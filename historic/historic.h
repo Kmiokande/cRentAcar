@@ -24,7 +24,7 @@ void saveHistoric(Historic *DataHistoric);
 
 void showHistoric(Historic* DataHistoric);
 
-void showEarn(Historic* Datahistoric);
+void showEarn(Historic* DataHistoric);
 
 //void showBestCar(Car* DataCar);
 

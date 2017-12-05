@@ -11,8 +11,8 @@ void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int 
     _newHistoric->status = status;
 
     _newHistoric->proxHistoric = *DataHistoric;
-    saveHistoric(_newHistoric);
     *DataHistoric = _newHistoric;
+    saveHistoric(*DataHistoric);
 }
 
 // [ I/O dos dados e memoria ]
@@ -73,16 +73,16 @@ void showHistoric(Historic* DataHistoric) {
     }
 }
 
-void showEarn(Historic* Datahistoric) {
+void showEarn(Historic* DataHistoric) {
     float lucro = 0;
-    for (Historic *aux = Datahistoric; aux != NULL; aux = aux->proxHistoric) {
+    for (Historic *aux = DataHistoric; aux != NULL; aux = aux->proxHistoric) {
         lucro += aux->priceTotal;
     }
 
     if (lucro != 0) {
-        printf("cRentCar obteve %.2f de Lucro\n", lucro);
+        printf("cRentCar obteve %.2f de Lucro.\n", lucro);
     } else {
-        printf("Nenhum lucro está zerado\n");
+        printf("Nenhum lucro, está zerado.\n");
     }
 }
 
@@ -103,7 +103,7 @@ void showBestUser(User* DataUser) {
             };
         }
     } else {
-        printf("Nenhum Cliente VIP");
+        printf("Nenhum Cliente VIP\n");
     }
 
 }

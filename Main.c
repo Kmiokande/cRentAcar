@@ -114,28 +114,33 @@ void mCadastramento() {
 
     if (op == 1) {
         singUpUser(&DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
         searchUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 3) {
         listUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 4) {
         editUser(DataUser);
         saveUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 5) {
         DataUser = deleteUser(DataUser);
         saveUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
@@ -167,21 +172,25 @@ void mLocacao(void) {
     scanf("%d", &op);
     if (op == 1) {
         rentCar(DataCar, DataHistoric, DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
         returnCar(DataCar, DataHistoric, DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 3) {
         CarFree(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 4) {
         CarRented(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
@@ -213,22 +222,26 @@ void mVeiculos() {
     scanf("%d", &op);
     if (op == 1) {
         singUpCar(&DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
         searchCar(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 3) {
         listCar(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 4) {
         DataCar = deleteCar(DataCar);
         saveCar(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
@@ -263,12 +276,14 @@ void mHistoricos(void) {
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
-        Indisponivel();
+        showBestUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 3) {
-        Indisponivel();
+        showEarn(DataHistoric);
+        
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
