@@ -32,7 +32,7 @@ int searchCar(Car *DataCar); // Busca cadastro do carro pela placa
 void editCar(Car *DataCar);
 Car *deleteCar(Car *DataCar); // Deleta cadastro do carro pela placa
 
-void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser); // Aluga carros
+void rentCar(Car *DataCar, Historic **DataHistoric, User *DataUser); // Aluga carros
 void returnCar(Car *DataCar, Historic *DataHistoric, User *DataUser); // Devolve carros
 void CarRented(Car *DataCar); // Mostra os carros alugados
 void CarFree(Car *DataCar); // Mostra os carros disponiveis
