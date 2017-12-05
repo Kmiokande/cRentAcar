@@ -129,11 +129,13 @@ void mCadastramento() {
         getchar();
     } else if (op == 4) {
         editUser(DataUser);
+        saveUser(DataUser);
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 5) {
         DataUser = deleteUser(DataUser);
+        saveUser(DataUser);
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
@@ -201,8 +203,7 @@ void mVeiculos() {
     printf("** [1] - CADASTRAR VEÍCULO  **\n");
     printf("** [2] - CONSULTAR VEÍCULO  **\n");
     printf("** [3] - MOSTRAR VEÍCULOS   **\n");
-    printf("** [4] - EDITAR VEÍCULO     **\n");
-    printf("** [5] - EXCLUIR VEÍCULO    **\n");
+    printf("** [4] - EXCLUIR VEÍCULO    **\n");
     printf("**                          **\n");
     printf("** [0] - VOLTAR             **\n");
     printf("******************************\n");
@@ -226,12 +227,8 @@ void mVeiculos() {
         while (getchar() != '\n');
         getchar();
     } else if (op == 4) {
-        Indisponivel();
-        printf("Aperte ENTER para voltar...\n");
-        while (getchar() != '\n');
-        getchar();
-    } else if (op == 5) {
         DataCar = deleteCar(DataCar);
+        saveCar(DataCar);
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();

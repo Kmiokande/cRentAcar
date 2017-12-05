@@ -1,13 +1,12 @@
 #include "historic.h"
 
-void addInHistoric(char cpf[12], char placa[9], char data[11], int qDias, float price, int status, Historic **DataHistoric) {
+void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric) {
 
     Historic *_newHistoric = (Historic *) malloc(sizeof(Historic));
 
     strcpy(_newHistoric->cpfUser, cpf);
     strcpy(_newHistoric->placa, placa);
     strcpy(_newHistoric->data, data);
-    _newHistoric->qDias = qDias;
     _newHistoric->priceTotal = price;
     _newHistoric->status = status;
 
@@ -24,7 +23,7 @@ void saveHistoric(Historic *DataHistoric) {
         exit(1);
     } else {
         for (Historic *p = DataHistoric; p != NULL; p = p->proxHistoric) {
-            fprintf(file, "%s|%s|%s|%d|%f|%d|\n", p->cpfUser, p->placa, p->data, p->qDias, p->priceTotal, p->status);
+            fprintf(file, "%s|%s|%s|%f|%d|\n", p->cpfUser, p->placa, p->data, p->priceTotal, p->status);
         }
         fclose(file);
     }
@@ -36,20 +35,18 @@ Historic *loadHistoric(Historic *DataHistoric) {
     char data[12];
     char placa[9];
     char cpfUser[12];
-    int qDias;
     int status;
     float priceTotal;
 
     if (file == NULL) {
         printf("Erro, não foi possivel abrir o arquivo\n");
     } else {
-        while (fscanf(file, "%12[^|]|%9[^|]|%12[^|]|%d|%f|%d|\n", cpfUser, placa, data, &qDias, &priceTotal, &status) != EOF) {
+        while (fscanf(file, "%12[^|]|%9[^|]|%12[^|]|%f|%d|\n", cpfUser, placa, data, &priceTotal, &status) != EOF) {
             Historic *_newHistoric = (Historic *) malloc(sizeof(Historic));
 
                 strcpy(_newHistoric->cpfUser, cpfUser);
                 strcpy(_newHistoric->placa, placa);
                 strcpy(_newHistoric->data, data);
-                _newHistoric->qDias = qDias;
                 _newHistoric->priceTotal = priceTotal;
                 _newHistoric->status = status;
 
@@ -62,3 +59,72 @@ Historic *loadHistoric(Historic *DataHistoric) {
     fclose(file);
     return DataHistoric;
 }
+
+void showHistoric(Historic* DataHistoric) {
+    for (Historic *aux = DataHistoric; aux != NULL; aux = aux->proxHistoric) {
+        printf("%s | ", aux->data);
+        if (aux->status == 1) {
+            printf("%sAlugado %s | ", KGRN, KNRM);
+        } else {
+            printf("%sDevolver %s | ", KGRN, KNRM);
+        }
+        printf("Preço: %.2f | ", aux->priceTotal);
+        printf("Placa: %s\n", aux->placa);
+    }
+}
+
+void showEarn(Historic* Datahistoric) {
+    float lucro = 0;
+    for (Historic *aux = Datahistoric; aux != NULL; aux = aux->proxHistoric) {
+        lucro += aux->priceTotal;
+    }
+
+    if (lucro != 0) {
+        printf("cRentCar obteve %.2f de Lucro\n", lucro);
+    } else {
+        printf("Nenhum lucro está zerado\n");
+    }
+}
+
+void showBestUser(User* DataUser) {
+    char cpf[12];
+    int max = 0;
+    for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
+        if (aux->score > max) {
+            strcpy(cpf, aux->cpf);
+            max = aux->score;
+        };
+    }
+
+    if (max != 0) {
+        for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
+            if (strcmp(aux->cpf, cpf) == 0) {
+                printf("O cliente VIP do cRentCar é o %s com %d alugações! \n", aux->nome, aux->score);
+            };
+        }
+    } else {
+        printf("Nenhum Cliente VIP");
+    }
+
+}
+
+//void showBestCar(Car* DataCar) {
+//    char placa[9];
+//    int max = 0;
+//    for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+//        if (aux->qtd_alugado > max) {
+//            strcpy(placa, aux->placa);
+//            max = aux->qtd_alugado;
+//        }
+//    }
+//
+//    if (max != 0) {
+//        for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+//            if (strcmp(aux->placa, placa) == 0) {
+//                printf("O Carro mais alugado do cRentCar é o %s com %d alugações! \n", aux->modelo, aux->qtd_alugado);
+//            }
+//        }
+//    } else {
+//        printf("Nenhum Cliente VIP");
+//    }
+//}

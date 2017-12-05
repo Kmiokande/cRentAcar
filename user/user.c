@@ -21,12 +21,12 @@ void singUpUser(User **DataUser) {
     } while (!validatorGlobal(_newUser->sobrenome, 'S', 4));
 
     do {
-    printf("Data de Nascimento [xx/xx/xxxx]: ");
-    scanf(" %10[^\n]", _newUser->data_nascimento);
+        printf("Data de Nascimento [xx/xx/xxxx]: ");
+        scanf(" %10[^\n]", _newUser->data_nascimento);
     } while (!valData(_newUser->data_nascimento));
 
     do {
-        printf("CPF [xxxxxxxxxxx]: ");
+        printf("CPF [xxxxxxxxxxx](11): ");
         scanf(" %11[^\n]", _newUser->cpf);
     } while (!valCPF(_newUser->cpf));
 
@@ -35,13 +35,13 @@ void singUpUser(User **DataUser) {
         scanf(" %49[^\n]", _newUser->nome_mae);
     } while (!validatorGlobal(_newUser->nome_mae, 'S', 4));
 
-    // do {
-        printf("RG [xx.xxx.xxx-x]: ");
-        scanf(" %11[^\n]", _newUser->rg);
-    // } while (!valRG(_newUser->rg));
+    do {
+        printf("RG [xxxxxxxxx](9): ");
+        scanf(" %9[^\n]", _newUser->rg);
+    } while (!validatorGlobal(_newUser->rg, 'N', 9));
 
     do {
-        printf("Endereço [Sigla do Estado][XX]: ");
+        printf("Endereço [Sigla do Estado][XX](2): ");
         scanf(" %2[^\n]", _newUser->endereco.sigla_estado);
     } while (!validatorGlobal(_newUser->endereco.sigla_estado, 'S', 2));
 
@@ -55,16 +55,18 @@ void singUpUser(User **DataUser) {
         scanf(" %50[^\n]", _newUser->endereco.rua);
     } while (!validatorGlobal(_newUser->endereco.rua, 'S', 3));
 
-    printf("Endereço [Número]: ");
-    scanf(" %d", &_newUser->endereco.numero);
+    do {
+        printf("Endereço [Número]: ");
+        scanf(" %5[^\n]", _newUser->endereco.numero);
+    } while (!validatorGlobal(_newUser->endereco.numero, 'N', 1 ));
 
     do {
         printf("Endereço [Bairro]:");
-        scanf(" %49[^\n]", _newUser->endereco.bairro);
+        scanf(" %30[^\n]", _newUser->endereco.bairro);
     } while (!validatorGlobal(_newUser->endereco.bairro, 'S', 3));
 
     do {
-        printf("CNH [xxxxxxxxxxx]: ");
+        printf("CNH [xxxxxxxxxxx](11): ");
         scanf(" %11[^\n]", _newUser->cnh);
     } while (!validatorGlobal(_newUser->cnh, 'N', 11));
 
@@ -73,8 +75,10 @@ void singUpUser(User **DataUser) {
         scanf(" %49[^\n]", _newUser->email);
     } while (!valEmail(_newUser->email));
 
-    printf("Telefone: [(xx)xxxxx-xxxx]");
-    scanf(" %49[^\n]", _newUser->fone);
+    do {
+        printf("Telefone: [(xx)xxxxx-xxxx]");
+        scanf(" %14[^\n]", _newUser->fone);
+    } while (valTelefone(_newUser->fone));
 
     _newUser->score = 0;
 
@@ -97,6 +101,7 @@ void editUser(User *DataUser) {
             printf("\n3 - Endereço");
             printf("\n4 - Telefone");
             printf("\n5 - Email");
+            printf("\n6 - CPF");
             printf("\nDígito da opção:");
             int op;
             scanf(" %1d", &op);
@@ -105,45 +110,59 @@ void editUser(User *DataUser) {
                     do {
                         printf("Nome: ");
                         scanf(" %49[^\n]", aux->nome);
-                    } while (validatorGlobal(aux->nome, 'S', 4));
+                    } while (!validatorGlobal(aux->nome, 'S', 4));
                     break;
                 case 2:
                     do {
                         printf("Sobrenome: ");
                         scanf(" %49[^\n]", aux->sobrenome);
-                    } while (validatorGlobal(aux->sobrenome, 'S', 4));
+                    } while (!validatorGlobal(aux->sobrenome, 'S', 4));
                     break;
                 case 3:
                     do {
-                        printf("Endereço [Sigla do Estado]: ");
+                        printf("Endereço [Sigla do Estado][XX](2): ");
                         scanf(" %2[^\n]", aux->endereco.sigla_estado);
-                    } while (validatorGlobal(aux->endereco.sigla_estado, 'S', 2));
+                    } while (!validatorGlobal(aux->endereco.sigla_estado, 'S', 2));
 
                     do {
                         printf("Endereço [Cidade]: ");
                         scanf(" %50[^\n]", aux->endereco.cidade);
-                    } while (validatorGlobal(aux->endereco.cidade, 'S', 3));
+                    } while (!validatorGlobal(aux->endereco.cidade, 'S', 3));
 
                     do {
                         printf("Endereço [Rua]: ");
                         scanf(" %50[^\n]", aux->endereco.rua);
-                    } while (validatorGlobal(aux->endereco.rua, 'S', 3));
-
-                    printf("Endereço [Número]: ");
-                    scanf(" %d", &aux->endereco.numero);
+                    } while (!validatorGlobal(aux->endereco.rua, 'S', 3));
 
                     do {
-                        printf("Endereço [Bairro]: ");
-                        scanf(" %49[^\n]", aux->endereco.bairro);
-                    } while (validatorGlobal(aux->endereco.bairro, 'S', 3));
+                        printf("Endereço [Número]: ");
+                        scanf(" %5[^\n]", aux->endereco.numero);
+                    } while (!validatorGlobal(aux->endereco.numero, 'N', 5));
+
+                    do {
+                        printf("Endereço [Bairro]:");
+                        scanf(" %30[^\n]", aux->endereco.bairro);
+                    } while (!validatorGlobal(aux->endereco.bairro, 'S', 3));
+
                     break;
                 case 4:
-                    printf("Email: ");
-                    scanf(" %49[^\n]", aux->email);
+                    do {
+                        printf("Email: ");
+                        scanf(" %49[^\n]", aux->email);
+                    } while (!valEmail(aux->email));
+
                     break;
                 case 5:
-                    printf("Telefone: ");
-                    scanf(" %49[^\n]", aux->fone);
+                    do {
+                        printf("Telefone: [(xx)xxxxx-xxxx]");
+                        scanf(" %14[^\n]", aux->fone);
+                    } while (valTelefone(aux->fone));
+                    break;
+                case 6:
+                    do {
+                        printf("CPF [xxxxxxxxxxx](11): ");
+                        scanf(" %11[^\n]", aux->cpf);
+                    } while (!valCPF(aux->cpf));
                     break;
                 default:
                     printf("Opção Inválida!");
@@ -202,23 +221,23 @@ void listUser(User *DataUser) {
 // 2.2 - Validação data de Nascimento [x] (xx/xx/xx)
 // 2.3 - Validação CPF [x] (xxx.xxx.xxx-xx)
 // 2.4 - Valida Nome da mãe [x] [Usando ValidorGlobal]
-// 2.5 - Validação Rg [ ] (xx.xxx.xxx-x) <- BUG
-// 2.6 - Endereços [ ]
-    // 2.6.1 - Sigla [x] (XX)           [Usando ValidorGlobal]
-    // 2.6.2 - Cidade [x]               [Usando ValidorGlobal]
-    // 2.6.3 - Rua [x]                  [Usando ValidorGlobal]
-    // 2.6.4 - Número [ ] <- Bug se digitar string
-    // 2.6.5 - Bairro [x]               [Usando ValidorGlobal]
-// 2.7 - Validação CNH [x] (xxxxxxxxxxx)  [Usando ValidorGlobal]
+// 2.5 - Validação Rg [x] (xxxxxxxxx[9])
+// 2.6 - Endereços [x]
+// 2.6.1 - Sigla [x] (XX)           [Usando ValidorGlobal]
+// 2.6.2 - Cidade [x]               [Usando ValidorGlobal]
+// 2.6.3 - Rua [x]                  [Usando ValidorGlobal]
+// 2.6.4 - Número [x]
+// 2.6.5 - Bairro [x]               [Usando ValidorGlobal]
+// 2.7 - Validação CNH [x] (xxxxxxxxxxx[11])  [Usando ValidorGlobal]
 // 2.8 - Validação Email [x] (*@*.*)
-// 2.9 - Validação número de telefone [ ] ((xx)xxxxx-xxxx)
+// 2.9 - Validação número de telefone [x] ((xx)xxxxx-xxxx)
 
 // 2.2 - [ Validação Data ] [-] Aceitar apenas 18 anos acima (xx/xx/xxxx)
 int valData(const char data[11]) {
 
     if (strlen(data) == 10) {
         for (int i = 0; data[i] != '\0'; ++i) {
-            if (i < 2 || i > 2 && i < 5 || i > 5 && i < 10) {
+            if ((i < 2) || (i > 2 && i < 5) || (i > 5 && i < 10)) {
                 if (!(data[i] >= 48 && data[i] <= 57)) {
                     printf("Data inválida! Digite no formato: dd/mm/aaaa\n");
                     return False;
@@ -262,31 +281,13 @@ int valCPF(char cpf[12]) {
     return False;
 }
 
-// 2.5 - [ Validação Rg ] (xx.xxx.xxx-x)
-int valRG(const char rg[12]){
-        int p = 0, s = 0;
-        for (int i = 0; rg[i] != '\0'; ++i) {
-            if (i != 2  && !isDigit(rg[i]) || i != 6 && !isDigit(rg[i])) {
-                break;
-            } else if (rg[i] == '.') {
-                p++;
-            } else if (i == 10 && rg[i] == '-') {
-                s++;
-            } else if (i == 11 && p == 2 && s == 1 && rg[i+1] == '\0') {
-                return True;
-            }
-        }
-    printf("RG Inválido! Digite no formato (xx.xxx.xxx-x)");
-    return False;
-}
-
 // 2.8 - [ Validação Email ]
 int valEmail(char email[80]) {
     if (strlen(email) >= 8) {
         int v = 0;
         int a = 0;
         for (int i = 0; email[i] != '\0'; ++i) {
-            if(email[i] == '@') {
+            if (email[i] == '@') {
                 v++;
                 a++;
             } else if (email[i] == '.') {
@@ -297,6 +298,24 @@ int valEmail(char email[80]) {
         }
     }
     return False;
+}
+
+int valTelefone(char fone[15]) {
+    int s = 0;
+    int n = 0;
+    for (int i = 0; fone[i] != '\0'; ++i) {
+        if ((i == 0) || (i == 3)) {
+            if ((fone[i] == '(') || (fone[i] == ')')) {
+                s++;
+            }
+        } else if (isDigit(fone[i])) {
+            n++;
+        } else if (s == 2 && n == 11) {
+            return True;
+        }
+    }
+    return False;
+
 }
 
 // >> 3. [ Outros ]
@@ -331,8 +350,8 @@ void searchUser(User *DataUser) {
     printf("\n\n>> Cliente não encontrado cadastrados!\n"); // Não encontrou o elemento
 }
 
-void incrementScore(User* DataUser, char cpf[11]) {
-    for (User *user = DataUser; user != NULL ; user = user->proxUser) {
+void incrementScore(User *DataUser, char cpf[11]) {
+    for (User *user = DataUser; user != NULL; user = user->proxUser) {
         if (!strcmp(user->cpf, cpf)) {
             user->score++;
             break;
@@ -342,8 +361,8 @@ void incrementScore(User* DataUser, char cpf[11]) {
 }
 
 // >> 4. [ I/O dos dados e memoria ]
-// 4.1 - Salvar lista encadeada de DataUser(clientes) no arq. User.dat
-// 4.2 - Carregar lista encadeada de DataUser(clientes) do arq. User.dat
+// 4.1 - Salvar lista encadeada de DataUser(clientes) no arq. User.dat [x]
+// 4.2 - Carregar lista encadeada de DataUser(clientes) do arq. User.dat [x]
 
 // 4.1 - [ Salvar lista encadeada de DataUser(clientes) no arq. User.dat ]
 void saveUser(User *DataUser) {
@@ -353,7 +372,10 @@ void saveUser(User *DataUser) {
         exit(1);
     } else {
         for (User *aux = DataUser; aux != NULL; aux = aux->proxUser) {
-            fprintf(file, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%d|%s|%s|%s|%s|%d|\n", aux->nome, aux->sobrenome, aux->data_nascimento, aux->cpf, aux->nome_mae, aux->rg, aux->endereco.sigla_estado, aux->endereco.cidade, aux->endereco.rua, aux->endereco.numero, aux->endereco.bairro, aux->cnh, aux->email, aux->fone, aux->score);
+            fprintf(file, "%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%d|\n", aux->nome, aux->sobrenome,
+                    aux->data_nascimento, aux->cpf, aux->nome_mae, aux->rg, aux->endereco.sigla_estado,
+                    aux->endereco.cidade, aux->endereco.rua, aux->endereco.numero, aux->endereco.bairro, aux->cnh,
+                    aux->email, aux->fone, aux->score);
         }
         fclose(file);
     }
@@ -372,7 +394,7 @@ User *loadUser(User *DataUser) {
     char sigla_estado[3];
     char cidade[51];
     char rua[51];
-    int numero;
+    char numero[6];
     char bairro[31];
     char cnh[20];
     char email[80];
@@ -382,7 +404,10 @@ User *loadUser(User *DataUser) {
     if (file == NULL) {
         printf("Erro, não foi possivel abrir o arquivo\n");
     } else {
-        while (fscanf(file, "%49[^|]|%49[^|]|%11[^|]|%11[^|]|%79[^|]|%19[^|]|%2[^|]|%50[^|]|%50[^|]|%d|%30[^|]|%19[^|]|%79[^|]|%14[^|]|%d|\n", nome, sobrenome, data_nascimento, cpf, nome_mae, rg, sigla_estado, cidade, rua, &numero, bairro, cnh, email, fone, &score) != EOF) {
+        while (fscanf(file,
+                      "%49[^|]|%49[^|]|%11[^|]|%11[^|]|%79[^|]|%19[^|]|%2[^|]|%50[^|]|%50[^|]|%5[^|]|%30[^|]|%19[^|]|%79[^|]|%14[^|]|%d|\n",
+                      nome, sobrenome, data_nascimento, cpf, nome_mae, rg, sigla_estado, cidade, rua, numero, bairro,
+                      cnh, email, fone, &score) != EOF) {
             User *_newUser = (User *) malloc(sizeof(User));
 
             if (nome[0] >= 33) {
@@ -395,7 +420,7 @@ User *loadUser(User *DataUser) {
                 strcpy(_newUser->endereco.sigla_estado, sigla_estado);
                 strcpy(_newUser->endereco.cidade, cidade);
                 strcpy(_newUser->endereco.rua, rua);
-                _newUser->endereco.numero = numero;
+                strcpy(_newUser->endereco.numero, numero);
                 strcpy(_newUser->endereco.bairro, bairro);
                 strcpy(_newUser->cnh, cnh);
                 strcpy(_newUser->email, email);

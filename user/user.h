@@ -11,7 +11,7 @@ struct end {
   char sigla_estado[3];
   char cidade[51];
   char rua[51];
-  int numero;
+  char numero[6];
   char bairro[31];
 };
 
@@ -21,10 +21,10 @@ typedef struct user {
   char data_nascimento[11];
   char cpf[12];
   char nome_mae[80];
-  char rg[12];
+  char rg[9];
   char cnh[12];
   struct end endereco;
-  char email[80];
+  char email[50];
   char fone[15];
   int score;
   struct user* proxUser;
@@ -44,7 +44,7 @@ User *deleteUser(User *DataUser); // Deleta cadastro da lista
 
 // Validações
 int valCPF(char cpf[12]); // CPF  xxx.xxx.xxx-xx
-int valFone(char phone[15]); // Telefone  (xx)xxxxx-xxxx
+int valTelefone(char fone[15]); // Telefone  (xx)xxxxx-xxxx
 int valEmail(char email[80]); // Email  xxxxxx@xxxx.xxx
 int valData(const char data[12]); // Data Nascimento  xx/xx/xx
 int valRG(const char rg[12]); // RG   xx.xxx.xxx-x

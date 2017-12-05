@@ -10,12 +10,6 @@
 #include "../functions.h"
 #include "../historic/historic.h"
 
-// Colors Text for Terminal Unix
-
-#define KRED  "\x1B[31m"
-#define KGRN  "\x1B[32m"
-#define KNRM  "\x1B[0m"
-
 
  typedef struct car {
   char modelo[31];

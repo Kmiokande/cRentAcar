@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../functions.h"
+#include "../user/user.h"
+
 typedef struct historic {
     char data[12];
     char placa[9];
@@ -15,9 +18,17 @@ typedef struct historic {
     struct historic *proxHistoric;
 } Historic;
 
-void addInHistoric(char cpf[12], char placa[9], char data[11], int dias, float price, int status, Historic **DataHistoric);
+void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric);
 
 void saveHistoric(Historic *DataHistoric);
+
+void showHistoric(Historic* DataHistoric);
+
+void showEarn(Historic* Datahistoric);
+
+//void showBestCar(Car* DataCar);
+
+void showBestUser(User* DataUser);
 
 Historic *loadHistoric(Historic *DataHistoric);
 
