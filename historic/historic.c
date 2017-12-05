@@ -1,6 +1,6 @@
 #include "historic.h"
 
-void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric) {
+Historic* addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric) {
 
     Historic *_newHistoric = (Historic *) malloc(sizeof(Historic));
 
@@ -11,8 +11,7 @@ void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int 
     _newHistoric->status = status;
 
     _newHistoric->proxHistoric = *DataHistoric;
-    saveHistoric(_newHistoric);
-    *DataHistoric = _newHistoric;
+    return _newHistoric;
 }
 
 // [ I/O dos dados e memoria ]

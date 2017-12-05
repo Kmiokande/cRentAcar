@@ -34,8 +34,10 @@ void singUpCar(Car **DataCar) {
         scanf(" %11[^\n]", _newCar->renavam);
     } while (!(validatorGlobal(_newCar->renavam, 'N', 9) && valRenavam(_newCar->ano, _newCar->renavam)));
 
-    printf("Km: ");
-    scanf(" %6[^\n]", _newCar->km);
+    do {
+        printf("Km: ");
+        scanf(" %6[^\n]", _newCar->km);
+    } while (!validatorGlobal(_newCar->km, 'N', 1));
 
     _newCar->status = 1; // 1 - Disponível para alugar | 0 - Indisponível
     _newCar->qtd_alugado = 0;
@@ -180,95 +182,99 @@ void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
     strftime(date,sizeof(date), "%d/%m/%Y", timeptr);
 
     listCar(DataCar);
-    do {
-        printf("Placa do Carro que deseja alugar: ");
-        scanf(" %8[^\n]", placa);
-    } while (checkExistCar(placa, DataCar));
+        do {
+            printf("Placa do Carro que deseja alugar: ");
+            scanf(" %8[^\n]", placa);
+        } while (checkExistCar(placa, DataCar));
+        if(DataUser != NULL) {
+        for (Car *car = DataCar; car != NULL; car = car->proxCar) {
+            if (strcmp(car->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
+                do {
+                    printf("CPF: ");
+                    scanf(" %11[^\n]", car->cpf);
+                } while (!checkExistUser(car->cpf, DataUser));
 
-    for (Car *car = DataCar; car != NULL; car = car->proxCar) {
-        if (strcmp(car->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
-            do {
-                printf("CPF: ");
-                scanf(" %11[^\n]", car->cpf);
-            } while (!checkExistUser(car->cpf, DataUser));
+                printf("Dias de aluguel: ");
+                scanf(" %d", &dias);
 
-            printf("Dias de aluguel: ");
-            scanf(" %d", &dias);
+                float price = dias * car->preco;
+                printf("O Preço Total R$: %.2f\n Continuar (S/n)? ", price);
 
-            float price = dias * car->preco;
-            printf("O Preço Total R$: %.2f\n Continuar (S/n)? ", price);
+                char opition;
+                scanf(" %c", &opition);
 
-            char opition;
-            scanf(" %c", &opition);
+                if (opition == 'S' || opition == 's') {
+                    printf("Carro alugado com sucesso!\n");
 
-            if (opition == 'S' || opition == 's') {
-                printf("Carro alugado com sucesso!\n");
+                    // Save in Historic
+                    DataHistoric = addInHistoric(car->cpf, car->placa, date, price, 1, &DataHistoric); // 1 - Disponível | 0 - Indisponível
+                    saveHistoric(DataHistoric);
+                    car->status--;
+                    car->qtd_alugado++;
+                    incrementScore(DataUser, car->cpf);
 
-                // Save in Historic
-                addInHistoric(car->cpf, car->placa, date, price, 1, &DataHistoric); // 1 - Disponível | 0 - Indisponível
-                car->status--;
-                car->qtd_alugado++;
-                incrementScore(DataUser, car->cpf);
+                    // Save User
+                    saveUser(DataUser);
+                    // Save Car
+                    saveCar(DataCar);
 
-                // Save User
-                saveUser(DataUser);
-                // Save Car
-                saveCar(DataCar);
-
-            } else {
-                printf("Aluguel cancelado!\n");
+                } else {
+                    printf("Aluguel cancelado!\n");
+                }
             }
         }
-    }
+    } else { printf("Nenhum cliente cadastrado! Faça o Cadastro e tente novamente\n"); }
 }
 
 // [ Devolve carro ]
 void returnCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
-    char placa[9];
-    int dias;
+    if (DataCar != NULL) {
+        char placa[9];
+        int dias;
 
-    time_t tempo;
-    struct tm *timeptr;
-    // Date
-    char date[11];
-    tempo = time(NULL);
-    timeptr = localtime(&tempo);
-    strftime(date,sizeof(date), "%d/%m/%Y", timeptr);
+        time_t tempo;
+        struct tm *timeptr;
+        // Date
+        char date[11];
+        tempo = time(NULL);
+        timeptr = localtime(&tempo);
+        strftime(date, sizeof(date), "%d/%m/%Y", timeptr);
 
-    listCar(DataCar);
+        listCar(DataCar);
 
-    do {
-        printf("Placa do Carro que deseja devolver: ");
-        scanf(" %8[^\n]", placa);
-    } while (checkExistCar(placa, DataCar));
+        do {
+            printf("Placa do Carro que deseja devolver: ");
+            scanf(" %8[^\n]", placa);
+        } while (checkExistCar(placa, DataCar));
 
-    for (Car *car = DataCar; car != NULL; car = car->proxCar) {
-        if (strcmp(car->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
-            printf("Continuar devolução (S/n)? ");
+        for (Car *car = DataCar; car != NULL; car = car->proxCar) {
+            if (strcmp(car->placa, placa) == 0) { // Se a placa for igual ao cadastrado ele retorna 0
+                printf("Continuar devolução (S/n)? ");
 
-            char opition;
-            scanf(" %c", &opition);
+                char opition;
+                scanf(" %c", &opition);
 
-            if (opition == 'S' || opition == 's') {
-                printf("Carro Devolvido com sucesso!\n");
+                if (opition == 'S' || opition == 's') {
+                    printf("Carro Devolvido com sucesso!\n");
 
-                //Save in Historic
-                for (Historic *historic = DataHistoric; historic != NULL  ; historic = historic->proxHistoric) {
-                    if (strcmp(car->placa, placa) == 0) {
-                        addInHistoric(historic->cpfUser, car->placa, date, historic->priceTotal, 0, &DataHistoric); // 1 - Disponível | 0 - Indisponível
+                    //Save in Historic
+                    for (Historic *historic = DataHistoric; historic != NULL; historic = historic->proxHistoric) {
+                        if (strcmp(car->placa, placa) == 0) {
+                            addInHistoric(historic->cpfUser, car->placa, date, historic->priceTotal, 0, &DataHistoric); // 1 - Disponível | 0 - Indisponível
+                        }
                     }
+
+                    car->status = 1;
+
+                    // Save Car
+                    saveCar(DataCar);
+
+                } else {
+                    printf("Aluguel cancelado!\n");
                 }
-
-                car->status = 1;
-
-                // Save Car
-                saveCar(DataCar);
-
-            } else {
-                printf("Aluguel cancelado!\n");
             }
         }
-    }
+    } else { printf("Nenhum carro cadastrado! Faça o Cadastro e tente novamente\n"); }
 }
 
 // >> [ Validações ]

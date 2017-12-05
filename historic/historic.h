@@ -18,7 +18,7 @@ typedef struct historic {
     struct historic *proxHistoric;
 } Historic;
 
-void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric);
+Historic* addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric);
 
 void saveHistoric(Historic *DataHistoric);
 
