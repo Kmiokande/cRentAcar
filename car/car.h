@@ -29,7 +29,6 @@
 void listCar(Car* DataCar);
 void singUpCar(Car **DataCar); // Cadastrar carro
 int searchCar(Car *DataCar); // Busca cadastro do carro pela placa
-void editCar(Car *DataCar);
 Car *deleteCar(Car *DataCar); // Deleta cadastro do carro pela placa
 
 void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser); // Aluga carros
@@ -39,19 +38,17 @@ void CarFree(Car *DataCar); // Mostra os carros disponiveis
 
 // Validações
 int valModel(char model[31]); // Modelo
-int valColor(char color[9]); // Cor
 int valYear(int year); // Ano
-int valPrice(); // Preço
 int valPlate(char plate[9]); // Placa
 int valRenavam(int ano, char renavam[12]); // Renavam
-int valKm(char km[7]); // km's rodados
-int valDate(); // Data
 
 // Maninupulação do arquivo
 void saveCar(Car *DataCar); // Salvar Dados em Arquivo 'car.dat'
 Car *loadCar(Car *DataCar); // Carregar Dados do Arquivo 'car.dat'
 
 // Others
-int checkExistCar(char placa[9], Car *DataCar);
+void showBestCar(Car *DataCar);
+int checkIfCarAvariable(char placa[9], Car *DataCar);
+int checkIfCarRented(char placa[9], Car *DataCar);
 
 #endif

@@ -21,7 +21,7 @@ typedef struct user {
   char data_nascimento[11];
   char cpf[12];
   char nome_mae[80];
-  char rg[9];
+  char rg[10];
   char cnh[12];
   struct end endereco;
   char email[50];

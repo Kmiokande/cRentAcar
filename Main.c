@@ -25,13 +25,13 @@ Historic *DataHistoric = (Historic *) NULL;
 int main() {
     DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
     DataCar = loadCar(DataCar); // Carregar dados do arquivo car.dat
+    DataHistoric = loadHistoric(DataHistoric);
 
     int op = 10;
 
     while (op) {
-        DataHistoric = loadHistoric(DataHistoric); 
         printf(clear);
-        Logo();
+        logoExit();
         mPrincipal(); // MENU PRINCIPAL
         printf("\nInforme uma opção acima: ");
         scanf(" %d", &op);
@@ -114,28 +114,33 @@ void mCadastramento() {
 
     if (op == 1) {
         singUpUser(&DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
         searchUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 3) {
         listUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 4) {
         editUser(DataUser);
         saveUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 5) {
         DataUser = deleteUser(DataUser);
         saveUser(DataUser);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
@@ -221,22 +226,26 @@ void mVeiculos() {
     scanf("%d", &op);
     if (op == 1) {
         singUpCar(&DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
         searchCar(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 3) {
         listCar(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 4) {
         DataCar = deleteCar(DataCar);
         saveCar(DataCar);
+
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
@@ -263,40 +272,43 @@ void mHistoricos(void) {
         printf("** [0] - VOLTAR                 **\n");
         printf("**********************************\n");
 
-        int op;
-        printf("\nInforme uma opção acima: ");
-        scanf("%d", &op);
-        if (op == 1) {
-            Indisponivel();
-            printf("Aperte ENTER para voltar...\n");
-            while (getchar() != '\n');
-            getchar();
-        } else if (op == 2) {
-            Indisponivel();
-            printf("Aperte ENTER para voltar...\n");
-            while (getchar() != '\n');
-            getchar();
-        } else if (op == 3) {
-            Indisponivel();
-            printf("Aperte ENTER para voltar...\n");
-            while (getchar() != '\n');
-            getchar();
-        } else if (op == 0) {
-            printf("Aperte ENTER para voltar...\n");
-            while (getchar() != '\n');
-            getchar();
-        } else {
-            printf("Opção inválida!\n");
-            printf("Aperte ENTER para voltar...\n");
-            while (getchar() != '\n');
-            getchar();
-        }
+    int op;
+    printf("\nInforme uma opção acima: ");
+    scanf("%d", &op);
+    if (op == 1) {
+        showBestCar(DataCar);
+
+        printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+        getchar();
+    } else if (op == 2) {
+        showBestUser(DataUser);
+
+        printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+        getchar();
+    } else if (op == 3) {
+        showEarn(DataHistoric);
+        
+        printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+        getchar();
+    } else if (op == 0) {
+        printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+        getchar();
     } else {
-        printf("Nenhum Histórico registrado! Faça alguma operação e tente novamente.\n");
+        printf("Opção Inválida!\n");
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
 
+    }
+    } else {
+        printf("Nenhum histórico registrado! Faça algumas ações e tente novamente.\n");
+        printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+        getchar();
     }
 }
 

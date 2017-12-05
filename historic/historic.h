@@ -18,15 +18,15 @@ typedef struct historic {
     struct historic *proxHistoric;
 } Historic;
 
-Historic* addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric);
+void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric);
 
 void saveHistoric(Historic *DataHistoric);
 
 void showHistoric(Historic* DataHistoric);
 
-void showEarn(Historic* Datahistoric);
+void showEarn(Historic* DataHistoric);
 
-//void showBestCar(Car* DataCar);
+//void showBestCar(Car *DataCar);
 
 void showBestUser(User* DataUser);
 
