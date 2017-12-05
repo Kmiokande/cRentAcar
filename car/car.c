@@ -35,7 +35,7 @@ void singUpCar(Car **DataCar) {
     } while (!(validatorGlobal(_newCar->renavam, 'N', 9) && valRenavam(_newCar->ano, _newCar->renavam)));
 
     do {
-        printf("Km: ");
+        printf("Km [xxxxxx](6): ");
         scanf(" %6[^\n]", _newCar->km);
     } while (!validatorGlobal(_newCar->km, 'N', 1));
 
@@ -288,6 +288,28 @@ void returnCar(Car *DataCar, Historic *DataHistoric, User *DataUser) {
             }
         }
     } else { printf("Nenhum carro cadastrado! Faça o Cadastro e tente novamente\n"); }
+}
+
+// [ Mostra o carro mais alugado ]
+void showBestCar(Car *DataCar) {
+    char placa[9];
+    int max = 0;
+    for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+        if (aux->qtd_alugado > max) {
+            strcpy(placa, aux->placa);
+            max = aux->qtd_alugado;
+        }
+    }
+
+    if (max != 0) {
+        for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
+            if (strcmp(aux->placa, placa) == 0) {
+                printf("O Carro mais alugado do cRentCar é o %s, placa: %s com %d locações.\n", aux->modelo, aux->placa, aux->qtd_alugado);
+            }
+        }
+    } else {
+        printf("Nenhum carro foi alugado.\n");
+    }
 }
 
 // [ Mostra o carro mais alugado ]

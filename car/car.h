@@ -51,4 +51,6 @@ void showBestCar(Car *DataCar);
 int checkIfCarAvariable(char placa[9], Car *DataCar);
 int checkIfCarRented(char placa[9], Car *DataCar);
 
+void showBestCar(Car *DataCar);
+
 #endif
