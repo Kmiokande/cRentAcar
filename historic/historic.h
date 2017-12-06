@@ -12,7 +12,6 @@ typedef struct historic {
     char data[12];
     char placa[9];
     char cpfUser[12];
-    int qDias;
     int status;
     float priceTotal;
     struct historic *proxHistoric;
@@ -25,8 +24,6 @@ void saveHistoric(Historic *DataHistoric);
 void showHistoric(Historic* DataHistoric);
 
 void showEarn(Historic* DataHistoric);
-
-//void showBestCar(Car *DataCar);
 
 void showBestUser(User* DataUser);
 

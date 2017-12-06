@@ -84,7 +84,7 @@ void singUpUser(User **DataUser) {
 
     _newUser->proxUser = *DataUser;
     *DataUser = _newUser;
-    saveUser(*DataUser);
+   saveUser(*DataUser);
 }
 
 // 1.2 - [ Edita Cliente pelo CPF  ]

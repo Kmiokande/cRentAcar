@@ -8,14 +8,12 @@
 #define clear "\e[1;1H\e[2J" // PARÂMETRO PARA LIMPAR TELA
 
 // ASSINATURAS
-void Logo(void);
 void logoExit();
 void mPrincipal(void);
 void mCadastramento();
 void mLocacao(void);
 void mVeiculos();
 void mHistoricos(void);
-void Indisponivel(void);
 // FIM
 
 User *DataUser = (User *) NULL;
@@ -23,9 +21,9 @@ Car *DataCar = (Car *) NULL;
 Historic *DataHistoric = (Historic *) NULL;
 
 int main() {
-    DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
-    DataCar = loadCar(DataCar); // Carregar dados do arquivo car.dat
-    DataHistoric = loadHistoric(DataHistoric);
+   DataUser = loadUser(DataUser);    // Carrega os dados do arquivo user.dat
+   DataCar = loadCar(DataCar); // Carregar dados do arquivo car.dat
+   DataHistoric = loadHistoric(DataHistoric);
 
     int op = 10;
 
@@ -172,12 +170,12 @@ void mLocacao(void) {
         printf("\nInforme uma opção acima: ");
         scanf("%d", &op);
         if (op == 1) {
-            rentCar(DataCar, DataHistoric, DataUser);
+            rentCar(DataCar, &DataHistoric, DataUser);
             printf("Aperte ENTER para voltar...\n");
             while (getchar() != '\n');
             getchar();
         } else if (op == 2) {
-            returnCar(DataCar, DataHistoric, DataUser);
+            returnCar(DataCar, &DataHistoric, DataUser);
             printf("Aperte ENTER para voltar...\n");
             while (getchar() != '\n');
             getchar();
@@ -268,6 +266,7 @@ void mHistoricos(void) {
         printf("** [1] - VEÍCULOS MAIS LOCADOS  **\n");
         printf("** [2] - MELHORES CLIENTES      **\n");
         printf("** [3] - CONSULTAR LUCROS       **\n");
+        printf("** [4] - HISTÓRICO DE AÇÕES     **\n");
         printf("**                              **\n");
         printf("** [0] - VOLTAR                 **\n");
         printf("**********************************\n");
@@ -277,19 +276,21 @@ void mHistoricos(void) {
     scanf("%d", &op);
     if (op == 1) {
         showBestCar(DataCar);
-
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 2) {
         showBestUser(DataUser);
-
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();
     } else if (op == 3) {
         showEarn(DataHistoric);
-        
+        printf("Aperte ENTER para voltar...\n");
+        while (getchar() != '\n');
+        getchar();
+    } else if (op == 4) {
+        showHistoric(DataHistoric);
         printf("Aperte ENTER para voltar...\n");
         while (getchar() != '\n');
         getchar();

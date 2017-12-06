@@ -31,8 +31,8 @@ void singUpCar(Car **DataCar); // Cadastrar carro
 int searchCar(Car *DataCar); // Busca cadastro do carro pela placa
 Car *deleteCar(Car *DataCar); // Deleta cadastro do carro pela placa
 
-void rentCar(Car *DataCar, Historic *DataHistoric, User *DataUser); // Aluga carros
-void returnCar(Car *DataCar, Historic *DataHistoric, User *DataUser); // Devolve carros
+void rentCar(Car *DataCar, Historic **DataHistoric, User *DataUser); // Aluga carros
+void returnCar(Car *DataCar, Historic **DataHistoric, User *DataUser); // Devolve carros
 void CarRented(Car *DataCar); // Mostra os carros alugados
 void CarFree(Car *DataCar); // Mostra os carros disponiveis
 
@@ -50,7 +50,5 @@ Car *loadCar(Car *DataCar); // Carregar Dados do Arquivo 'car.dat'
 void showBestCar(Car *DataCar);
 int checkIfCarAvariable(char placa[9], Car *DataCar);
 int checkIfCarRented(char placa[9], Car *DataCar);
-
-void showBestCar(Car *DataCar);
 
 #endif

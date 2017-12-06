@@ -1,20 +1,5 @@
 #include "historic.h"
 
-void addInHistoric(char cpf[12], char placa[9], char data[11], float price, int status, Historic **DataHistoric) {
-
-    Historic *_newHistoric = (Historic *) malloc(sizeof(Historic));
-
-    strcpy(_newHistoric->cpfUser, cpf);
-    strcpy(_newHistoric->placa, placa);
-    strcpy(_newHistoric->data, data);
-    _newHistoric->priceTotal = price;
-    _newHistoric->status = status;
-
-    _newHistoric->proxHistoric = *DataHistoric;
-    *DataHistoric = _newHistoric;
-    saveHistoric(*DataHistoric);
-}
-
 // [ I/O dos dados e memoria ]
 void saveHistoric(Historic *DataHistoric) {
     FILE *file = fopen("historic/historic.dat", "w+");
@@ -63,10 +48,10 @@ Historic *loadHistoric(Historic *DataHistoric) {
 void showHistoric(Historic* DataHistoric) {
     for (Historic *aux = DataHistoric; aux != NULL; aux = aux->proxHistoric) {
         printf("%s | ", aux->data);
-        if (aux->status == 1) {
+        if (aux->status == 0) {
             printf("%sAlugado %s | ", KGRN, KNRM);
         } else {
-            printf("%sDevolver %s | ", KGRN, KNRM);
+            printf("%sDevolvido %s | ", KGRN, KNRM);
         }
         printf("Preço: %.2f | ", aux->priceTotal);
         printf("Placa: %s\n", aux->placa);
@@ -106,24 +91,3 @@ void showBestUser(User* DataUser) {
         printf("Nenhum Cliente VIP\n");
     }
 }
-
-// void showBestCar(Car *DataCar) {
-//     char placa[9];
-//     int max = 0;
-//     for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-//         if (aux->qtd_alugado > max) {
-//             strcpy(placa, aux->placa);
-//             max = aux->qtd_alugado;
-//         }
-//     }
-
-//     if (max != 0) {
-//         for (Car *aux = DataCar; aux != NULL; aux = aux->proxCar) {
-//             if (strcmp(aux->placa, placa) == 0) {
-//                 printf("O Carro mais alugado do cRentCar é o %s, placa: %s com %d locações.\n", aux->modelo, aux->placa, aux->qtd_alugado);
-//             }
-//         }
-//     } else {
-//         printf("Nenhum carro foi alugado.\n");
-//     }
-// }
